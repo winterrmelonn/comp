@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ServeLog</title>
+<style>
+  :root { --accent: #2563eb; --bg: #f6f7f9; --card: #fff; --text: #1f2937; --muted: #6b7280; --border: #e5e7eb; }
+  @media (prefers-color-scheme: dark) {
+    :root { --accent: #60a5fa; --bg: #111827; --card: #1f2937; --text: #f3f4f6; --muted: #9ca3af; --border: #374151; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 16px/1.5 system-ui, sans-serif; background: var(--bg); color: var(--text); }
+  main { max-width: 760px; margin: 0 auto; padding: 16px; }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+  h1 { margin: 8px 0 4px; }
+  h2 { margin: 0 0 12px; font-size: 1.1rem; }
+  a { color: var(--accent); }
+  label { display: block; font-size: .875rem; color: var(--muted); }
+  input { width: 100%; margin-top: 4px; padding: 8px; font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--border); border-radius: 8px; }
+  .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  button { font: inherit; padding: 8px 14px; color: #fff; background: var(--accent); border: 1px solid var(--accent); border-radius: 8px; cursor: pointer; }
+  button.secondary { color: var(--accent); background: transparent; }
+  td button { padding: 2px 8px; font-size: .8rem; }
+  progress { width: 100%; height: 16px; accent-color: var(--accent); }
+  .big { font-size: 2rem; font-weight: 700; }
+  .muted { color: var(--muted); font-size: .875rem; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  th, td { text-align: left; padding: 6px; border-bottom: 1px solid var(--border); }
+  .print-only { display: none; }
+  @media print {
+    body { background: #fff; color: #000; }
+    section { border: none; padding: 0; }
+    input { border: none; padding: 0; color: #000; background: none; }
+    .no-print { display: none !important; }
+    .print-only { display: revert; }
+    td.print-only { min-width: 160px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>ServeLog</h1>
+  <p class="muted no-print">Track your community service hours and print a sheet your supervisors can sign.</p>
+
+  <section>
+    <div class="grid">
+      <label>Your name <input id="name" autocomplete="name"></label>
+      <label>School <input id="school"></label>
+      <label class="no-print">Hours required <input id="goal" type="number" min="1" step="1"></label>
+    </div>
+  </section>
+
+  <section>
+    <div class="big"><span id="total">0</span> / <span id="goal-out">40</span> hours</div>
+    <progress id="bar" class="no-print" max="40" value="0"></progress>
+    <p id="left" class="no-print"></p>
+  </section>
+
+  <section class="no-print">
+    <h2>Log hours</h2>
+    <form id="form" class="grid">
+      <label>Date <input name="date" type="date" required></label>
+      <label>Organization <input name="org" list="orgs" required></label>
+      <label>What you did <input name="activity"></label>
+      <label>Hours <input name="hours" type="number" min="0.25" max="24" step="0.25" required></label>
+      <label>Supervisor name <input name="supervisor"></label>
+      <label>Supervisor email or phone <input name="contact"></label>
+      <div><button>Add hours</button></div>
+    </form>
+    <datalist id="orgs"></datalist>
+  </section>
+
+  <section>
+    <h2>Your hours</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Date</th><th>Organization</th><th>Activity</th><th>Hours</th><th>Supervisor</th>
+          <th class="print-only">Supervisor signature</th><th class="no-print"></th>
+        </tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <p id="empty" class="muted no-print">No hours logged yet.</p>
+    <div class="row no-print">
+      <button id="print">Print sign-off sheet</button>
+      <button id="csv" class="secondary">Download CSV</button>
+    </div>
+    <p class="print-only"><br>Student signature ______________________ &nbsp; Date __________</p>
+  </section>
+
+  <section class="no-print">
+    <h2>Find opportunities</h2>
+    <p>Browse local volunteer listings on <a href="https://www.idealist.org/en/volunteer" target="_blank" rel="noopener">Idealist</a>, or ask your counselor which organizations your school accepts.</p>
+  </section>
+
+  <p class="muted no-print">Your hours are saved only in this browser. Download the CSV now and then as a backup.</p>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
