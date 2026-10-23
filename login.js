@@ -1,6 +1,6 @@
 // From Supabase → Project Settings → API. The anon key is public by design; row level security protects the data.
-const SUPABASE_URL = '';
-const SUPABASE_ANON_KEY = '';
+const SUPABASE_URL = 'https://agzrnvwpcqmardoedsyx.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_osjvA1NN-VNK9lfDrYPqOA_wS7Qm9-_';
 
 const $ = id => document.getElementById(id);
 const form = $('auth');
