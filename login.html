@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Log in · comp.</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top"><span></span><a class="brand" href="index.html">comp.</a><span></span></header>
+<main class="narrow">
+  <h1 id="title">Log in</h1>
+  <form id="auth" class="stack">
+    <label>Email <input name="email" type="email" autocomplete="email" required></label>
+    <label>Password <input name="password" type="password" autocomplete="current-password" minlength="8" required></label>
+    <button>Log in</button>
+  </form>
+  <p id="msg" role="status"></p>
+  <button id="logout" class="secondary" hidden>Log out</button>
+  <p class="muted"><a href="#" id="toggle">Create an account</a> · <a href="home.html">Continue as guest</a></p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
+<script src="login.js"></script>
+</body>
+</html>
