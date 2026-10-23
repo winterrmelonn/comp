@@ -21,9 +21,12 @@
       <div><button>Add hours</button></div>
     </form>
     <datalist id="orgs"></datalist>
-    <p id="saved" hidden>Saved. <a href="profile.html">See your hours</a></p>
+    <p id="msg" role="status"></p>
+    <p id="who" class="muted"></p>
   </section>
 </main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
+<script src="db.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

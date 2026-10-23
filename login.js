@@ -1,7 +1,3 @@
-// From Supabase → Project Settings → API. The anon key is public by design; row level security protects the data.
-const SUPABASE_URL = 'https://agzrnvwpcqmardoedsyx.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_osjvA1NN-VNK9lfDrYPqOA_wS7Qm9-_';
-
 const $ = id => document.getElementById(id);
 const form = $('auth');
 const submit = form.querySelector('button');
@@ -17,12 +13,10 @@ $('toggle').onclick = ev => {
   $('msg').textContent = '';
 };
 
-if (!SUPABASE_URL) {
-  $('msg').textContent = "Accounts aren't connected yet. Add the Supabase URL and key at the top of login.js.";
+if (!sb) {
+  $('msg').textContent = "Accounts aren't connected yet. Add the Supabase URL and key at the top of db.js.";
   submit.disabled = true;
 } else {
-  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
   const showSession = session => {
     form.hidden = !!session;
     $('logout').hidden = !session;
