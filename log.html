@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Log hours · comp</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><a href="index.html" class="brand">comp</a></header>
+<main>
+  <section>
+    <h1>Log volunteer hours</h1>
+    <form id="form" class="grid">
+      <label>Date <input name="date" type="date" required></label>
+      <label>Organization <input name="org" list="orgs" required></label>
+      <label>What you did <input name="activity"></label>
+      <label>Hours <input name="hours" type="number" min="0.25" max="24" step="0.25" required></label>
+      <label>Supervisor name <input name="supervisor"></label>
+      <label>Supervisor email or phone <input name="contact"></label>
+      <div><button>Add hours</button></div>
+    </form>
+    <datalist id="orgs"></datalist>
+    <p id="saved" hidden>Saved. <a href="profile.html">See your hours</a></p>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

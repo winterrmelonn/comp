@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profile · comp</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><a href="index.html" class="brand">comp</a></header>
+<main>
+  <section>
+    <div class="grid">
+      <label>Your name <input id="name" autocomplete="name"></label>
+      <label>School <input id="school"></label>
+    </div>
+  </section>
+
+  <section>
+    <div class="big"><span id="total">0</span> / <span id="goal-out">160</span> hours</div>
+    <progress id="bar" class="no-print" max="160" value="0"></progress>
+    <p id="left" class="no-print"></p>
+  </section>
+
+  <section>
+    <h2>Your hours</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Date</th><th>Organization</th><th>Activity</th><th>Hours</th><th>Supervisor</th>
+          <th class="print-only">Supervisor signature</th><th class="no-print"></th>
+        </tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <p id="empty" class="muted no-print">No hours logged yet. <a href="log.html">Log some</a></p>
+    <div class="row no-print">
+      <button id="print">Print sign-off sheet</button>
+      <button id="csv" class="secondary">Download CSV</button>
+    </div>
+    <p class="print-only"><br>Student signature ______________________ &nbsp; Date __________</p>
+  </section>
+
+  <p class="muted no-print">Your hours are saved only in this browser. Download the CSV now and then as a backup.</p>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
