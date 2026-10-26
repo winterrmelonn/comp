@@ -43,7 +43,9 @@ button:disabled { opacity: .4; cursor: default; }
 /* Start page */
 .center { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px; padding: 24px; }
 .center .brand { font-size: clamp(4rem, 14vw, 8rem); }
-.center .label { text-decoration: underline; text-underline-offset: 4px; }
+.center .label { text-decoration: underline; text-underline-offset: 4px; text-shadow: 0 0 4px #fff, 0 0 8px #fff, 0 0 12px #fff; }
+.center { position: relative; z-index: 1; }
+#ascii { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 
 /* Profile */
 .profile-head { position: relative; }
@@ -70,6 +72,9 @@ button:disabled { opacity: .4; cursor: default; }
 .post p { margin: 0 0 8px; }
 
 /* Menu */
+#lilies { position: fixed; inset: 0; pointer-events: none; }
+#lilies ~ main .nav a { text-shadow: 0 0 6px #fff, 0 0 14px #fff, 0 0 24px #fff; }
+.top, main { position: relative; z-index: 1; }
 .nav { display: grid; gap: 24px; }
 /* font-style can't be animated, so the hover is a skew that eases into an italic-like slant */
 .nav a { justify-self: start; font: 2.5rem/1.1 var(--serif); text-decoration: none; transform-origin: 0 100%; transition: transform .6s cubic-bezier(.22, .61, .36, 1); }

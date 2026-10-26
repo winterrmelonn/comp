@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div id="lilies" aria-hidden="true"></div>
 <header class="top"><a class="label" href="home.html">Menu</a><a class="brand" href="home.html">comp.</a><a class="label" href="profile.html">Profile</a></header>
 <main>
   <nav class="nav">
@@ -15,5 +16,20 @@
     <a href="find.html">Find opportunities</a>
   </nav>
 </main>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@19.3.0",
+    "react/jsx-runtime": "https://esm.sh/react@19.3.0/jsx-runtime",
+    "react-dom": "https://esm.sh/react-dom@19.3.0?external=react",
+    "react-dom/client": "https://esm.sh/react-dom@19.3.0/client?external=react",
+    "three": "https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/",
+    "@react-three/fiber": "https://esm.sh/@react-three/fiber@9.8.1?external=react,react-dom,three",
+    "htm": "https://esm.sh/htm@3.1.1"
+  }
+}
+</script>
+<script type="module" src="lilies.js"></script>
 </body>
 </html>
