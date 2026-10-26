@@ -99,6 +99,8 @@ button.chip[aria-pressed="true"] { color: #fff; background: var(--text); }
 .post .button, .track .row button { padding: 6px 18px; font-size: .7rem; }
 .upcoming { margin-top: 64px; }
 .upcoming li .title { font: 1.5rem var(--serif); }
+/* Keep the dashboard readable over the lilies */
+#lilies ~ main .upcoming, #lilies ~ main .calendars { margin-left: -24px; margin-right: -24px; padding: 24px; background: rgb(255 255 255 / .82); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 24px; }
 .home-hours { margin-bottom: 48px; }
 .home-hours .big { text-decoration: none; }
 .cal-links { display: flex; gap: 16px; flex-wrap: wrap; }
