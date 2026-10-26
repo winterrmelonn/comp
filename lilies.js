@@ -1,17 +1,21 @@
-// Menu page: red spider lilies (Lycoris radiata) behind the links, in React Three Fiber.
-// Each lily is a tall stem topped by a ring of florets; every floret has six wide, wavy petals
-// that curl backward and six long stamens that arch out and up past them. Shapes are seeded so they stay put.
-import { createElement as h, useMemo, useRef } from 'react';
+// Menu page: red spider lilies (Lycoris radiata) in React Three Fiber. On wide screens each menu link
+// sits just off the bottom right of its own flower. Hovering (or focusing) a link blooms that flower: the petals open
+// and the stamens reach out (morph targets), the red warms, and the link text grows, all driven by
+// one eased value per flower so they stay in step. Shapes are seeded so they look the same every visit.
+import { createElement as h, useLayoutEffect, useMemo, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+import { damp } from 'maath/easing';
 import htm from 'htm';
 
 const html = htm.bind(h);
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
 const UP = V(0, 1, 0);
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const tube = (pts, radius, segments = 20) => new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), segments, radius, 5, false);
+const morph = (a, b) => { a.morphAttributes.position = [b.getAttribute('position')]; return a; }; // a can morph into b's shape
 const rng = seed => () => { // mulberry32
   seed |= 0; seed = (seed + 0x6d2b79f5) | 0;
   let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
@@ -44,14 +48,19 @@ function ribbon(pts, across, maxWidth, phase, segments = 28) {
   return g;
 }
 
+const COLORS = {
+  petal: new THREE.Color('#b3122b'), petalBloom: new THREE.Color('#d8283c'),
+  stamen: new THREE.Color('#c92a3f'), stamenBloom: new THREE.Color('#e6485a'),
+};
 const MATERIALS = {
   stem: new THREE.MeshStandardMaterial({ color: '#2e3a22', roughness: 0.8 }),
-  petal: new THREE.MeshStandardMaterial({ color: '#b3122b', roughness: 0.45, side: THREE.DoubleSide }),
-  stamen: new THREE.MeshStandardMaterial({ color: '#c92a3f', roughness: 0.5 }),
+  petal: new THREE.MeshStandardMaterial({ color: COLORS.petal, roughness: 0.45, side: THREE.DoubleSide, emissive: '#7a0a18', emissiveIntensity: 0 }),
+  stamen: new THREE.MeshStandardMaterial({ color: COLORS.stamen, roughness: 0.5 }),
   anther: new THREE.MeshStandardMaterial({ color: '#5a2a14', roughness: 0.6 }),
 };
 
-// Build one lily (base at the origin) as one merged geometry per material
+// Build one lily (base at the origin, flower head at `top`) as one merged geometry per material.
+// Petals, stamens and anthers carry a second "bloomed" shape as a morph target.
 function buildLily(rand, height) {
   const parts = { stem: [], petal: [], stamen: [], anther: [] };
   const bend = (rand() - 0.5) * 0.6;
@@ -71,55 +80,136 @@ function buildLily(rand, height) {
 
     for (let j = 0; j < 6; j++) { // petals: long and pointed, reaching out, with only the tips curling back
       const radial = around((j / 6) * Math.PI * 2 + rand() * 0.3);
-      const v = d.clone().multiplyScalar(0.7).addScaledVector(radial, 0.65).normalize();
       const across = new THREE.Vector3().crossVectors(d, radial).normalize();
-      const L = 0.65 + rand() * 0.15;
-      const at = (along, back, outward = 0) => base.clone().addScaledVector(v, L * along).addScaledVector(d, -back * L).addScaledVector(radial, outward * L);
-      parts.petal.push(ribbon([base, at(0.35, -0.06), at(0.7, -0.04, 0.05), at(0.95, 0.1, 0.12), at(1.0, 0.3, 0.15)], across, 0.13 + rand() * 0.04, rand() * 6));
+      const L = 0.65 + rand() * 0.15, width = 0.13 + rand() * 0.04, phase = rand() * 6;
+      const petal = open => { // open: splays wider, a bit longer, tips curl back further
+        const v = d.clone().multiplyScalar(open ? 0.55 : 0.7).addScaledVector(radial, open ? 0.8 : 0.65).normalize();
+        const len = L * (open ? 1.12 : 1);
+        const at = (along, back, outward = 0) => base.clone().addScaledVector(v, len * along).addScaledVector(d, -back * len).addScaledVector(radial, outward * len);
+        return ribbon([base, at(0.35, -0.06), at(0.7, -0.04, 0.05), at(0.95, open ? 0.16 : 0.1, open ? 0.16 : 0.12), at(1.0, open ? 0.42 : 0.3, open ? 0.22 : 0.15)],
+          across, width * (open ? 1.1 : 1), phase);
+      };
+      parts.petal.push(morph(petal(false), petal(true)));
     }
 
     for (let j = 0; j < 6; j++) { // stamens: long and thin, reaching about 1.5x past the petals
-      const s = d.clone().addScaledVector(around((j / 6) * Math.PI * 2 + 0.5), 0.3).normalize();
-      const L = 0.95 + rand() * 0.25;
-      const end = base.clone().addScaledVector(s, L).addScaledVector(UP, 0.35 + rand() * 0.1);
-      parts.stamen.push(tube([base, base.clone().addScaledVector(s, L * 0.55).addScaledVector(UP, 0.05), end], 0.005, 16));
-      parts.anther.push(new THREE.SphereGeometry(0.016, 6, 4).translate(end.x, end.y, end.z));
+      const dir = around((j / 6) * Math.PI * 2 + 0.5);
+      const L = 0.95 + rand() * 0.25, rise = 0.35 + rand() * 0.1;
+      const stamen = open => {
+        const s = d.clone().addScaledVector(dir, open ? 0.42 : 0.3).normalize();
+        const len = L * (open ? 1.08 : 1);
+        const end = base.clone().addScaledVector(s, len).addScaledVector(UP, rise + (open ? 0.06 : 0));
+        return { line: tube([base, base.clone().addScaledVector(s, len * 0.55).addScaledVector(UP, 0.05), end], 0.005, 16), end };
+      };
+      const shut = stamen(false), open = stamen(true);
+      parts.stamen.push(morph(shut.line, open.line));
+      const tip = e => new THREE.SphereGeometry(0.016, 6, 4).translate(e.x, e.y, e.z);
+      parts.anther.push(morph(tip(shut.end), tip(open.end)));
     }
   }
-  return Object.fromEntries(Object.entries(parts).map(([k, geos]) => [k, mergeGeometries(geos)]));
+  return { top, geos: Object.fromEntries(Object.entries(parts).map(([k, geos]) => [k, mergeGeometries(geos)])) };
 }
 
-function Lily({ seed, x, z, height }) {
-  const ref = useRef();
-  const geos = useMemo(() => buildLily(rng(seed), height), [seed, height]);
-  useFrame(({ clock }) => { // a slow breeze, swaying from the base
-    const t = clock.elapsedTime;
-    ref.current.rotation.z = Math.sin(t * 0.5 + seed) * 0.018;
-    ref.current.rotation.x = Math.sin(t * 0.37 + seed * 2) * 0.012;
+// Menu links, and how far each one's flower is into its bloom (0 resting, 1 hovered)
+const links = [...document.querySelectorAll('.nav a')];
+const hover = links.map(() => 0);
+links.forEach((a, i) => {
+  const on = () => { hover[i] = 1; }, off = () => { hover[i] = 0; };
+  a.addEventListener('pointerenter', on);
+  a.addEventListener('pointerleave', off);
+  a.addEventListener('focus', on);
+  a.addEventListener('blur', off);
+});
+
+// One lily whose flower head sits at (x, y, z). Lilies with a link `index` bloom on hover.
+function Lily({ seed, x, y, z, index }) {
+  const { top, geos } = useMemo(() => buildLily(rng(seed), y + 4), [seed, y]);
+  const group = useRef();
+  const meshes = useRef({});
+  const anim = useRef({ p: 0 });
+  const mats = useMemo(() => index == null ? MATERIALS
+    : Object.fromEntries(Object.entries(MATERIALS).map(([k, m]) => [k, m.clone()])), [index]);
+
+  useFrame(({ clock }, delta) => {
+    if (!still) { // a slow breeze, swaying from the base
+      const t = clock.elapsedTime;
+      group.current.rotation.z = Math.sin(t * 0.5 + seed) * 0.018;
+      group.current.rotation.x = Math.sin(t * 0.37 + seed * 2) * 0.012;
+    }
+    if (index == null) return;
+    damp(anim.current, 'p', hover[index], still ? 0 : 0.3, delta);
+    const p = anim.current.p;
+    for (const k of ['petal', 'stamen', 'anther']) meshes.current[k].morphTargetInfluences[0] = p;
+    mats.petal.color.lerpColors(COLORS.petal, COLORS.petalBloom, p);
+    mats.stamen.color.lerpColors(COLORS.stamen, COLORS.stamenBloom, p);
+    mats.petal.emissiveIntensity = p * 0.35;
+    links[index].style.setProperty('--bloom', p.toFixed(3));
   });
+
   return html`
-    <group ref=${ref} position=${[x, -4, z]}>
-      ${Object.entries(geos).map(([k, g]) => html`<mesh key=${k} geometry=${g} material=${MATERIALS[k]} />`)}
+    <group ref=${group} position=${[x - top.x, -4, z - top.z]}>
+      ${Object.entries(geos).map(([k, g]) => html`
+        <mesh key=${k} geometry=${g} material=${mats[k]} ref=${m => { if (m) { m.updateMorphTargets(); meshes.current[k] = m; } }} />`)}
     </group>`;
 }
 
-// Spread across the page: x, depth, and stem height from below the bottom edge (visible height is about 6.3)
-const LILIES = [
-  { seed: 11, x: -4.3, z: 0.5, height: 3.6 },
-  { seed: 23, x: -3.0, z: -1.0, height: 4.6 },
-  { seed: 37, x: -1.7, z: 0.9, height: 3.0 },
-  { seed: 41, x: -0.4, z: -0.6, height: 4.1 },
-  { seed: 53, x: 0.9, z: 0.3, height: 4.9 },
-  { seed: 67, x: 2.1, z: -1.2, height: 4.4 },
-  { seed: 71, x: 3.2, z: 0.8, height: 3.3 },
-  { seed: 83, x: 4.3, z: -0.3, height: 4.8 },
+// Wide screens: the spread-out garden, where three of the lilies carry the menu links (index) and
+// bloom on hover. Narrow screens: links stay in a list on the left, with a few lilies on the right.
+// x and z are world units, y is the flower head height (the view is about 6.3 tall, centred on 0).
+const WIDE = [
+  { seed: 11, x: -4.3, z: 0.5, y: -0.4 },
+  { seed: 23, x: -3.0, z: -1.0, y: 0.6, index: 0 },
+  { seed: 37, x: -1.7, z: 0.9, y: -1.0 },
+  { seed: 41, x: -0.4, z: -0.6, y: 0.1 },
+  { seed: 53, x: 0.9, z: 0.3, y: 0.9, index: 1 },
+  { seed: 67, x: 2.1, z: -1.2, y: 0.4, index: 2 },
+  { seed: 71, x: 3.2, z: 0.8, y: -0.7 },
+  { seed: 83, x: 4.3, z: -0.3, y: 0.8 },
 ];
+const NARROW = [ // fx: fraction of the page width
+  { seed: 23, fx: 0.8, z: -0.5, y: 0.9 },
+  { seed: 53, fx: 0.98, z: 0.3, y: -0.6 },
+  { seed: 67, fx: 0.7, z: 0.6, y: -1.9 },
+];
+const STAMEN_REACH = 1.45; // how far stamens rise above the flower head, fully bloomed
 
-const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+function Garden() {
+  const { size, viewport, camera } = useThree();
+  const vp = viewport.getCurrentViewport(camera, [0, 0, 0]);
+  const narrow = size.width < 720; // matches the breakpoint in style.css
+
+  // Keep every flower below the top bar
+  const barBottom = document.querySelector('.top').getBoundingClientRect().bottom;
+  const maxY = (0.5 - barBottom / size.height) * vp.height - STAMEN_REACH;
+  const lilies = (narrow ? NARROW.map(l => ({ ...l, x: (l.fx - 0.5) * vp.width })) : WIDE)
+    .map(l => ({ ...l, y: Math.min(l.y, maxY) }));
+
+  // Put each link just off the bottom right of its flower, and give it a round hover area over the flower
+  useLayoutEffect(() => {
+    if (narrow) return links.forEach(a => a.removeAttribute('style'));
+    camera.updateMatrixWorld();
+    for (const l of lilies.filter(l => l.index != null)) {
+      const px = (x, y) => {
+        const v = V(x, y, l.z).project(camera);
+        return [(v.x + 1) / 2 * size.width, (1 - v.y) / 2 * size.height];
+      };
+      const [cx, cy] = px(l.x, l.y), [lx, ly] = px(l.x + 0.5, l.y - 0.5), [rx] = px(l.x + 0.7, l.y);
+      const style = links[l.index].style;
+      style.left = `${lx}px`;
+      style.top = `${ly}px`;
+      style.setProperty('--cx', `${cx - lx}px`);
+      style.setProperty('--cy', `${cy - ly}px`);
+      style.setProperty('--r', `${rx - cx}px`);
+    }
+  }, [size.width, size.height]);
+
+  return html`${lilies.map(l => html`<${Lily} key=${l.seed + (narrow ? 'n' : 'w')} ...${l} />`)}`;
+}
+
 createRoot(document.getElementById('lilies')).render(html`
-  <${Canvas} camera=${{ position: [0, 0, 10], fov: 35 }} dpr=${[1, 2]} gl=${{ alpha: true, antialias: true }} frameloop=${still ? 'demand' : 'always'}>
+  <${Canvas} camera=${{ position: [0, 0, 10], fov: 35 }} dpr=${[1, 2]} gl=${{ alpha: true, antialias: true }}>
     <ambientLight intensity=${0.7} />
     <directionalLight position=${[3, 5, 4]} intensity=${1.8} />
     <directionalLight position=${[-4, -2, 2]} intensity=${0.4} />
-    ${LILIES.map(l => html`<${Lily} key=${l.seed} ...${l} />`)}
+    <${Garden} />
   <//>`);
