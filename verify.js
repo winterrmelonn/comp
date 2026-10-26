@@ -24,7 +24,9 @@
   const form = $('signoff');
   form.signer.value = entry.supervisor || '';
   $('entry').hidden = false;
-  say('');
+  // Students hold their own link, so remind a logged-in visitor it's meant for the supervisor (the database refuses self sign-off)
+  const loggedIn = !!(await sb.auth.getSession()).data.session;
+  say(loggedIn ? "You're logged in to comp. If this is your own entry, send the link to your supervisor: you can't sign off your own hours." : '');
 
   form.onsubmit = async ev => {
     ev.preventDefault();
@@ -33,7 +35,9 @@
     const signer = form.signer.value.trim();
     const { data: ok, error: err } = await sb.rpc('sign_off_hours', { token, signer });
     if (err || !ok) {
-      say(err ? "Couldn't sign off. Try again in a minute." : 'This entry was already signed off or changed.');
+      say(err ? "Couldn't sign off. Try again in a minute."
+        : loggedIn ? "Couldn't sign off. If this is your own entry, your supervisor needs to sign it."
+        : 'This entry was already signed off or changed.');
       btn.disabled = false;
       return;
     }

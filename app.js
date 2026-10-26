@@ -174,6 +174,7 @@ if (typeof document === 'object') (async () => {
         $('msg').textContent = 'Saved. ';
         $('msg').append(el('a', { href: 'profile.html', textContent: 'See your hours' }));
       } catch (err) {
+        if (row.photo) await removePhoto(row.photo); // don't leave the upload behind if the entry didn't save
         say(`Couldn't save: ${err.message}`);
       }
       btn.disabled = false;

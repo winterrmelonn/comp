@@ -34,6 +34,7 @@ create function public.sign_off_hours(token uuid, signer text)
 returns boolean language sql security definer set search_path = public as $$
   update public.hours set verified_at = now(), verified_by = left(trim(signer), 80)
   where verify_token = token and verified_at is null and length(trim(signer)) > 0
+    and user_id is distinct from auth.uid() -- a student can't sign off their own hours while logged in
   returning true;
 $$;
 

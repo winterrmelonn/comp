@@ -111,7 +111,7 @@ function buildLily(rand, height) {
 }
 
 // Menu links, and how far each one's flower is into its bloom (0 resting, 1 hovered)
-const links = [...document.querySelectorAll('.nav a')];
+const links = [...document.querySelectorAll('.nav > a')]; // the three main links; the row of other pages stays put
 const hover = links.map(() => 0);
 links.forEach((a, i) => {
   const on = () => { hover[i] = 1; }, off = () => { hover[i] = 0; };
