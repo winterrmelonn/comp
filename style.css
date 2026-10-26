@@ -31,6 +31,8 @@ button, a.button { display: inline-block; font: .8rem var(--mono); text-transfor
 button.secondary, a.button.secondary { color: var(--text); background: none; }
 td button, td a.button { padding: 4px 12px; font-size: .7rem; margin-right: 6px; }
 .actions { white-space: nowrap; }
+.thumb { display: block; width: 48px; height: 48px; object-fit: cover; border-radius: 4px; }
+.photo-preview { display: block; max-width: 240px; max-height: 240px; margin-top: 12px; border-radius: 4px; }
 .wide { grid-column: 1 / -1; }
 textarea { resize: vertical; }
 
@@ -44,8 +46,12 @@ button:disabled { opacity: .4; cursor: default; }
 .center .label { text-decoration: underline; text-underline-offset: 4px; }
 
 /* Profile */
-.name { font-size: 3rem; margin-bottom: 4px; }
-.name ~ p { margin: 0 0 4px; }
+.profile-head { position: relative; }
+.profile-head p { margin: 0 0 4px; }
+.name-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; margin-bottom: 8px; padding-right: 110px; }
+.name { font-size: 3rem; margin: 0; }
+.edit-link { position: absolute; top: 0; right: 0; color: var(--muted); }
+.edit-link:hover { color: var(--text); text-decoration: underline; }
 #p-insta { margin: 12px 0 24px; text-transform: none; }
 .resume { list-style: none; padding: 0; margin: 0; }
 .resume li { display: grid; grid-template-columns: 1fr auto; gap: 2px 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }

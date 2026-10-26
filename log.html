@@ -18,6 +18,9 @@
       <label>Hours <input name="hours" type="number" min="0.25" max="24" step="0.25" required></label>
       <label>Supervisor name <input name="supervisor"></label>
       <label>Supervisor email or phone <input name="contact"></label>
+      <label id="photo-field" class="wide">Photo <input name="photo" type="file" accept="image/*">
+        <img id="photo-preview" class="photo-preview" alt="" hidden>
+      </label>
       <div><button>Add hours</button></div>
     </form>
     <datalist id="orgs"></datalist>

@@ -74,6 +74,33 @@ if (typeof document === 'object') (async () => {
     },
   };
 
+  // Photos (accounts only) go to the private "photos" bucket under the student's own folder
+  const photos = sb && sb.storage.from('photos');
+  const shrink = async file => { // phone photos are huge; resize to 1600px JPEG, or keep the original if the browser can't read it
+    try {
+      const img = await createImageBitmap(file);
+      const scale = Math.min(1, 1600 / Math.max(img.width, img.height));
+      const canvas = el('canvas', { width: Math.round(img.width * scale), height: Math.round(img.height * scale) });
+      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+      return await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.82));
+    } catch {
+      return file;
+    }
+  };
+  const uploadPhoto = async file => {
+    const blob = await shrink(file);
+    const path = `${user.id}/${newId()}.jpg`;
+    check(await photos.upload(path, blob, { contentType: blob.type }));
+    return path;
+  };
+  const removePhoto = path => path && photos.remove([path]).catch(() => {});
+  const photoUrls = async rows => { // path -> link that works for an hour
+    const paths = rows.map(r => r.photo).filter(Boolean);
+    if (!user || !paths.length) return {};
+    const { data } = await photos.createSignedUrls(paths, 3600);
+    return Object.fromEntries((data || []).filter(d => d.signedUrl).map(d => [d.path, d.signedUrl]));
+  };
+
   const blankProfile = { name: '', school: '', instagram: '', memberships: [] };
   const loadProfile = async () => ({ ...blankProfile, ...(user && check(await sb.from('profiles').select().eq('id', user.id).maybeSingle())) });
   const TERMS = ['Freshman', 'Sophomore', 'Junior', 'Senior'].flatMap(g => [`Semester 1 ${g}`, `Semester 2 ${g}`]);
@@ -105,30 +132,42 @@ if (typeof document === 'object') (async () => {
     $('orgs').replaceChildren(...[...new Set(entries.map(e => e.org))].map(o => new Option(o)));
     form.date.value = today();
 
+    const preview = $('photo-preview');
+    const showPreview = src => { preview.src = src || ''; preview.hidden = !src; };
+    $('photo-field').hidden = !user;
+    form.photo.onchange = () => showPreview(form.photo.files[0] && URL.createObjectURL(form.photo.files[0]));
+
     const entry = editId && await hours.get(editId).catch(() => null);
     if (entry) {
       for (const k of FIELDS) form[k].value = entry[k] ?? '';
       $('title').textContent = 'Edit hours';
       form.querySelector('button').textContent = 'Save changes';
+      if (entry.photo) showPreview((await photoUrls([entry]))[entry.photo]);
     } else {
       editId = null;
     }
 
     form.onsubmit = async ev => {
       ev.preventDefault();
-      const row = Object.fromEntries(new FormData(form));
+      const { photo, ...row } = Object.fromEntries(new FormData(form));
       row.hours = Number(row.hours);
       const btn = form.querySelector('button');
       btn.disabled = true;
       try {
+        if (user && photo?.size) {
+          say('Uploading photo…');
+          row.photo = await uploadPhoto(photo);
+        }
         if (editId) {
           await hours.update(editId, row);
+          if (row.photo) await removePhoto(entry.photo); // replaced
           location.href = 'profile.html';
           return;
         }
         await hours.add([row]);
         form.reset();
         form.date.value = today();
+        showPreview(null);
         $('msg').textContent = 'Saved. ';
         $('msg').append(el('a', { href: 'profile.html', textContent: 'See your hours' }));
       } catch (err) {
@@ -141,16 +180,28 @@ if (typeof document === 'object') (async () => {
   // profile.html
   if ($('rows')) {
     let entries = [];
+    let urls = {};
 
     const rowFor = e => {
       const tr = el('tr');
+      const thumb = tr.insertCell();
+      thumb.className = 'no-print';
+      if (urls[e.photo]) {
+        const link = el('a', { href: urls[e.photo], target: '_blank', rel: 'noopener' });
+        link.append(el('img', { src: urls[e.photo], alt: `Photo from ${e.org}`, className: 'thumb', loading: 'lazy' }));
+        thumb.append(link);
+      }
       const supervisor = [e.supervisor, e.contact].filter(Boolean).join(' · ');
       for (const text of [e.date, e.org, e.activity, e.hours, supervisor]) tr.insertCell().textContent = text;
       tr.insertCell().className = 'print-only';
       const actions = tr.insertCell();
       actions.className = 'no-print actions';
       const del = el('button', { textContent: 'Delete', className: 'secondary' });
-      confirmClick(del, async () => { await hours.remove(e.id); await refresh(); });
+      confirmClick(del, async () => {
+        await hours.remove(e.id);
+        await removePhoto(e.photo);
+        await refresh();
+      });
       actions.append(el('a', { href: `log.html?edit=${encodeURIComponent(e.id)}`, textContent: 'Edit', className: 'button secondary' }), del);
       return tr;
     };
@@ -168,7 +219,12 @@ if (typeof document === 'object') (async () => {
     };
 
     const refresh = async () => {
-      try { entries = await hours.list(); } catch (err) { say(`Couldn't load your hours: ${err.message}`); }
+      try {
+        entries = await hours.list();
+        urls = await photoUrls(entries);
+      } catch (err) {
+        say(`Couldn't load your hours: ${err.message}`);
+      }
       render();
     };
 
