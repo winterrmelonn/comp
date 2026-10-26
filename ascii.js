@@ -17,6 +17,7 @@
   const charAt = (c, r) => WORD[(c + r * 3) % WORD.length];
 
   function resize() {
+    if (!innerWidth || !innerHeight) return; // e.g. a hidden or collapsed window; wait for a real size
     const dpr = devicePixelRatio || 1;
     canvas.width = innerWidth * dpr;
     canvas.height = innerHeight * dpr;

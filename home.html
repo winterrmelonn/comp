@@ -7,8 +7,16 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<script>try { if (localStorage.getItem('comp-simple') === '1') document.body.classList.add('simple'); } catch {}</script>
 <div id="lilies" aria-hidden="true"></div>
-<header class="top"><a class="label" href="home.html">Menu</a><a class="brand" href="home.html">comp.</a><a class="label" href="profile.html">Profile</a></header>
+<header class="top">
+  <a class="label" href="home.html">Menu</a>
+  <a class="brand" href="home.html">comp.</a>
+  <div class="top-right">
+    <label class="switch label"><input type="checkbox" id="simple" role="switch"><span class="track"></span>Simple</label>
+    <a class="label" href="profile.html">Profile</a>
+  </div>
+</header>
 <main>
   <nav class="nav">
     <a href="log.html">Log volunteer hours</a>

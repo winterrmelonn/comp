@@ -2,7 +2,7 @@
 // sits just off the bottom right of its own flower. Hovering (or focusing) a link blooms that flower: the petals open
 // and the stamens reach out (morph targets), the red warms, and the link text grows, all driven by
 // one eased value per flower so they stay in step. Shapes are seeded so they look the same every visit.
-import { createElement as h, useLayoutEffect, useMemo, useRef } from 'react';
+import { createElement as h, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
@@ -121,6 +121,16 @@ links.forEach((a, i) => {
   a.addEventListener('blur', off);
 });
 
+// Simple mode switch: the side list with a few flowers at any width. Remembered in this browser;
+// the class is already on <body> before this runs (see home.html) so the page never flashes.
+const simpleSwitch = document.getElementById('simple');
+simpleSwitch.checked = document.body.classList.contains('simple');
+simpleSwitch.addEventListener('change', () => {
+  document.body.classList.toggle('simple', simpleSwitch.checked);
+  try { localStorage.setItem('comp-simple', simpleSwitch.checked ? '1' : '0'); } catch {}
+  dispatchEvent(new Event('simplechange'));
+});
+
 const swayed = new THREE.Vector3(), resting = new THREE.Vector3(); // scratch vectors for the per-frame link offset
 
 // One lily whose flower head sits at (x, y, z). Lilies with a link `index` bloom on hover.
@@ -164,7 +174,7 @@ function Lily({ seed, x, y, z, index }) {
 }
 
 // Wide screens: the spread-out garden, where three of the lilies carry the menu links (index) and
-// bloom on hover. Narrow screens: links stay in a list on the left, with a few lilies on the right.
+// bloom on hover. Narrow screens or simple mode: links stay in a list on the left, with a few lilies on the right.
 // x and z are world units, y is the flower head height (the view is about 6.3 tall, centred on 0).
 const WIDE = [
   { seed: 11, x: -4.3, z: 0.5, y: -0.4 },
@@ -186,7 +196,13 @@ const STAMEN_REACH = 1.45; // how far stamens rise above the flower head, fully 
 function Garden() {
   const { size, viewport, camera } = useThree();
   const vp = viewport.getCurrentViewport(camera, [0, 0, 0]);
-  const narrow = size.width < 720; // matches the breakpoint in style.css
+  const [simple, setSimple] = useState(simpleSwitch.checked);
+  useEffect(() => {
+    const update = () => setSimple(simpleSwitch.checked);
+    addEventListener('simplechange', update);
+    return () => removeEventListener('simplechange', update);
+  }, []);
+  const narrow = simple || size.width < 720; // matches the breakpoint in style.css
 
   // Keep every flower below the top bar
   const barBottom = document.querySelector('.top').getBoundingClientRect().bottom;
@@ -205,6 +221,7 @@ function Garden() {
         return [(v.x + 1) / 2 * size.width, (1 - v.y) / 2 * size.height];
       };
       const a = links[l.index];
+      a.dataset.side = l.side || 'right'; // switches the link to its placed (smaller) style before measuring it
       const anchor = onLeft => px(l.x + (onLeft ? -1 : 1) * (l.gap ?? 0.12), l.y - (l.drop ?? 0.55));
       let left = l.side === 'left';
       let [ax, ay] = anchor(left);
@@ -219,7 +236,7 @@ function Garden() {
       a.style.setProperty('--cy', `${cy - ay}px`);
       a.style.setProperty('--r', `${rx - cx}px`);
     }
-  }, [size.width, size.height]);
+  }, [size.width, size.height, narrow]);
 
   return html`${lilies.map(l => html`<${Lily} key=${l.seed + (narrow ? 'n' : 'w')} ...${l} />`)}`;
 }
