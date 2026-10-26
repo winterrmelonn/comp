@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Programs · comp.</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2250%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2260%22 font-family=%22Georgia,serif%22 fill=%22white%22 text-anchor=%22middle%22%3Ec.%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-kind="program" class="loading">
+<header class="top"><a class="label" href="home.html">Menu</a><a class="brand" href="home.html">comp.</a><a class="label" href="profile.html">Profile</a></header>
+<main>
+  <section>
+    <h1>Programs</h1>
+    <p class="muted">Summer programs, internships, competitions and research: everything you're applying to outside of class.</p>
+    <div id="stats" class="stats"></div>
+  </section>
+
+  <section>
+    <details id="add">
+      <summary id="form-title">+ Add a program</summary>
+      <form id="track-form" class="grid">
+        <label>Program <input name="name" required></label>
+        <label>Run by <input name="org"></label>
+        <label>Type <input name="category" list="categories" placeholder="Summer program"></label>
+        <datalist id="categories"><option>Summer program</option><option>Internship</option><option>Research</option><option>Competition</option><option>Hackathon</option><option>Volunteering</option><option>Job</option></datalist>
+        <label>Deadline <input name="deadline" type="date"></label>
+        <label>Status <select name="status"></select></label>
+        <label>Link <input name="link" inputmode="url" placeholder="https://"></label>
+        <label class="wide">Notes <textarea name="notes" rows="2" placeholder="Requirements, essays, interview dates"></textarea></label>
+        <div class="row"><button>Save</button><a id="cancel" class="button secondary" href="programs.html" hidden>Cancel</a></div>
+      </form>
+    </details>
+  </section>
+
+  <p id="msg" role="status"></p>
+  <section>
+    <div class="tools">
+      <label>Search <input id="t-search" type="search" placeholder="Name, org, notes…" autocomplete="off"></label>
+      <label>Sort <select id="t-sort"><option value="deadline">Next deadline</option><option value="type">Type</option><option value="name">A–Z</option></select></label>
+    </div>
+    <div id="filters" class="chips"></div>
+    <div id="list"></div>
+    <p id="track-empty" class="muted" hidden>Nothing here yet. <a href="discover.html">Browse Discover</a> for ideas.</p>
+    <div id="export" hidden>
+      <div class="row">
+        <button id="ics" class="secondary" hidden>Calendar file (.ics)</button>
+        <button id="notion" class="secondary">Export for Notion (.csv)</button>
+      </div>
+      <p class="muted">Calendar file: import it in Google Calendar (Settings → Import &amp; export) or open it in Apple Calendar or Outlook. Notion: ··· → Import → CSV turns it into a database.</p>
+    </div>
+  </section>
+
+  <p id="who" class="muted"></p>
+  <button id="track-import" class="secondary" hidden></button>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
+<script src="db.js"></script>
+<script src="app.js"></script>
+<script src="track.js"></script>
+</body>
+</html>

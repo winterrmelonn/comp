@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Discover · comp.</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2250%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2260%22 font-family=%22Georgia,serif%22 fill=%22white%22 text-anchor=%22middle%22%3Ec.%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top"><a class="label" href="home.html">Menu</a><a class="brand" href="home.html">comp.</a><a class="label" href="profile.html">Profile</a></header>
+<main>
+  <h1>Discover</h1>
+  <p class="muted">Scholarships and programs worth your time, picked for high schoolers. Track one and it lands on your list with its deadline. Dates marked confirmed were checked on the official site; others show the usual month, so check the site for this year's date.</p>
+
+  <form id="filters-form" class="filters" role="search">
+    <label class="wide">Search <input name="q" type="search" placeholder="math, essay, full tuition…" autocomplete="off"></label>
+    <label>Type <select name="kind"><option value="">Everything</option><option value="scholarship">Scholarships</option><option value="program">Programs</option></select></label>
+    <label>Your grade <select name="grade"><option value="">Any</option><option value="9">9th</option><option value="10">10th</option><option value="11">11th</option><option value="12">12th</option></select></label>
+    <label>Due <select name="due"><option value="">Anytime</option><option value="month">Next 30 days</option><option value="quarter">Next 3 months</option></select></label>
+    <label>Based on <select name="basis"><option value="">Anything</option><option value="merit">Merit</option><option value="need">Financial need</option><option value="both">Merit + need</option><option value="contest">Contest / project</option></select></label>
+    <label>Open to <select name="region"><option value="">Everyone</option><option value="National">Nationwide</option><option value="California">California students</option></select></label>
+    <label>Sort <select name="sort"><option value="deadline">Soonest deadline</option><option value="amount">Biggest award</option><option value="name">A–Z</option></select></label>
+    <label class="check"><input name="free" type="checkbox"> Free programs only</label>
+  </form>
+  <div id="field-chips" class="chips"></div>
+  <p class="row muted"><span id="count"></span><button id="clear" type="button" class="chip">Clear filters</button></p>
+
+  <p id="msg" role="status"></p>
+  <section>
+    <div id="catalog"></div>
+    <p id="catalog-empty" class="muted" hidden>Nothing matches. Try clearing a filter.</p>
+  </section>
+  <p class="muted">Know one we're missing? Club leaders can post it on <a href="find.html">Find opportunities</a>.</p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
+<script src="db.js"></script>
+<script src="track.js"></script>
+</body>
+</html>

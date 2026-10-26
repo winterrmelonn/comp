@@ -122,7 +122,7 @@ if (typeof document === 'object') (async () => {
 
   const who = $('who');
   if (who) {
-    who.textContent = user ? `Logged in as ${user.email}. ` : 'Guest: hours are saved on this device only. ';
+    who.textContent = user ? `Logged in as ${user.email}. ` : 'Guest: everything is saved on this device only. ';
     who.append(el('a', { href: 'login.html', textContent: user ? 'Log out' : 'Log in' }));
   }
 
@@ -133,6 +133,7 @@ if (typeof document === 'object') (async () => {
     const entries = await hours.list().catch(() => []);
     $('orgs').replaceChildren(...[...new Set(entries.map(e => e.org))].map(o => new Option(o)));
     form.date.value = today();
+    form.date.max = today();
 
     const preview = $('photo-preview');
     const showPreview = src => { preview.src = src || ''; preview.hidden = !src; };
@@ -194,10 +195,20 @@ if (typeof document === 'object') (async () => {
         thumb.append(link);
       }
       const supervisor = [e.supervisor, e.contact].filter(Boolean).join(' · ');
-      for (const text of [e.date, e.org, e.activity, e.hours, supervisor]) tr.insertCell().textContent = text;
+      const cells = [e.date, e.org, e.activity, e.hours, supervisor].map(text => Object.assign(tr.insertCell(), { textContent: text }));
+      if (e.verified_at) cells[4].append(el('span', { className: 'verified', textContent: `✓ Signed off by ${e.verified_by}` }));
       tr.insertCell().className = 'print-only';
+      if (e.verified_at) tr.lastChild.textContent = `Signed off online by ${e.verified_by}, ${new Date(e.verified_at).toLocaleDateString()}`;
       const actions = tr.insertCell();
       actions.className = 'no-print actions';
+      if (user && !e.verified_at) {
+        const ask = el('button', { textContent: e.verify_token ? 'Resend sign-off' : 'Get signed off', className: 'secondary' });
+        ask.onclick = async () => {
+          try { await sendSignoff(e); } catch (err) { say(`Couldn't make a sign-off link: ${err.message}`); }
+          ask.textContent = 'Resend sign-off';
+        };
+        actions.append(ask);
+      }
       const del = el('button', { textContent: 'Delete', className: 'secondary' });
       confirmClick(del, async () => {
         await hours.remove(e.id);
@@ -208,6 +219,27 @@ if (typeof document === 'object') (async () => {
       return tr;
     };
 
+    // Supervisor sign-off (accounts only): a secret link the supervisor opens without an account (verify.html)
+    const sendSignoff = async e => {
+      if (!e.verify_token) {
+        const token = crypto.randomUUID();
+        check(await sb.from('hours').update({ verify_token: token }).eq('id', e.id));
+        e.verify_token = token;
+      }
+      const url = new URL(`verify.html?t=${e.verify_token}`, location.href).href;
+      const text = `Hi${e.supervisor ? ` ${e.supervisor}` : ''}, could you sign off my ${Number(e.hours)} volunteer hours at ${e.org} on ${e.date}? It takes a few seconds and no account is needed: ${url}`;
+      if (navigator.share) {
+        try { return await navigator.share({ title: 'Sign off volunteer hours', text }); } catch (err) { if (err.name === 'AbortError') return; }
+      }
+      if (/@/.test(e.contact || '')) open(`mailto:${encodeURIComponent(e.contact)}?subject=${encodeURIComponent('Sign off volunteer hours')}&body=${encodeURIComponent(text)}`, '_self');
+      try {
+        await navigator.clipboard.writeText(text);
+        say('Sign-off message copied. Send it to your supervisor.');
+      } catch {
+        prompt('Send this to your supervisor:', text);
+      }
+    };
+
     const render = () => {
       const total = totalHours(entries);
       const left = Math.round((GOAL - total) * 100) / 100;
@@ -216,6 +248,8 @@ if (typeof document === 'object') (async () => {
       $('bar').max = GOAL;
       $('bar').value = total;
       $('left').textContent = left > 0 ? `${left} hours to go` : 'Goal reached! 🎉';
+      const signed = totalHours(entries.filter(e => e.verified_at));
+      $('signed').textContent = user && total ? `${signed} of ${total} hours signed off by supervisors` : '';
       $('rows').replaceChildren(...entries.map(rowFor));
       $('empty').hidden = entries.length > 0;
     };
@@ -352,16 +386,35 @@ if (typeof document === 'object') (async () => {
 
   // find.html
   if ($('posts')) {
+    // Posts are volunteer events, scholarships or programs (kind added in supabase-6.sql)
+    const KIND = { volunteer: 'Volunteer', scholarship: 'Scholarship', program: 'Program' };
+    const kindOf = p => p.kind || 'volunteer';
+    let posts = [];
+    let shown = 'all';
+
     const postFor = p => {
+      const kind = kindOf(p);
       const card = el('article', { className: 'post' });
       const when = new Date(`${p.date}T00:00`).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+      const label = kind === 'volunteer' ? [when, p.time] : [KIND[kind], `Due ${when}`];
+      const amount = p.amount ? `$${Number(p.amount).toLocaleString()}` : null;
       card.append(
-        el('p', { className: 'label', textContent: [when, p.time].filter(Boolean).join(' · ') }),
+        el('p', { className: 'label', textContent: label.filter(Boolean).join(' · ') }),
         el('h2', { textContent: p.title }),
-        el('p', { className: 'muted', textContent: [p.clubs?.name, p.location].filter(Boolean).join(' · ') }),
+        el('p', { className: 'muted', textContent: [p.clubs?.name, p.location, amount].filter(Boolean).join(' · ') }),
       );
-      if (p.details) card.append(el('p', { textContent: p.details }));
+      if (p.details) card.append(el('p', { className: 'notes', textContent: p.details }));
       if (p.clubs?.contact) card.append(el('p', { className: 'muted', textContent: `Contact: ${p.clubs.contact}` }));
+
+      const links = el('p', { className: 'cal-links' });
+      const href = safeUrl(p.link);
+      if (href) links.append(el('a', { href, target: '_blank', rel: 'noopener noreferrer', textContent: 'Open link ↗', className: 'label' }));
+      const cal = calendarLinks({ name: p.title, title: kind === 'volunteer' ? p.title : undefined, deadline: p.date, org: p.clubs?.name, link: href });
+      links.append(el('a', { href: cal.google, target: '_blank', rel: 'noopener noreferrer', textContent: '+ Google Calendar', className: 'label' }));
+      card.append(links);
+
+      const page = kind === 'scholarship' ? 'scholarships.html' : 'programs.html';
+      card.append(el('a', { href: `${page}?from=${encodeURIComponent(p.id)}`, textContent: 'Track this', className: 'button secondary' }));
       if (user && p.author_id === user.id) {
         const del = el('button', { textContent: 'Delete', className: 'secondary' });
         confirmClick(del, async () => { check(await sb.from('posts').delete().eq('id', p.id)); await showPosts(); });
@@ -370,15 +423,29 @@ if (typeof document === 'object') (async () => {
       return card;
     };
 
+    const render = () => {
+      $('kind-filters').replaceChildren(...['all', ...Object.keys(KIND)].map(k => {
+        const b = el('button', { className: 'chip', type: 'button', textContent: k === 'all' ? 'All' : k === 'volunteer' ? 'Volunteer' : `${KIND[k]}s` });
+        b.setAttribute('aria-pressed', k === shown);
+        b.onclick = () => { shown = k; render(); };
+        return b;
+      }));
+      const q = $('find-q').value.trim().toLowerCase();
+      const list = posts.filter(p => (shown === 'all' || kindOf(p) === shown)
+        && (!q || [p.title, p.details, p.location, p.clubs?.name].join(' ').toLowerCase().includes(q)));
+      $('posts').replaceChildren(...list.map(postFor));
+      $('empty').hidden = list.length > 0;
+    };
+
+    $('find-q').oninput = () => render();
+
     const showPosts = async () => {
-      let posts = [];
       try {
         posts = check(await sb.from('posts').select('*, clubs(name, contact)').gte('date', today()).order('date'));
       } catch (err) {
         say(`Couldn't load opportunities: ${err.message}`);
       }
-      $('posts').replaceChildren(...posts.map(postFor));
-      $('empty').hidden = posts.length > 0;
+      render();
     };
 
     // Club leaders get a form to post for their clubs
@@ -389,11 +456,22 @@ if (typeof document === 'object') (async () => {
       $('leader-hint').hidden = true;
       f.club_id.replaceChildren(...clubs.map(c => new Option(c.name, c.id)));
       f.date.min = today();
+      const showFields = () => {
+        const k = f.kind.value;
+        $('amount-field').hidden = k !== 'scholarship';
+        $('time-field').hidden = $('location-field').hidden = k !== 'volunteer';
+        $('date-label').firstChild.textContent = k === 'volunteer' ? 'Date ' : 'Deadline ';
+      };
+      f.kind.onchange = showFields;
       f.onsubmit = async ev => {
         ev.preventDefault();
+        // Leave out blanks and the default kind so volunteer posts still work before supabase-6.sql is run
+        const row = Object.fromEntries([...new FormData(f)].filter(([k, v]) => v !== '' && !(k === 'kind' && v === 'volunteer')));
+        if (row.link) row.link = safeUrl(row.link) ?? row.link;
         try {
-          check(await sb.from('posts').insert(Object.fromEntries(new FormData(f))));
+          check(await sb.from('posts').insert(row));
           f.reset();
+          showFields();
           say('Posted.');
           await showPosts();
         } catch (err) {

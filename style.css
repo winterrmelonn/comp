@@ -38,8 +38,8 @@ input:focus, textarea:focus, select:focus { outline: none; border-bottom-width: 
 .grid { display: grid; gap: 32px 24px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 .row { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 32px; }
 
-button, a.button { display: inline-block; font: .8rem var(--mono); text-transform: uppercase; letter-spacing: .08em; text-decoration: none; padding: 14px 36px; color: #fff; background: var(--text); border: 1px solid var(--text); border-radius: 999px; cursor: pointer; }
-button.secondary, a.button.secondary { color: var(--text); background: none; }
+button, a.button, label.button { display: inline-block; font: .8rem var(--mono); text-transform: uppercase; letter-spacing: .08em; text-decoration: none; padding: 14px 36px; color: #fff; background: var(--text); border: 1px solid var(--text); border-radius: 999px; cursor: pointer; }
+button.secondary, a.button.secondary, label.button.secondary { color: var(--text); background: none; }
 td button, td a.button { padding: 4px 12px; font-size: .7rem; margin-right: 6px; }
 .actions { white-space: nowrap; }
 .thumb { display: block; width: 48px; height: 48px; object-fit: cover; border-radius: 4px; }
@@ -116,6 +116,39 @@ body.simple #lilies ~ main .nav a { font-size: 1.75rem; } /* simple mode: the na
   body:not(.simple) #lilies ~ main .nav a:focus-visible { outline: none; text-decoration: underline; }
 }
 
+/* Scholarships and programs */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 24px; margin-top: 40px; }
+.stat b { display: block; font: 400 3rem/1 var(--serif); }
+.stat span { font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+details summary { font: 1.75rem var(--serif); cursor: pointer; list-style: none; margin-bottom: 32px; }
+details summary::-webkit-details-marker { display: none; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+button.chip { padding: 6px 16px; font-size: .7rem; color: var(--text); background: none; }
+button.chip[aria-pressed="true"] { color: #fff; background: var(--text); }
+.label.soon { font-weight: 700; }
+.label.soon::before { content: '● '; }
+.track.done { opacity: .55; }
+.post .notes { white-space: pre-line; }
+.track .row { margin-top: 16px; align-items: center; gap: 8px; }
+.track select { width: auto; margin: 0 8px 0 0; padding: 6px 0; }
+.post .button, .post > button, .track .row button { padding: 6px 18px; font-size: .7rem; margin-right: 8px; }
+.upcoming { margin-top: 64px; }
+.upcoming li .title { font: 1.5rem var(--serif); }
+/* Keep the dashboard readable over the lilies */
+#lilies ~ main .upcoming, #lilies ~ main .calendars { margin-left: -24px; margin-right: -24px; padding: 24px; background: rgb(255 255 255 / .82); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 24px; }
+.home-hours { margin-bottom: 48px; }
+.home-hours .big { text-decoration: none; }
+.cal-links { display: flex; gap: 16px; flex-wrap: wrap; }
+.steps { padding-left: 18px; }
+.steps li { margin-bottom: 6px; }
+#cal-sources li { display: flex; align-items: center; gap: 8px; text-transform: none; letter-spacing: 0; }
+#cal-sources button.chip { padding: 2px 10px; }
+.upcoming ul { list-style: none; padding: 0; margin: 0; }
+.upcoming li { display: grid; grid-template-columns: 1fr auto; gap: 0 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.upcoming li .label { grid-column: 1 / -1; color: var(--muted); }
+.upcoming li a { font: 1.5rem var(--serif); text-decoration: none; }
+.upcoming li .muted { align-self: end; }
+
 .big { font: 4rem/1 var(--serif); }
 progress { width: 100%; height: 2px; margin-top: 16px; accent-color: var(--text); }
 .muted { color: var(--muted); font-size: .85rem; }
@@ -123,6 +156,24 @@ progress { width: 100%; height: 2px; margin-top: 16px; accent-color: var(--text)
 table { width: 100%; border-collapse: collapse; font-size: .85rem; }
 th { font-weight: 400; font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
 th, td { text-align: left; padding: 12px 8px 12px 0; border-bottom: 1px solid var(--line); }
+
+/* Discover */
+.tools { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 24px; }
+label.search { margin-bottom: 24px; }
+.filters { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); margin: 40px 0 24px; align-items: end; }
+.tags.small { margin: 12px 0; }
+.tags.small li { font-size: .6rem; padding: 2px 10px; border-color: var(--line); color: var(--muted); }
+#count { align-self: center; }
+.row .chip { padding: 4px 14px; }
+
+/* Supervisor sign-off */
+#rows td:nth-child(2) { white-space: nowrap; }
+.verified { display: block; margin-top: 4px; font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; }
+.facts { display: grid; grid-template-columns: auto 1fr; gap: 12px 24px; margin: 32px 0 40px; }
+.facts dt { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.facts dd { margin: 0; }
+label.check { display: flex; gap: 12px; align-items: flex-start; text-transform: none; letter-spacing: 0; font-size: .85rem; color: var(--text); }
+label.check input { width: auto; margin: 4px 0 0; }
 
 .print-only { display: none; }
 @media print {
