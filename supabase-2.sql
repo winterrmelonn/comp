@@ -46,7 +46,7 @@ create table public.posts (
   location text,
   details text,
   created_at timestamptz not null default now()
-)
+);
 alter table public.posts enable row level security;
 grant select on public.posts to anon, authenticated;
 grant insert, delete on public.posts to authenticated;
