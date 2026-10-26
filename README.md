@@ -14,6 +14,8 @@ the app does multiple things:
 6. college application hub
   - fafsa, transcripts, letters of recs, activities list, piqs, common app essays; multiple aspects of a college application that takes 25 tabs and 64 gb of ram. multiple different application websites and a million things to keep track of. comp keeps it all in one place, possibly with a timeline feature.
 
+  LIVE DEPLOYMENT AT: https://winterrmelonn.github.io/comp/
+
 ## Run
 
 No build step. Serve the folder (e.g. `python3 -m http.server 8123`) and open http://localhost:8123.
