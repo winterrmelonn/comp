@@ -18,7 +18,7 @@ the app does multiple things:
 
 No build step. Serve the folder (e.g. `python3 -m http.server 8123`) and open http://localhost:8123.
 
-Accounts, hours, clubs and posts live in Supabase (project URL and publishable key in `db.js`). To set up a fresh project, run `supabase.sql`, then `supabase-2.sql`, in Supabase → SQL Editor.
+Accounts, hours, clubs and posts live in Supabase (project URL and publishable key in `db.js`). To set up a fresh project, run the `supabase*.sql` files in order (`supabase.sql`, then `supabase-2.sql` … `supabase-5.sql`) in Supabase → SQL Editor.
 
 Guests can still log hours without an account; those stay in the browser's localStorage and can be moved into an account from the profile page. **Download CSV** gives you a backup.
 
