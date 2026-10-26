@@ -7,7 +7,7 @@ assert.strictEqual(
   toCSV([{ date: '2026-10-01', org: 'Food "Bank", OC', hours: 2 }]),
   'date,org,activity,hours,supervisor,contact\n"2026-10-01","Food ""Bank"", OC","","2","",""'
 );
-const { daysUntil, deadlineText, sortTracked, trackSummary, safeUrl, toICS, calendarLinks, csvOf, parseICS } = require('./track.js');
+const { daysUntil, deadlineText, sortTracked, trackSummary, safeUrl, toICS, calendarLinks, csvOf, parseICS, nextDue, dueText, filterCatalog, sortCatalog } = require('./track.js');
 
 assert.strictEqual(daysUntil('2026-11-08', '2026-10-26'), 13); // across the DST change
 assert.strictEqual(deadlineText('2026-10-27', '2026-10-26'), 'Due tomorrow');
@@ -53,4 +53,42 @@ assert.deepStrictEqual(parseICS([
   'BEGIN:VEVENT', 'SUMMARY:no date', 'END:VEVENT',
   'END:VCALENDAR',
 ].join('\r\n')), [{ date: '2026-11-02', title: 'Essay draft, v2' }, { date: '2026-11-05', title: 'Lab report that is very long' }]);
+const T = '2026-10-26';
+const cat = [
+  { name: 'Elks', kind: 'scholarship', deadline: '2026-11-12', verified: true, grades: [12], fields: ['general'], basis: 'both', region: 'National', amount: 30000, summary: 'seniors' },
+  { name: 'COSMOS', kind: 'program', dueMonth: 2, verified: false, grades: [9, 10, 11, 12], fields: ['stem'], cost: 'aid', region: 'California', summary: 'UC summer' },
+  { name: 'Coca-Cola', kind: 'scholarship', dueMonth: 9, verified: false, grades: [12], fields: ['leadership'], basis: 'merit', region: 'National', amount: 20000, summary: '' },
+  { name: 'Hack Club', kind: 'program', rolling: true, verified: false, grades: [9, 10, 11, 12], fields: ['cs'], cost: 'free', region: 'National', summary: 'coders' },
+  { name: 'Old', kind: 'scholarship', deadline: '2026-10-01', verified: true, grades: [12], fields: [], region: 'National', summary: '' },
+  { name: 'Now', kind: 'program', dueMonth: 10, verified: false, grades: [11], fields: [], cost: 'free', region: 'National', summary: '' },
+];
+assert.deepStrictEqual(nextDue(cat[1], T), { date: '2027-02-15', exact: false });
+assert.deepStrictEqual(nextDue(cat[2], T), { date: '2027-09-15', exact: false });
+assert.deepStrictEqual(nextDue(cat[5], T), { date: '2027-10-15', exact: false }); // late in its month
+assert.deepStrictEqual(nextDue(cat[5], '2026-10-05'), { date: '2026-10-05', exact: false });
+assert.strictEqual(dueText(cat[5], T), 'Usually due in October, so likely closed this year');
+assert.strictEqual(dueText(cat[5], '2026-10-05'), 'Usually due this month: check now');
+assert.strictEqual(nextDue(cat[3], T), null);
+assert.strictEqual(dueText(cat[1], T), 'Usually due in February');
+assert.strictEqual(dueText(cat[3], T), 'Rolling: apply anytime');
+assert.strictEqual(dueText(cat[4], T), 'Closed for this year');
+const names = r => r.map(i => i.name);
+assert.deepStrictEqual(names(filterCatalog(cat, {}, T)), ['Elks', 'COSMOS', 'Coca-Cola', 'Hack Club', 'Now']); // closed hidden
+assert.deepStrictEqual(names(filterCatalog(cat, { q: 'CODERS' }, T)), ['Hack Club']);
+assert.deepStrictEqual(names(filterCatalog(cat, { grade: '11', kind: 'program' }, T)), ['COSMOS', 'Hack Club', 'Now']);
+assert.deepStrictEqual(names(filterCatalog(cat, { due: 'month' }, T)), ['Elks']);
+assert.deepStrictEqual(names(filterCatalog(cat, { free: true, kind: 'program' }, T)), ['Hack Club', 'Now']);
+assert.deepStrictEqual(names(filterCatalog(cat, { region: 'California' }, T)), ['COSMOS']);
+assert.deepStrictEqual(names(sortCatalog(filterCatalog(cat, {}, T), 'deadline', T)), ['Elks', 'COSMOS', 'Coca-Cola', 'Now', 'Hack Club']);
+assert.deepStrictEqual(names(sortCatalog(filterCatalog(cat, {}, T), 'amount', T)).slice(0, 2), ['Elks', 'Coca-Cola']);
+// the real catalog is well-formed
+const catalog = JSON.parse(require('fs').readFileSync(__dirname + '/data/catalog.json', 'utf8')).items;
+for (const i of catalog) {
+  assert.ok(i.id && i.name && i.org && i.summary && ['scholarship', 'program'].includes(i.kind), i.id);
+  assert.ok(safeUrl(i.url)?.startsWith('https://'), i.id);
+  assert.ok(Array.isArray(i.grades) && i.grades.length && Array.isArray(i.fields) && i.fields.length, i.id);
+  assert.ok(!i.verified || i.deadline, `${i.id}: verified items need an exact deadline`);
+  assert.ok(i.deadline || i.dueMonth || 'rolling' in i, i.id);
+}
+assert.strictEqual(new Set(catalog.map(i => i.id)).size, catalog.length);
 console.log('ok');

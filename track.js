@@ -106,7 +106,64 @@ function parseICS(text) {
   return events;
 }
 
-if (typeof module === 'object') module.exports = { daysUntil, deadlineText, sortTracked, trackSummary, safeUrl, toICS, calendarLinks, csvOf, parseICS };
+// Discover catalog (data/catalog.json). Items have an exact deadline confirmed on the official site,
+// a usual due month (dueMonth), or are rolling.
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+// Next due date for sorting and filtering; a usual month counts as its 15th.
+// Late in that month it has probably closed, so it counts as next year's.
+const LATE_IN_MONTH = 20;
+const probablyClosed = (item, today) => !item.deadline && item.dueMonth === Number(today.slice(5, 7)) && Number(today.slice(8)) > LATE_IN_MONTH;
+
+function nextDue(item, today) {
+  if (item.deadline) return { date: item.deadline, exact: true };
+  if (!item.dueMonth) return null;
+  const [y, m] = today.split('-').map(Number);
+  if (item.dueMonth === m && !probablyClosed(item, today)) return { date: today, exact: false };
+  const year = item.dueMonth > m ? y : y + 1;
+  return { date: `${year}-${String(item.dueMonth).padStart(2, '0')}-15`, exact: false };
+}
+
+function dueText(item, today) {
+  if (item.deadline) return daysUntil(item.deadline, today) < 0 ? 'Closed for this year' : deadlineText(item.deadline, today);
+  if (probablyClosed(item, today)) return `Usually due in ${MONTHS[item.dueMonth - 1]}, so likely closed this year`;
+  if (item.dueMonth === Number(today.slice(5, 7))) return 'Usually due this month: check now';
+  if (item.dueMonth) return `Usually due in ${MONTHS[item.dueMonth - 1]}`;
+  return item.rolling ? 'Rolling: apply anytime' : 'Through your school';
+}
+
+const DUE_WINDOWS = { month: 31, quarter: 92 };
+
+function filterCatalog(items, f, today) {
+  const q = (f.q || '').trim().toLowerCase();
+  return items.filter(i => {
+    if (q && ![i.name, i.org, i.summary, i.category, i.amountText, ...i.fields].join(' ').toLowerCase().includes(q)) return false;
+    if (f.kind && i.kind !== f.kind) return false;
+    if (f.grade && !i.grades.includes(Number(f.grade))) return false;
+    if (f.field && !i.fields.includes(f.field)) return false;
+    if (f.basis && i.basis !== f.basis) return false;
+    if (f.region && i.region !== f.region) return false;
+    if (f.free && i.kind === 'program' && i.cost !== 'free') return false;
+    if (f.due) {
+      const due = nextDue(i, today);
+      if (!due || daysUntil(due.date, today) < 0 || daysUntil(due.date, today) > DUE_WINDOWS[f.due]) return false;
+    }
+    if (i.deadline && daysUntil(i.deadline, today) < 0 && !f.showClosed) return false;
+    return true;
+  });
+}
+
+function sortCatalog(items, sort, today) {
+  const dueKey = i => nextDue(i, today)?.date || '9999';
+  const by = {
+    deadline: (a, b) => dueKey(a).localeCompare(dueKey(b)) || (b.verified - a.verified),
+    amount: (a, b) => (b.amount ?? -1) - (a.amount ?? -1),
+    name: () => 0,
+  }[sort] || (() => 0);
+  return [...items].sort((a, b) => by(a, b) || a.name.localeCompare(b.name));
+}
+
+if (typeof module === 'object') module.exports = { daysUntil, deadlineText, sortTracked, trackSummary, safeUrl, toICS, calendarLinks, csvOf, parseICS, nextDue, dueText, filterCatalog, sortCatalog };
 
 // UI
 if (typeof document === 'object') (async () => {
@@ -188,6 +245,7 @@ if (typeof document === 'object') (async () => {
     const FILTERS = { all: ['All', () => true], todo: ['To do', isActive], submitted: ['Submitted', i => i.status === 'submitted'], results: ['Results', i => DONE.includes(i.status)] };
 
     form.status.replaceChildren(...STATUSES.map(s => new Option(statusLabel(kind, s), s)));
+    $('t-search').oninput = $('t-sort').onchange = () => render();
 
     const card = i => {
       const c = el('article', { className: `post track${DONE.includes(i.status) ? ' done' : ''}` });
@@ -251,7 +309,13 @@ if (typeof document === 'object') (async () => {
         b.onclick = () => { filter = key; render(); };
         return b;
       }));
-      const shown = sortTracked(items.filter(FILTERS[filter][1]));
+      const q = $('t-search').value.trim().toLowerCase();
+      const sort = $('t-sort').value;
+      let shown = sortTracked(items.filter(FILTERS[filter][1])
+        .filter(i => !q || [i.name, i.org, i.notes, i.category].join(' ').toLowerCase().includes(q)));
+      if (sort === 'amount') shown.sort((a, b) => Number(b.amount || 0) - Number(a.amount || 0));
+      if (sort === 'type') shown.sort((a, b) => (a.category || '~').localeCompare(b.category || '~'));
+      if (sort === 'name') shown.sort((a, b) => a.name.localeCompare(b.name));
       $('list').replaceChildren(...shown.map(card));
       $('track-empty').hidden = shown.length > 0;
       $('ics').hidden = !items.some(i => i.deadline && !DONE.includes(i.status));
@@ -356,6 +420,120 @@ if (typeof document === 'object') (async () => {
     await refresh();
     if (!items.length && !entry) $('add').open = true;
     document.body.classList.remove('loading');
+  }
+
+  // discover.html: the catalog in data/catalog.json, with filters kept in the URL so a filtered view can be shared
+  if ($('catalog')) {
+    const FIELDS_ = { stem: 'STEM', cs: 'Computer science', math: 'Math', arts: 'Arts', writing: 'Writing', humanities: 'Humanities', leadership: 'Leadership', service: 'Service', general: 'Any major' };
+    const BASIS = { need: 'Need-based', merit: 'Merit', both: 'Merit + need', contest: 'Contest' };
+    const COST = { free: 'Free', aid: 'Financial aid available', paid: 'Paid' };
+    const params = new URLSearchParams(location.search);
+    const f = Object.fromEntries(['q', 'kind', 'grade', 'field', 'basis', 'region', 'due', 'sort'].map(k => [k, params.get(k) || '']));
+    f.free = params.get('free') === '1';
+    if (!f.grade) { try { f.grade = localStorage.getItem('comp-grade') || ''; } catch {} }
+    f.sort ||= 'deadline';
+
+    let catalog = [];
+    let checked = '';
+    try {
+      const res = await fetch('data/catalog.json');
+      ({ items: catalog, checked } = await res.json());
+    } catch {
+      say("Couldn't load the catalog. Check your connection and refresh.");
+    }
+    let mine = await tracked.list().catch(() => []);
+    const isTracked = i => mine.some(t => t.kind === i.kind && t.name === i.name);
+
+    // Controls
+    const form = $('filters-form');
+    for (const [k, v] of Object.entries(f)) if (form[k] && form[k].type !== 'checkbox') form[k].value = v;
+    form.free.checked = f.free;
+    $('field-chips').replaceChildren(...Object.entries({ '': 'All fields', ...FIELDS_ }).map(([key, label]) => {
+      const b = el('button', { className: 'chip', type: 'button', textContent: label });
+      b.dataset.field = key;
+      b.onclick = () => { f.field = key; update(); };
+      return b;
+    }));
+    form.oninput = form.onchange = () => {
+      for (const k of ['q', 'kind', 'grade', 'basis', 'region', 'due', 'sort']) f[k] = form[k].value;
+      f.free = form.free.checked;
+      try { localStorage.setItem('comp-grade', f.grade); } catch {}
+      update();
+    };
+    form.onsubmit = ev => ev.preventDefault();
+    $('clear').onclick = () => {
+      Object.assign(f, { q: '', kind: '', grade: '', field: '', basis: '', region: '', due: '', free: false, sort: 'deadline' });
+      for (const k of ['q', 'kind', 'grade', 'basis', 'region', 'due', 'sort']) form[k].value = f[k];
+      form.free.checked = false;
+      try { localStorage.removeItem('comp-grade'); } catch {}
+      update();
+    };
+
+    const trackButton = i => {
+      const page = KINDS[i.kind].page;
+      if (isTracked(i)) return el('a', { href: page, className: 'button', textContent: 'Tracked ✓' });
+      const b = el('button', { textContent: 'Track', type: 'button' });
+      b.onclick = async () => {
+        b.disabled = true;
+        const exact = !!i.deadline;
+        try {
+          await tracked.add([{
+            kind: i.kind, name: i.name, org: i.org, amount: i.amount ?? null, category: i.category ?? null,
+            deadline: exact ? i.deadline : null, link: i.url, status: 'interested',
+            notes: [i.summary, exact ? null : `${dueText(i, today())}; check the official site for this year's date.`].filter(Boolean).join('\n'),
+          }]);
+          mine = await tracked.list().catch(() => mine);
+          b.replaceWith(trackButton(i));
+          say(`Added ${i.name} to your ${KINDS[i.kind].label.toLowerCase()}s.`);
+        } catch (err) {
+          b.disabled = false;
+          say(`Couldn't track it: ${explain(err)}`);
+        }
+      };
+      return b;
+    };
+
+    const card = i => {
+      const c = el('article', { className: 'post track' });
+      const due = dueText(i, today());
+      const soon = i.deadline && daysUntil(i.deadline, today()) >= 0 && daysUntil(i.deadline, today()) <= 14;
+      const date = i.deadline ? shortDate(i.deadline) : null;
+      c.append(
+        el('p', { className: `label${soon ? ' soon' : ''}`, textContent: [KINDS[i.kind].label, date, due].filter(Boolean).join(' · ') }),
+        el('h2', { textContent: i.name }),
+      );
+      const grades = i.grades.length === 4 ? 'Grades 9–12' : i.grades.length === 1 ? `Grade ${i.grades[0]}` : `Grades ${i.grades[0]}–${i.grades.at(-1)}`;
+      const money = i.kind === 'scholarship' ? i.amountText : [i.category, COST[i.cost]].filter(Boolean).join(' · ');
+      c.append(
+        el('p', { className: 'muted', textContent: [i.org, money].filter(Boolean).join(' · ') }),
+        el('p', { className: 'notes', textContent: i.summary }),
+      );
+      const tags = el('ul', { className: 'tags small' });
+      tags.append(...[grades, i.region === 'National' ? 'Nationwide' : `${i.region} only`, BASIS[i.basis], ...i.fields.map(k => FIELDS_[k])]
+        .filter(Boolean).map(t => el('li', { textContent: t })));
+      c.append(tags);
+      const links = el('p', { className: 'cal-links' });
+      links.append(el('a', { href: i.url, target: '_blank', rel: 'noopener noreferrer', className: 'label', textContent: 'Official site ↗' }));
+      if (i.deadline && daysUntil(i.deadline, today()) >= 0) {
+        links.append(el('a', { href: calendarLinks({ name: i.name, deadline: i.deadline, org: i.org, link: i.url }).google, target: '_blank', rel: 'noopener noreferrer', className: 'label', textContent: '+ Google Calendar' }));
+      }
+      if (i.verified) links.append(el('span', { className: 'label muted', textContent: `Date confirmed ${shortDate(checked)}` }));
+      c.append(links, el('div', { className: 'row' }));
+      c.lastChild.append(trackButton(i));
+      return c;
+    };
+
+    const update = () => {
+      const shown = sortCatalog(filterCatalog(catalog, f, today()), f.sort, today());
+      $('catalog').replaceChildren(...shown.map(card));
+      $('count').textContent = `${shown.length} of ${catalog.length}`;
+      $('catalog-empty').hidden = shown.length > 0;
+      for (const b of $('field-chips').children) b.setAttribute('aria-pressed', b.dataset.field === f.field);
+      const qs = new URLSearchParams(Object.entries({ ...f, free: f.free ? '1' : '', sort: f.sort === 'deadline' ? '' : f.sort }).filter(([, v]) => v));
+      history.replaceState(null, '', qs.size ? `?${qs}` : location.pathname);
+    };
+
+    update();
   }
 
   // home.html: hours progress, then upcoming deadlines from scholarships, programs and imported calendars

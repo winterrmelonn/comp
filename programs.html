@@ -35,9 +35,13 @@
 
   <p id="msg" role="status"></p>
   <section>
+    <div class="tools">
+      <label>Search <input id="t-search" type="search" placeholder="Name, org, notes…" autocomplete="off"></label>
+      <label>Sort <select id="t-sort"><option value="deadline">Next deadline</option><option value="type">Type</option><option value="name">A–Z</option></select></label>
+    </div>
     <div id="filters" class="chips"></div>
     <div id="list"></div>
-    <p id="track-empty" class="muted" hidden>Nothing here yet.</p>
+    <p id="track-empty" class="muted" hidden>Nothing here yet. <a href="discover.html">Browse Discover</a> for ideas.</p>
     <div id="export" hidden>
       <div class="row">
         <button id="ics" class="secondary" hidden>Calendar file (.ics)</button>

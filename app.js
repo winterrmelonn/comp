@@ -427,10 +427,14 @@ if (typeof document === 'object') (async () => {
         b.onclick = () => { shown = k; render(); };
         return b;
       }));
-      const list = posts.filter(p => shown === 'all' || kindOf(p) === shown);
+      const q = $('find-q').value.trim().toLowerCase();
+      const list = posts.filter(p => (shown === 'all' || kindOf(p) === shown)
+        && (!q || [p.title, p.details, p.location, p.clubs?.name].join(' ').toLowerCase().includes(q)));
       $('posts').replaceChildren(...list.map(postFor));
       $('empty').hidden = list.length > 0;
     };
+
+    $('find-q').oninput = () => render();
 
     const showPosts = async () => {
       try {
