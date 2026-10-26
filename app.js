@@ -74,8 +74,12 @@ if (typeof document === 'object') (async () => {
     },
   };
 
-  const blankProfile = { name: '', school: '', clubs: [] };
-  const loadProfile = async () => (user && check(await sb.from('profiles').select().eq('id', user.id).maybeSingle())) || blankProfile;
+  const blankProfile = { name: '', school: '', instagram: '', memberships: [] };
+  const loadProfile = async () => ({ ...blankProfile, ...(user && check(await sb.from('profiles').select().eq('id', user.id).maybeSingle())) });
+  const TERMS = ['Freshman', 'Sophomore', 'Junior', 'Senior'].flatMap(g => [`Semester 1 ${g}`, `Semester 2 ${g}`]);
+  // Accepts @handle or a pasted instagram.com link
+  const igHandle = v => v.trim().replace(/^(https?:\/\/)?(www\.)?instagram\.com\//i, '').replace(/^@/, '').replace(/[/?].*$/, '');
+  const validHandle = h => /^[A-Za-z0-9._]{1,30}$/.test(h);
   const myClubs = async () => user ? check(await sb.from('clubs').select().eq('leader_id', user.id).order('name')) : [];
 
   // Pages that need an account hide their form for guests
@@ -174,10 +178,22 @@ if (typeof document === 'object') (async () => {
     });
     $('p-name').textContent = profile.name || (user ? 'Add your name' : 'Guest');
     $('p-school').textContent = profile.school || '';
-    $('p-clubs').replaceChildren(
-      ...leads.map(c => el('li', { textContent: `${c.name} · Leader` })),
-      ...profile.clubs.map(name => el('li', { textContent: name })),
-    );
+    $('p-leads').textContent = leads.length ? `Club leader · ${leads.map(c => c.name).join(', ')}` : '';
+    if (validHandle(profile.instagram || '')) {
+      $('p-insta').replaceChildren(el('a', {
+        href: `https://www.instagram.com/${profile.instagram}/`, textContent: `@${profile.instagram}`, target: '_blank', rel: 'noopener',
+      }));
+    }
+    $('p-clubs').replaceChildren(...profile.memberships.map(m => {
+      const li = el('li');
+      li.append(
+        el('span', { className: 'club', textContent: m.club }),
+        el('span', { className: 'when', textContent: `${m.start} – ${m.end}` }),
+        el('span', { className: 'role', textContent: m.role }),
+      );
+      return li;
+    }));
+    $('p-clubs-section').hidden = !profile.memberships.length;
 
     // Hours logged as a guest on this device can be moved into the account
     if (user && state.entries.length) {
@@ -214,12 +230,36 @@ if (typeof document === 'object') (async () => {
     const p = await loadProfile().catch(() => blankProfile);
     f.name.value = p.name ?? '';
     f.school.value = p.school ?? '';
-    f.clubs.value = p.clubs.join(', ');
+    f.instagram.value = p.instagram ? `@${p.instagram}` : '';
+
+    // One row per club: club, role, from, to
+    const KEYS = ['club', 'role', 'start', 'end'];
+    const addRow = (m = {}) => {
+      const row = $('membership-row').content.firstElementChild.cloneNode(true);
+      const [club, role, start, end] = KEYS.map(k => row.querySelector(`[data-k="${k}"]`));
+      start.append(...TERMS.map(t => new Option(t)));
+      end.append(new Option('Present'), ...TERMS.map(t => new Option(t)));
+      club.value = m.club ?? '';
+      role.value = m.role ?? '';
+      start.value = m.start ?? TERMS[0];
+      end.value = m.end ?? 'Present';
+      row.querySelector('.remove').onclick = () => row.remove();
+      $('memberships').append(row);
+    };
+    (p.memberships.length ? p.memberships : [{}]).forEach(addRow);
+    $('add-club').onclick = () => addRow();
+
     profileForm.onsubmit = async ev => {
       ev.preventDefault();
-      const clubs = f.clubs.value.split(',').map(s => s.trim()).filter(Boolean);
+      const instagram = igHandle(f.instagram.value);
+      if (instagram && !validHandle(instagram)) return say('That Instagram handle doesn\'t look right. Use letters, numbers, periods or underscores.');
+      const memberships = [...$('memberships').children]
+        .map(row => Object.fromEntries(KEYS.map(k => [k, row.querySelector(`[data-k="${k}"]`).value.trim()])))
+        .filter(m => m.club);
       try {
-        check(await sb.from('profiles').upsert({ id: user.id, name: f.name.value.trim(), school: f.school.value.trim(), clubs }));
+        check(await sb.from('profiles').upsert({
+          id: user.id, name: f.name.value.trim(), school: f.school.value.trim(), instagram: instagram || null, memberships,
+        }));
         location.href = 'profile.html';
       } catch (err) {
         say(`Couldn't save: ${err.message}`);

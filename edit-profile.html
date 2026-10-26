@@ -13,12 +13,27 @@
   <form id="profile-form" class="stack">
     <label>Name <input name="name" autocomplete="name" required></label>
     <label>School <input name="school"></label>
-    <label>Clubs you're in <input name="clubs" placeholder="Key Club, Robotics"></label>
-    <p class="muted">Separate clubs with commas.</p>
+    <label>Instagram <input name="instagram" placeholder="@yourhandle" autocapitalize="off"></label>
+
+    <h2>Clubs</h2>
+    <div id="memberships"></div>
+    <button type="button" id="add-club" class="secondary">Add a club</button>
+
     <button>Save</button>
   </form>
   <p id="msg" role="status"></p>
 </main>
+
+<template id="membership-row">
+  <div class="membership">
+    <label class="wide">Club <input data-k="club"></label>
+    <label class="wide">Role <input data-k="role" placeholder="Member, Treasurer…"></label>
+    <label>From <select data-k="start"></select></label>
+    <label>To <select data-k="end"></select></label>
+    <button type="button" class="secondary remove">Remove</button>
+  </div>
+</template>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
 <script src="db.js"></script>
 <script src="app.js"></script>
