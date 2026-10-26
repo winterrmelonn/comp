@@ -7,7 +7,7 @@ assert.strictEqual(
   toCSV([{ date: '2026-10-01', org: 'Food "Bank", OC', hours: 2 }]),
   'date,org,activity,hours,supervisor,contact\n"2026-10-01","Food ""Bank"", OC","","2","",""'
 );
-const { daysUntil, deadlineText, sortTracked, trackSummary, safeUrl, toICS } = require('./track.js');
+const { daysUntil, deadlineText, sortTracked, trackSummary, safeUrl, toICS, calendarLinks, csvOf, parseICS } = require('./track.js');
 
 assert.strictEqual(daysUntil('2026-11-08', '2026-10-26'), 13); // across the DST change
 assert.strictEqual(deadlineText('2026-10-27', '2026-10-26'), 'Due tomorrow');
@@ -40,4 +40,17 @@ const ics = toICS([
 assert.ok(ics.includes('DTSTART;VALUE=DATE:20261115'));
 assert.ok(ics.includes('SUMMARY:Gates\\, Jr\\; 2026 deadline'));
 assert.ok(!ics.includes('Done'));
+const links = calendarLinks({ name: 'Coke & Co', deadline: '2026-12-31', org: 'Foundation' });
+assert.ok(links.google.includes('dates=20261231%2F20270101'));
+assert.ok(links.google.includes('text=Coke+%26+Co+deadline'));
+assert.ok(links.outlook.includes('startdt=2026-12-31') && links.outlook.includes('enddt=2027-01-01'));
+assert.strictEqual(csvOf([{ Name: 'A "B"', Amount: 5 }]), '"Name","Amount"\n"A ""B""","5"');
+assert.strictEqual(csvOf([]), '');
+assert.deepStrictEqual(parseICS([
+  'BEGIN:VCALENDAR', 'X-WR-CALNAME:Canvas',
+  'BEGIN:VEVENT', 'DTSTART;VALUE=DATE:20261102', 'SUMMARY:Essay draft\\, v2', 'END:VEVENT',
+  'BEGIN:VEVENT', 'DTSTART;TZID=America/Los_Angeles:20261105T235900', 'SUMMARY:Lab report that is very lon', ' g', 'END:VEVENT',
+  'BEGIN:VEVENT', 'SUMMARY:no date', 'END:VEVENT',
+  'END:VCALENDAR',
+].join('\r\n')), [{ date: '2026-11-02', title: 'Essay draft, v2' }, { date: '2026-11-05', title: 'Lab report that is very long' }]);
 console.log('ok');

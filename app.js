@@ -100,6 +100,7 @@ if (typeof document === 'object') (async () => {
     const entries = await hours.list().catch(() => []);
     $('orgs').replaceChildren(...[...new Set(entries.map(e => e.org))].map(o => new Option(o)));
     form.date.value = today();
+    form.date.max = today();
 
     const entry = editId && await hours.get(editId).catch(() => null);
     if (entry) {
