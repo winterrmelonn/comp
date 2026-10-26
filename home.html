@@ -8,13 +8,13 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<script>try { if (localStorage.getItem('comp-simple') === '1') document.body.classList.add('simple'); } catch {}</script>
+<script>{ let on = true; try { on = localStorage.getItem('comp-simple') !== '0'; } catch {} document.body.classList.toggle('simple', on); } // Simple UI is on unless switched off</script>
 <div id="lilies" aria-hidden="true"></div>
 <header class="top">
   <a class="label" href="home.html">Menu</a>
   <a class="brand" href="home.html">comp.</a>
   <div class="top-right">
-    <label class="switch label"><input type="checkbox" id="simple" role="switch"><span class="track"></span>Simple</label>
+    <label class="switch label"><input type="checkbox" id="simple" role="switch"><span class="track"></span>Simple UI</label>
     <a class="label" href="profile.html">Profile</a>
   </div>
 </header>

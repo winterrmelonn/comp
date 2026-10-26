@@ -121,7 +121,7 @@ links.forEach((a, i) => {
   a.addEventListener('blur', off);
 });
 
-// Simple mode switch: the side list with a few flowers at any width. Remembered in this browser;
+// Simple UI switch (on by default): the side list with a few flowers at any width. Remembered in this browser;
 // the class is already on <body> before this runs (see home.html) so the page never flashes.
 const simpleSwitch = document.getElementById('simple');
 simpleSwitch.checked = document.body.classList.contains('simple');
