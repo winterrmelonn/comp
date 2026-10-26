@@ -64,7 +64,7 @@ function toICS(items) {
 // One-click "add to calendar" links; no account connection needed
 function calendarLinks(item) {
   const next = new Date(Date.parse(item.deadline) + 864e5).toISOString().slice(0, 10);
-  const title = `${item.name} deadline`;
+  const title = item.title ?? `${item.name} deadline`;
   const details = [item.org, item.link].filter(Boolean).join('\n');
   const q = params => new URLSearchParams(params).toString();
   return {
@@ -288,7 +288,9 @@ if (typeof document === 'object') (async () => {
           form.name.value = post.title;
           form.org.value = post.clubs?.name ?? '';
           form.deadline.value = post.date;
-          if (form.category) form.category.value = 'Volunteering';
+          form.link.value = post.link ?? '';
+          if (form.amount && post.amount) form.amount.value = post.amount;
+          if (form.category && (post.kind ?? 'volunteer') === 'volunteer') form.category.value = 'Volunteering';
           form.notes.value = [post.time, post.location, post.details].filter(Boolean).join('\n');
           openForm(`Track ${post.title}`);
           say('Filled in from Find opportunities. Save to track it.');

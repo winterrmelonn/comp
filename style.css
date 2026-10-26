@@ -93,10 +93,10 @@ button.chip[aria-pressed="true"] { color: #fff; background: var(--text); }
 .label.soon { font-weight: 700; }
 .label.soon::before { content: '● '; }
 .track.done { opacity: .55; }
-.track .notes { white-space: pre-line; }
+.post .notes { white-space: pre-line; }
 .track .row { margin-top: 16px; align-items: center; gap: 8px; }
 .track select { width: auto; margin: 0 8px 0 0; padding: 6px 0; }
-.post .button, .track .row button { padding: 6px 18px; font-size: .7rem; }
+.post .button, .post > button, .track .row button { padding: 6px 18px; font-size: .7rem; margin-right: 8px; }
 .upcoming { margin-top: 64px; }
 .upcoming li .title { font: 1.5rem var(--serif); }
 /* Keep the dashboard readable over the lilies */

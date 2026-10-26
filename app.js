@@ -350,17 +350,35 @@ if (typeof document === 'object') (async () => {
 
   // find.html
   if ($('posts')) {
+    // Posts are volunteer events, scholarships or programs (kind added in supabase-6.sql)
+    const KIND = { volunteer: 'Volunteer', scholarship: 'Scholarship', program: 'Program' };
+    const kindOf = p => p.kind || 'volunteer';
+    let posts = [];
+    let shown = 'all';
+
     const postFor = p => {
+      const kind = kindOf(p);
       const card = el('article', { className: 'post' });
       const when = new Date(`${p.date}T00:00`).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+      const label = kind === 'volunteer' ? [when, p.time] : [KIND[kind], `Due ${when}`];
+      const amount = p.amount ? `$${Number(p.amount).toLocaleString()}` : null;
       card.append(
-        el('p', { className: 'label', textContent: [when, p.time].filter(Boolean).join(' · ') }),
+        el('p', { className: 'label', textContent: label.filter(Boolean).join(' · ') }),
         el('h2', { textContent: p.title }),
-        el('p', { className: 'muted', textContent: [p.clubs?.name, p.location].filter(Boolean).join(' · ') }),
+        el('p', { className: 'muted', textContent: [p.clubs?.name, p.location, amount].filter(Boolean).join(' · ') }),
       );
-      if (p.details) card.append(el('p', { textContent: p.details }));
+      if (p.details) card.append(el('p', { className: 'notes', textContent: p.details }));
       if (p.clubs?.contact) card.append(el('p', { className: 'muted', textContent: `Contact: ${p.clubs.contact}` }));
-      card.append(el('a', { href: `programs.html?from=${encodeURIComponent(p.id)}`, textContent: 'Track this', className: 'button secondary' }));
+
+      const links = el('p', { className: 'cal-links' });
+      const href = safeUrl(p.link);
+      if (href) links.append(el('a', { href, target: '_blank', rel: 'noopener noreferrer', textContent: 'Open link ↗', className: 'label' }));
+      const cal = calendarLinks({ name: p.title, title: kind === 'volunteer' ? p.title : undefined, deadline: p.date, org: p.clubs?.name, link: href });
+      links.append(el('a', { href: cal.google, target: '_blank', rel: 'noopener noreferrer', textContent: '+ Google Calendar', className: 'label' }));
+      card.append(links);
+
+      const page = kind === 'scholarship' ? 'scholarships.html' : 'programs.html';
+      card.append(el('a', { href: `${page}?from=${encodeURIComponent(p.id)}`, textContent: 'Track this', className: 'button secondary' }));
       if (user && p.author_id === user.id) {
         const del = el('button', { textContent: 'Delete', className: 'secondary' });
         confirmClick(del, async () => { check(await sb.from('posts').delete().eq('id', p.id)); await showPosts(); });
@@ -369,15 +387,25 @@ if (typeof document === 'object') (async () => {
       return card;
     };
 
+    const render = () => {
+      $('kind-filters').replaceChildren(...['all', ...Object.keys(KIND)].map(k => {
+        const b = el('button', { className: 'chip', type: 'button', textContent: k === 'all' ? 'All' : k === 'volunteer' ? 'Volunteer' : `${KIND[k]}s` });
+        b.setAttribute('aria-pressed', k === shown);
+        b.onclick = () => { shown = k; render(); };
+        return b;
+      }));
+      const list = posts.filter(p => shown === 'all' || kindOf(p) === shown);
+      $('posts').replaceChildren(...list.map(postFor));
+      $('empty').hidden = list.length > 0;
+    };
+
     const showPosts = async () => {
-      let posts = [];
       try {
         posts = check(await sb.from('posts').select('*, clubs(name, contact)').gte('date', today()).order('date'));
       } catch (err) {
         say(`Couldn't load opportunities: ${err.message}`);
       }
-      $('posts').replaceChildren(...posts.map(postFor));
-      $('empty').hidden = posts.length > 0;
+      render();
     };
 
     // Club leaders get a form to post for their clubs
@@ -388,11 +416,22 @@ if (typeof document === 'object') (async () => {
       $('leader-hint').hidden = true;
       f.club_id.replaceChildren(...clubs.map(c => new Option(c.name, c.id)));
       f.date.min = today();
+      const showFields = () => {
+        const k = f.kind.value;
+        $('amount-field').hidden = k !== 'scholarship';
+        $('time-field').hidden = $('location-field').hidden = k !== 'volunteer';
+        $('date-label').firstChild.textContent = k === 'volunteer' ? 'Date ' : 'Deadline ';
+      };
+      f.kind.onchange = showFields;
       f.onsubmit = async ev => {
         ev.preventDefault();
+        // Leave out blanks and the default kind so volunteer posts still work before supabase-6.sql is run
+        const row = Object.fromEntries([...new FormData(f)].filter(([k, v]) => v !== '' && !(k === 'kind' && v === 'volunteer')));
+        if (row.link) row.link = safeUrl(row.link) ?? row.link;
         try {
-          check(await sb.from('posts').insert(Object.fromEntries(new FormData(f))));
+          check(await sb.from('posts').insert(row));
           f.reset();
+          showFields();
           say('Posted.');
           await showPosts();
         } catch (err) {
