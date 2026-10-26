@@ -122,6 +122,15 @@ table { width: 100%; border-collapse: collapse; font-size: .85rem; }
 th { font-weight: 400; font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
 th, td { text-align: left; padding: 12px 8px 12px 0; border-bottom: 1px solid var(--line); }
 
+/* Supervisor sign-off */
+#rows td:nth-child(2) { white-space: nowrap; }
+.verified { display: block; margin-top: 4px; font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; }
+.facts { display: grid; grid-template-columns: auto 1fr; gap: 12px 24px; margin: 32px 0 40px; }
+.facts dt { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.facts dd { margin: 0; }
+label.check { display: flex; gap: 12px; align-items: flex-start; text-transform: none; letter-spacing: 0; font-size: .85rem; color: var(--text); }
+label.check input { width: auto; margin: 4px 0 0; }
+
 .print-only { display: none; }
 @media print {
   .top { border: 0; }

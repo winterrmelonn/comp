@@ -193,10 +193,20 @@ if (typeof document === 'object') (async () => {
         thumb.append(link);
       }
       const supervisor = [e.supervisor, e.contact].filter(Boolean).join(' · ');
-      for (const text of [e.date, e.org, e.activity, e.hours, supervisor]) tr.insertCell().textContent = text;
+      const cells = [e.date, e.org, e.activity, e.hours, supervisor].map(text => Object.assign(tr.insertCell(), { textContent: text }));
+      if (e.verified_at) cells[4].append(el('span', { className: 'verified', textContent: `✓ Signed off by ${e.verified_by}` }));
       tr.insertCell().className = 'print-only';
+      if (e.verified_at) tr.lastChild.textContent = `Signed off online by ${e.verified_by}, ${new Date(e.verified_at).toLocaleDateString()}`;
       const actions = tr.insertCell();
       actions.className = 'no-print actions';
+      if (user && !e.verified_at) {
+        const ask = el('button', { textContent: e.verify_token ? 'Resend sign-off' : 'Get signed off', className: 'secondary' });
+        ask.onclick = async () => {
+          try { await sendSignoff(e); } catch (err) { say(`Couldn't make a sign-off link: ${err.message}`); }
+          ask.textContent = 'Resend sign-off';
+        };
+        actions.append(ask);
+      }
       const del = el('button', { textContent: 'Delete', className: 'secondary' });
       confirmClick(del, async () => {
         await hours.remove(e.id);
@@ -207,6 +217,27 @@ if (typeof document === 'object') (async () => {
       return tr;
     };
 
+    // Supervisor sign-off (accounts only): a secret link the supervisor opens without an account (verify.html)
+    const sendSignoff = async e => {
+      if (!e.verify_token) {
+        const token = crypto.randomUUID();
+        check(await sb.from('hours').update({ verify_token: token }).eq('id', e.id));
+        e.verify_token = token;
+      }
+      const url = new URL(`verify.html?t=${e.verify_token}`, location.href).href;
+      const text = `Hi${e.supervisor ? ` ${e.supervisor}` : ''}, could you sign off my ${Number(e.hours)} volunteer hours at ${e.org} on ${e.date}? It takes a few seconds and no account is needed: ${url}`;
+      if (navigator.share) {
+        try { return await navigator.share({ title: 'Sign off volunteer hours', text }); } catch (err) { if (err.name === 'AbortError') return; }
+      }
+      if (/@/.test(e.contact || '')) open(`mailto:${encodeURIComponent(e.contact)}?subject=${encodeURIComponent('Sign off volunteer hours')}&body=${encodeURIComponent(text)}`, '_self');
+      try {
+        await navigator.clipboard.writeText(text);
+        say('Sign-off message copied. Send it to your supervisor.');
+      } catch {
+        prompt('Send this to your supervisor:', text);
+      }
+    };
+
     const render = () => {
       const total = totalHours(entries);
       const left = Math.round((GOAL - total) * 100) / 100;
@@ -215,6 +246,8 @@ if (typeof document === 'object') (async () => {
       $('bar').max = GOAL;
       $('bar').value = total;
       $('left').textContent = left > 0 ? `${left} hours to go` : 'Goal reached! 🎉';
+      const signed = totalHours(entries.filter(e => e.verified_at));
+      $('signed').textContent = user && total ? `${signed} of ${total} hours signed off by supervisors` : '';
       $('rows').replaceChildren(...entries.map(rowFor));
       $('empty').hidden = entries.length > 0;
     };

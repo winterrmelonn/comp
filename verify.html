@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign off hours · comp.</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2250%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2260%22 font-family=%22Georgia,serif%22 fill=%22white%22 text-anchor=%22middle%22%3Ec.%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top"><span></span><span class="brand">comp.</span><span></span></header>
+<main class="narrow">
+  <h1>Sign off volunteer hours</h1>
+  <p id="msg" role="status">Loading…</p>
+  <section id="entry" hidden>
+    <p class="muted"><span id="v-student"></span> logged these hours and listed you as their supervisor.</p>
+    <dl class="facts">
+      <dt>Date</dt><dd id="v-date"></dd>
+      <dt>Organization</dt><dd id="v-org"></dd>
+      <dt>What they did</dt><dd id="v-activity"></dd>
+      <dt>Hours</dt><dd id="v-hours"></dd>
+    </dl>
+    <form id="signoff" class="stack">
+      <label>Your name <input name="signer" autocomplete="name" required maxlength="80"></label>
+      <label class="check"><input name="confirm" type="checkbox" required> I supervised this and the hours are correct.</label>
+      <button>Sign off</button>
+    </form>
+  </section>
+  <p class="muted">comp. helps Fountain Valley High students track community service. No account is needed to sign off.</p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
+<script src="db.js"></script>
+<script src="verify.js"></script>
+</body>
+</html>
