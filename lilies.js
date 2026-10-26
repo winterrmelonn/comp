@@ -182,8 +182,8 @@ const WIDE = [
   { seed: 37, x: -1.7, z: 0.9, y: -1.0 },
   { seed: 41, x: -0.4, z: -0.6, y: 0.1 },
   { seed: 53, x: 0.9, z: 0.3, y: 0.9, index: 1, side: 'left' },
-  { seed: 67, x: 2.1, z: -1.2, y: 0.4, index: 2 },
-  { seed: 71, x: 3.2, z: 0.8, y: -0.7 },
+  { seed: 71, x: 2.1, z: -1.2, y: 0.4 },
+  { seed: 67, x: 3.2, z: 0.8, y: -0.7, index: 2, side: 'left' },
   { seed: 83, x: 4.3, z: -0.3, y: 0.8 },
 ];
 const NARROW = [ // fx: fraction of the page width
