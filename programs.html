@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Programs · comp.</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-kind="program" class="loading">
+<header class="top"><a class="label" href="home.html">Menu</a><a class="brand" href="home.html">comp.</a><a class="label" href="profile.html">Profile</a></header>
+<main>
+  <section>
+    <h1>Programs</h1>
+    <p class="muted">Summer programs, internships, competitions and research: everything you're applying to outside of class.</p>
+    <div id="stats" class="stats"></div>
+  </section>
+
+  <section>
+    <details id="add">
+      <summary id="form-title">+ Add a program</summary>
+      <form id="track-form" class="grid">
+        <label>Program <input name="name" required></label>
+        <label>Run by <input name="org"></label>
+        <label>Type <input name="category" list="categories" placeholder="Summer program"></label>
+        <datalist id="categories"><option>Summer program</option><option>Internship</option><option>Research</option><option>Competition</option><option>Hackathon</option><option>Volunteering</option><option>Job</option></datalist>
+        <label>Deadline <input name="deadline" type="date"></label>
+        <label>Status <select name="status"></select></label>
+        <label>Link <input name="link" inputmode="url" placeholder="https://"></label>
+        <label class="wide">Notes <textarea name="notes" rows="2" placeholder="Requirements, essays, interview dates"></textarea></label>
+        <div class="row"><button>Save</button><a id="cancel" class="button secondary" href="programs.html" hidden>Cancel</a></div>
+      </form>
+    </details>
+  </section>
+
+  <p id="msg" role="status"></p>
+  <section>
+    <div id="filters" class="chips"></div>
+    <div id="list"></div>
+    <p id="track-empty" class="muted" hidden>Nothing here yet.</p>
+    <div class="row"><button id="ics" class="secondary" hidden>Add deadlines to my calendar</button></div>
+  </section>
+
+  <p id="who" class="muted"></p>
+  <button id="track-import" class="secondary" hidden></button>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
+<script src="db.js"></script>
+<script src="app.js"></script>
+<script src="track.js"></script>
+</body>
+</html>

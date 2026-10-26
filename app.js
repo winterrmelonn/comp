@@ -120,7 +120,7 @@ if (typeof document === 'object') (async () => {
 
   const who = $('who');
   if (who) {
-    who.textContent = user ? `Logged in as ${user.email}. ` : 'Guest: hours are saved on this device only. ';
+    who.textContent = user ? `Logged in as ${user.email}. ` : 'Guest: everything is saved on this device only. ';
     who.append(el('a', { href: 'login.html', textContent: user ? 'Log out' : 'Log in' }));
   }
 
@@ -359,6 +359,7 @@ if (typeof document === 'object') (async () => {
       );
       if (p.details) card.append(el('p', { textContent: p.details }));
       if (p.clubs?.contact) card.append(el('p', { className: 'muted', textContent: `Contact: ${p.clubs.contact}` }));
+      card.append(el('a', { href: `programs.html?from=${encodeURIComponent(p.id)}`, textContent: 'Track this', className: 'button secondary' }));
       if (user && p.author_id === user.id) {
         const del = el('button', { textContent: 'Delete', className: 'secondary' });
         confirmClick(del, async () => { check(await sb.from('posts').delete().eq('id', p.id)); await showPosts(); });
