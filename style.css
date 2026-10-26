@@ -79,22 +79,25 @@ button:disabled { opacity: .4; cursor: default; }
 .nav a { justify-self: start; font: 2.5rem/1.1 var(--serif); text-decoration: none; transform-origin: 0 100%; transition: transform .6s cubic-bezier(.22, .61, .36, 1); }
 .nav a:hover, .nav a:focus-visible { transform: skewX(-10deg); }
 @media (prefers-reduced-motion: reduce) { .nav a { transition: none; } }
-#lilies ~ main .nav a { text-shadow: 0 0 6px #fff, 0 0 14px #fff, 0 0 24px #fff; }
-@media (max-width: 719px) { #lilies ~ main .nav a { font-size: 2rem; } }
+#lilies ~ main .nav a { padding: 3px 12px; border-radius: 6px; background: rgba(255, 255, 255, .55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+@media (max-width: 719px) { #lilies ~ main .nav a { font-size: 1.75rem; } }
 
-/* Wide screens: lilies.js places each link just off the bottom right of its own lily (left/top),
-   gives it a round hover area over that flower (--cx, --cy, --r), and sets --bloom (0..1) on hover
-   in step with the flower opening. */
+/* Wide screens: lilies.js places each link just under its own lily, beside the stem (left or right/top),
+   gives it a round hover area over that flower (--cx, --cy, --r), moves it with the sway (--sx, --sy),
+   and sets --bloom (0..1) on hover in step with the flower opening. */
 @media (min-width: 720px) {
   #lilies ~ main .nav a {
-    position: fixed; font-size: 1.5rem; white-space: nowrap;
-    transform-origin: 0 0; transform: scale(calc(1 + 0.08 * var(--bloom, 0))); transition: none;
+    position: fixed; font-size: 1.3rem; white-space: nowrap;
+    transform-origin: 0 0; transition: none;
+    transform: translate(var(--sx, 0px), var(--sy, 0px)) scale(calc(1 + 0.08 * var(--bloom, 0)));
   }
   #lilies ~ main .nav a::before {
     content: ''; position: absolute; border-radius: 50%;
     left: calc(var(--cx, 0px) - var(--r, 0px)); top: calc(var(--cy, 0px) - var(--r, 0px));
     width: calc(2 * var(--r, 0px)); height: calc(2 * var(--r, 0px));
   }
+  #lilies ~ main .nav a[data-side='left'] { transform-origin: 100% 0; }
+  #lilies ~ main .nav a[data-side='left']::before { left: auto; right: calc(-1 * (var(--cx, 0px) + var(--r, 0px))); }
   #lilies ~ main .nav a:focus-visible { outline: none; text-decoration: underline; }
 }
 

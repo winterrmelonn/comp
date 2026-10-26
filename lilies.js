@@ -121,6 +121,8 @@ links.forEach((a, i) => {
   a.addEventListener('blur', off);
 });
 
+const swayed = new THREE.Vector3(), resting = new THREE.Vector3(); // scratch vectors for the per-frame link offset
+
 // One lily whose flower head sits at (x, y, z). Lilies with a link `index` bloom on hover.
 function Lily({ seed, x, y, z, index }) {
   const { top, geos } = useMemo(() => buildLily(rng(seed), y + 4), [seed, y]);
@@ -130,7 +132,7 @@ function Lily({ seed, x, y, z, index }) {
   const mats = useMemo(() => index == null ? MATERIALS
     : Object.fromEntries(Object.entries(MATERIALS).map(([k, m]) => [k, m.clone()])), [index]);
 
-  useFrame(({ clock }, delta) => {
+  useFrame(({ clock, camera, size }, delta) => {
     if (!still) { // a slow breeze, swaying from the base
       const t = clock.elapsedTime;
       group.current.rotation.z = Math.sin(t * 0.5 + seed) * 0.018;
@@ -143,7 +145,15 @@ function Lily({ seed, x, y, z, index }) {
     mats.petal.color.lerpColors(COLORS.petal, COLORS.petalBloom, p);
     mats.stamen.color.lerpColors(COLORS.stamen, COLORS.stamenBloom, p);
     mats.petal.emissiveIntensity = p * 0.35;
-    links[index].style.setProperty('--bloom', p.toFixed(3));
+    const link = links[index].style;
+    link.setProperty('--bloom', p.toFixed(3));
+
+    // Let the link ride along as the flower head sways: on-screen offset from its resting spot
+    group.current.updateMatrixWorld();
+    const head = group.current.localToWorld(swayed.copy(top)).project(camera);
+    const rest = resting.set(x, y, z).project(camera);
+    link.setProperty('--sx', `${((head.x - rest.x) / 2) * size.width}px`);
+    link.setProperty('--sy', `${((rest.y - head.y) / 2) * size.height}px`);
   });
 
   return html`
@@ -158,10 +168,10 @@ function Lily({ seed, x, y, z, index }) {
 // x and z are world units, y is the flower head height (the view is about 6.3 tall, centred on 0).
 const WIDE = [
   { seed: 11, x: -4.3, z: 0.5, y: -0.4 },
-  { seed: 23, x: -3.0, z: -1.0, y: 0.6, index: 0 },
+  { seed: 23, x: -3.0, z: -1.0, y: 0.6, index: 0, gap: 0.25, drop: 0.7 },
   { seed: 37, x: -1.7, z: 0.9, y: -1.0 },
   { seed: 41, x: -0.4, z: -0.6, y: 0.1 },
-  { seed: 53, x: 0.9, z: 0.3, y: 0.9, index: 1 },
+  { seed: 53, x: 0.9, z: 0.3, y: 0.9, index: 1, side: 'left' },
   { seed: 67, x: 2.1, z: -1.2, y: 0.4, index: 2 },
   { seed: 71, x: 3.2, z: 0.8, y: -0.7 },
   { seed: 83, x: 4.3, z: -0.3, y: 0.8 },
@@ -184,7 +194,8 @@ function Garden() {
   const lilies = (narrow ? NARROW.map(l => ({ ...l, x: (l.fx - 0.5) * vp.width })) : WIDE)
     .map(l => ({ ...l, y: Math.min(l.y, maxY) }));
 
-  // Put each link just off the bottom right of its flower, and give it a round hover area over the flower
+  // Put each link just under its flower, beside the stem (on the right unless side: 'left'; gap and
+  // drop are how far from the stem and below the head, in world units), and give it a round hover area over the flower
   useLayoutEffect(() => {
     if (narrow) return links.forEach(a => a.removeAttribute('style'));
     camera.updateMatrixWorld();
@@ -193,13 +204,20 @@ function Garden() {
         const v = V(x, y, l.z).project(camera);
         return [(v.x + 1) / 2 * size.width, (1 - v.y) / 2 * size.height];
       };
-      const [cx, cy] = px(l.x, l.y), [lx, ly] = px(l.x + 0.5, l.y - 0.5), [rx] = px(l.x + 0.7, l.y);
-      const style = links[l.index].style;
-      style.left = `${lx}px`;
-      style.top = `${ly}px`;
-      style.setProperty('--cx', `${cx - lx}px`);
-      style.setProperty('--cy', `${cy - ly}px`);
-      style.setProperty('--r', `${rx - cx}px`);
+      const a = links[l.index];
+      const anchor = onLeft => px(l.x + (onLeft ? -1 : 1) * (l.gap ?? 0.12), l.y - (l.drop ?? 0.55));
+      let left = l.side === 'left';
+      let [ax, ay] = anchor(left);
+      const overflows = left ? ax - a.offsetWidth < 16 : ax + a.offsetWidth > size.width - 16;
+      if (overflows) [left, [ax, ay]] = [!left, anchor(!left)]; // no room on that side of the stem: use the other
+      const [cx, cy] = px(l.x, l.y), [rx] = px(l.x + 0.7, l.y);
+      a.dataset.side = left ? 'left' : 'right';
+      a.style.left = left ? 'auto' : `${ax}px`; // the anchor is the text's left edge, or its right edge for side: 'left'
+      a.style.right = left ? `${size.width - ax}px` : 'auto';
+      a.style.top = `${ay}px`;
+      a.style.setProperty('--cx', `${cx - ax}px`);
+      a.style.setProperty('--cy', `${cy - ay}px`);
+      a.style.setProperty('--r', `${rx - cx}px`);
     }
   }, [size.width, size.height]);
 
