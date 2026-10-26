@@ -107,6 +107,8 @@ if (typeof document === 'object') (async () => {
   // Accepts @handle or a pasted instagram.com link
   const igHandle = v => v.trim().replace(/^(https?:\/\/)?(www\.)?instagram\.com\//i, '').replace(/^@/, '').replace(/[/?].*$/, '');
   const validHandle = h => /^[A-Za-z0-9._]{1,30}$/.test(h);
+  const IG_ICON = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
+    + '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>';
   const myClubs = async () => user ? check(await sb.from('clubs').select().eq('leader_id', user.id).order('name')) : [];
 
   // Pages that need an account hide their form for guests
@@ -236,9 +238,10 @@ if (typeof document === 'object') (async () => {
     $('p-school').textContent = profile.school || '';
     $('p-leads').textContent = leads.length ? `Club leader · ${leads.map(c => c.name).join(', ')}` : '';
     if (validHandle(profile.instagram || '')) {
-      $('p-insta').replaceChildren(el('a', {
-        href: `https://www.instagram.com/${profile.instagram}/`, textContent: `@${profile.instagram}`, target: '_blank', rel: 'noopener',
-      }));
+      const link = el('a', { href: `https://www.instagram.com/${profile.instagram}/`, target: '_blank', rel: 'noopener' });
+      link.innerHTML = IG_ICON;
+      link.append(`@${profile.instagram}`);
+      $('p-insta').replaceChildren(link);
     }
     $('p-clubs').replaceChildren(...profile.memberships.map(m => {
       const li = el('li');
