@@ -27,8 +27,8 @@ input:focus, textarea:focus, select:focus { outline: none; border-bottom-width: 
 .grid { display: grid; gap: 32px 24px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 .row { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 32px; }
 
-button, a.button { display: inline-block; font: .8rem var(--mono); text-transform: uppercase; letter-spacing: .08em; text-decoration: none; padding: 14px 36px; color: #fff; background: var(--text); border: 1px solid var(--text); border-radius: 999px; cursor: pointer; }
-button.secondary, a.button.secondary { color: var(--text); background: none; }
+button, a.button, label.button { display: inline-block; font: .8rem var(--mono); text-transform: uppercase; letter-spacing: .08em; text-decoration: none; padding: 14px 36px; color: #fff; background: var(--text); border: 1px solid var(--text); border-radius: 999px; cursor: pointer; }
+button.secondary, a.button.secondary, label.button.secondary { color: var(--text); background: none; }
 td button, td a.button { padding: 4px 12px; font-size: .7rem; margin-right: 6px; }
 .actions { white-space: nowrap; }
 .thumb { display: block; width: 48px; height: 48px; object-fit: cover; border-radius: 4px; }
@@ -98,6 +98,14 @@ button.chip[aria-pressed="true"] { color: #fff; background: var(--text); }
 .track select { width: auto; margin: 0 8px 0 0; padding: 6px 0; }
 .post .button, .track .row button { padding: 6px 18px; font-size: .7rem; }
 .upcoming { margin-top: 64px; }
+.upcoming li .title { font: 1.5rem var(--serif); }
+.home-hours { margin-bottom: 48px; }
+.home-hours .big { text-decoration: none; }
+.cal-links { display: flex; gap: 16px; flex-wrap: wrap; }
+.steps { padding-left: 18px; }
+.steps li { margin-bottom: 6px; }
+#cal-sources li { display: flex; align-items: center; gap: 8px; text-transform: none; letter-spacing: 0; }
+#cal-sources button.chip { padding: 2px 10px; }
 .upcoming ul { list-style: none; padding: 0; margin: 0; }
 .upcoming li { display: grid; grid-template-columns: 1fr auto; gap: 0 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }
 .upcoming li .label { grid-column: 1 / -1; color: var(--muted); }

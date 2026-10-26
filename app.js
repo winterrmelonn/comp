@@ -131,6 +131,7 @@ if (typeof document === 'object') (async () => {
     const entries = await hours.list().catch(() => []);
     $('orgs').replaceChildren(...[...new Set(entries.map(e => e.org))].map(o => new Option(o)));
     form.date.value = today();
+    form.date.max = today();
 
     const preview = $('photo-preview');
     const showPreview = src => { preview.src = src || ''; preview.hidden = !src; };

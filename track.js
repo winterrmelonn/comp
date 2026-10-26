@@ -61,7 +61,52 @@ function toICS(items) {
   return lines.join('\r\n');
 }
 
-if (typeof module === 'object') module.exports = { daysUntil, deadlineText, sortTracked, trackSummary, safeUrl, toICS };
+// One-click "add to calendar" links; no account connection needed
+function calendarLinks(item) {
+  const next = new Date(Date.parse(item.deadline) + 864e5).toISOString().slice(0, 10);
+  const title = `${item.name} deadline`;
+  const details = [item.org, item.link].filter(Boolean).join('\n');
+  const q = params => new URLSearchParams(params).toString();
+  return {
+    google: `https://calendar.google.com/calendar/render?${q({ action: 'TEMPLATE', text: title, dates: `${item.deadline.replace(/-/g, '')}/${next.replace(/-/g, '')}`, details })}`,
+    outlook: `https://outlook.live.com/calendar/0/deeplink/compose?${q({ path: '/calendar/action/compose', rru: 'addevent', subject: title, startdt: item.deadline, enddt: next, allday: 'true', body: details })}`,
+  };
+}
+
+// CSV with a header row; Notion's CSV import turns it into a database
+function csvOf(rows) {
+  if (!rows.length) return '';
+  const cols = Object.keys(rows[0]);
+  const esc = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
+  return [cols.map(esc).join(','), ...rows.map(r => cols.map(c => esc(r[c])).join(','))].join('\n');
+}
+
+// Events from a calendar file (Canvas calendar feed, Google Calendar export...) as { title, date: YYYY-MM-DD }
+function parseICS(text) {
+  const lines = String(text).replace(/\r?\n[ \t]/g, '').split(/\r?\n/);
+  const unesc = v => v.replace(/\\n/gi, ' ').replace(/\\([,;\\])/g, '$1').trim();
+  const events = [];
+  let ev = null;
+  for (const line of lines) {
+    if (line === 'BEGIN:VEVENT') ev = {};
+    else if (line === 'END:VEVENT') { if (ev?.title && ev.date) events.push(ev); ev = null; }
+    else if (ev) {
+      const i = line.indexOf(':');
+      const key = line.slice(0, i).split(';')[0];
+      const value = line.slice(i + 1);
+      if (key === 'SUMMARY') ev.title = unesc(value);
+      if (key === 'DTSTART' || (key === 'DUE' && !ev.date)) {
+        const m = value.match(/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2})(\d{2})(Z)?)?/);
+        if (!m) continue;
+        // UTC times (Canvas uses these) become the local day; everything else keeps its written date
+        ev.date = m[7] ? new Date(Date.UTC(m[1], m[2] - 1, m[3], m[4], m[5], m[6])).toLocaleDateString('en-CA') : `${m[1]}-${m[2]}-${m[3]}`;
+      }
+    }
+  }
+  return events;
+}
+
+if (typeof module === 'object') module.exports = { daysUntil, deadlineText, sortTracked, trackSummary, safeUrl, toICS, calendarLinks, csvOf, parseICS };
 
 // UI
 if (typeof document === 'object') (async () => {
@@ -104,7 +149,7 @@ if (typeof document === 'object') (async () => {
     catch { alert("Couldn't save in this browser. Log in to keep your list in your account."); }
   };
 
-  // Logged in: data lives in Supabase (table in supabase-3.sql)
+  // Logged in: data lives in Supabase (table in supabase-5.sql)
   const user = sb ? (await sb.auth.getSession()).data.session?.user : null;
   const check = ({ data, error }) => { if (error) throw error; return data; };
   const explain = err => err?.code === 'PGRST205' ? "tracking isn't set up for accounts yet (supabase-5.sql hasn't been run)." : err?.message;
@@ -163,6 +208,15 @@ if (typeof document === 'object') (async () => {
         c.lastChild.append(el('a', { href, target: '_blank', rel: 'noopener noreferrer', textContent: 'Open link ↗', className: 'label' }));
       }
 
+      if (i.deadline && days >= 0 && !DONE.includes(i.status)) {
+        const cal = calendarLinks(i);
+        c.append(el('p', { className: 'cal-links' }));
+        c.lastChild.append(
+          el('a', { href: cal.google, target: '_blank', rel: 'noopener noreferrer', textContent: '+ Google Calendar', className: 'label' }),
+          el('a', { href: cal.outlook, target: '_blank', rel: 'noopener noreferrer', textContent: '+ Outlook', className: 'label' }),
+        );
+      }
+
       const status = el('select', { ariaLabel: 'Status' });
       status.replaceChildren(...STATUSES.map(s => new Option(statusLabel(kind, s), s, false, s === i.status)));
       status.onchange = async () => {
@@ -201,6 +255,7 @@ if (typeof document === 'object') (async () => {
       $('list').replaceChildren(...shown.map(card));
       $('track-empty').hidden = shown.length > 0;
       $('ics').hidden = !items.some(i => i.deadline && !DONE.includes(i.status));
+      $('export').hidden = !items.length;
     };
 
     const refresh = async () => {
@@ -265,10 +320,17 @@ if (typeof document === 'object') (async () => {
       btn.disabled = false;
     };
 
-    $('ics').onclick = () => {
-      const a = el('a', { href: URL.createObjectURL(new Blob([toICS(items)], { type: 'text/calendar' })), download: `${kind}-deadlines.ics` });
-      a.click();
-    };
+    const download = (text, type, name) => el('a', { href: URL.createObjectURL(new Blob([text], { type })), download: name }).click();
+    $('ics').onclick = () => download(toICS(items), 'text/calendar', `${kind}-deadlines.ics`);
+    $('notion').onclick = () => download(csvOf(sortTracked(items).map(i => ({
+      Name: i.name,
+      [kind === 'scholarship' ? 'Offered by' : 'Run by']: i.org ?? '',
+      ...(kind === 'scholarship' ? { Amount: i.amount ?? '' } : { Type: i.category ?? '' }),
+      Deadline: i.deadline ?? '',
+      Status: statusLabel(kind, i.status),
+      Link: safeUrl(i.link) ?? '',
+      Notes: i.notes ?? '',
+    }))), 'text/csv', `comp-${KINDS[kind].page.replace('.html', '')}.csv`);
 
     // Items tracked as a guest on this device can be moved into the account
     const mine = local.filter(i => i.kind === kind);
@@ -294,19 +356,70 @@ if (typeof document === 'object') (async () => {
     document.body.classList.remove('loading');
   }
 
-  // home.html: next deadlines across scholarships and programs
+  // home.html: hours progress, then upcoming deadlines from scholarships, programs and imported calendars
   if ($('upcoming')) {
+    const CAL_KEY = 'comp-calendars';
+    let calendars = [];
+    try { calendars = JSON.parse(localStorage.getItem(CAL_KEY)) || []; } catch {}
+    const saveCalendars = () => {
+      try { localStorage.setItem(CAL_KEY, JSON.stringify(calendars)); return true; }
+      catch { say("Couldn't save that calendar in this browser."); return false; }
+    };
+
+    // Hours: same sources as the profile page (Supabase when logged in, else this browser)
+    let guestHours = [];
+    try { guestHours = JSON.parse(localStorage.getItem('comp'))?.entries || []; } catch {}
+    const hourRows = user ? await sb.from('hours').select('hours').then(r => r.data || []) : guestHours;
+    const total = Math.round(hourRows.reduce((sum, e) => sum + Number(e.hours), 0) * 100) / 100;
+    $('h-total').textContent = total;
+    $('h-bar').value = Math.min(total, 160);
+
     const items = await tracked.list().catch(() => []);
-    const soon = sortTracked(items.filter(i => isActive(i) && i.deadline && daysUntil(i.deadline, today()) >= 0)).slice(0, 5);
-    $('upcoming').replaceChildren(...soon.map(i => {
-      const li = el('li');
-      li.append(
-        el('span', { className: 'label', textContent: `${shortDate(i.deadline)} · ${deadlineText(i.deadline, today())}` }),
-        el('a', { href: KINDS[i.kind].page, textContent: i.name }),
-        el('span', { className: 'muted', textContent: KINDS[i.kind].label }),
-      );
-      return li;
-    }));
-    $('upcoming-section').hidden = !soon.length;
+
+    const render = () => {
+      const t = today();
+      const fromTrackers = items.filter(i => isActive(i) && i.deadline && daysUntil(i.deadline, t) >= 0)
+        .map(i => ({ date: i.deadline, title: i.name, source: KINDS[i.kind].label, href: KINDS[i.kind].page }));
+      // Calendars can hold hundreds of events, so only the next two weeks of those
+      const fromCalendars = calendars.flatMap(c => c.events
+        .filter(e => daysUntil(e.date, t) >= 0 && daysUntil(e.date, t) <= 14)
+        .map(e => ({ ...e, source: c.name })));
+      const soon = [...fromTrackers, ...fromCalendars].sort((a, b) => a.date.localeCompare(b.date)).slice(0, 8);
+
+      $('upcoming').replaceChildren(...soon.map(i => {
+        const li = el('li');
+        li.append(
+          el('span', { className: 'label', textContent: `${shortDate(i.date)} · ${deadlineText(i.date, t)}` }),
+          i.href ? el('a', { href: i.href, textContent: i.title }) : el('span', { className: 'title', textContent: i.title }),
+          el('span', { className: 'muted', textContent: i.source }),
+        );
+        return li;
+      }));
+      $('upcoming-empty').hidden = soon.length > 0;
+
+      $('cal-sources').replaceChildren(...calendars.map((c, n) => {
+        const li = el('li', { textContent: `${c.name} · ${c.events.length} events ` });
+        const x = el('button', { className: 'chip', textContent: 'Remove', type: 'button' });
+        x.onclick = () => { calendars.splice(n, 1); saveCalendars(); render(); };
+        li.append(x);
+        return li;
+      }));
+    };
+
+    $('ics-file').onchange = async ev => {
+      const file = ev.target.files[0];
+      ev.target.value = '';
+      if (!file) return;
+      const text = await file.text();
+      // Drop old events so big feeds fit in localStorage
+      const events = parseICS(text).filter(e => daysUntil(e.date, today()) >= -1).slice(0, 500);
+      if (!events.length) { say(`No upcoming events found in ${file.name}.`); return; }
+      const name = text.match(/^X-WR-CALNAME:(.+)$/m)?.[1].trim() || file.name.replace(/\.ics$/i, '');
+      calendars = calendars.filter(c => c.name !== name).concat({ name, events });
+      if (saveCalendars()) say(`Imported ${events.length} upcoming events from ${name}.`);
+      render();
+    };
+
+    render();
   }
 })();
