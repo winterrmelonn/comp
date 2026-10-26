@@ -19,7 +19,8 @@ if (!sb) {
 } else {
   const showSession = session => {
     form.hidden = !!session;
-    $('logout').hidden = !session;
+    $('session').hidden = !session;
+    $('links').hidden = !!session;
     $('msg').textContent = session ? `Logged in as ${session.user.email}.` : '';
   };
   sb.auth.getSession().then(({ data }) => showSession(data.session));
@@ -34,7 +35,7 @@ if (!sb) {
       if (error?.name === 'AuthRetryableFetchError') throw error;
       if (error) $('msg').textContent = error.message;
       else if (!data.session) $('msg').textContent = 'Check your email to confirm your account, then log in.';
-      else location.href = 'home.html';
+      else location.href = signingUp ? 'edit-profile.html' : 'home.html';
     } catch {
       $('msg').textContent = "Couldn't reach the server. Check your connection and try again.";
     }

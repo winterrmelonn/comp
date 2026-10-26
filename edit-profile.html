@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edit profile · comp.</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top"><a class="label" href="home.html">Menu</a><a class="brand" href="home.html">comp.</a><a class="label" href="profile.html">Profile</a></header>
+<main class="narrow">
+  <h1>Edit profile</h1>
+  <form id="profile-form" class="stack">
+    <label>Name <input name="name" autocomplete="name" required></label>
+    <label>School <input name="school"></label>
+    <label>Clubs you're in <input name="clubs" placeholder="Key Club, Robotics"></label>
+    <p class="muted">Separate clubs with commas.</p>
+    <button>Save</button>
+  </form>
+  <p id="msg" role="status"></p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
+<script src="db.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Club leaders · comp.</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top"><a class="label" href="home.html">Menu</a><a class="brand" href="home.html">comp.</a><a class="label" href="profile.html">Profile</a></header>
+<main class="narrow">
+  <h1>Register your club</h1>
+  <p class="muted">Club leaders can post volunteer events on Find opportunities.</p>
+  <section id="my-clubs-section" hidden>
+    <h2>Clubs you lead</h2>
+    <ul id="my-clubs" class="tags"></ul>
+  </section>
+  <form id="club-form" class="stack">
+    <label>Club name <input name="name" required></label>
+    <label>What the club does <textarea name="description" rows="3"></textarea></label>
+    <label>When and where you meet <input name="meets" placeholder="Tuesdays at lunch, Room 204"></label>
+    <label>Contact (email or Instagram) <input name="contact"></label>
+    <button>Register club</button>
+  </form>
+  <p id="msg" role="status"></p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
+<script src="db.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

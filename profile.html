@@ -6,14 +6,14 @@
 <title>Profile · comp.</title>
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="loading">
 <header class="top"><a class="label" href="home.html">Menu</a><a class="brand" href="home.html">comp.</a><a class="label" href="profile.html">Profile</a></header>
 <main>
   <section>
-    <div class="grid">
-      <label>Your name <input id="name" autocomplete="name"></label>
-      <label>School <input id="school"></label>
-    </div>
+    <h1 id="p-name" class="name"></h1>
+    <p id="p-school" class="muted"></p>
+    <ul id="p-clubs" class="tags"></ul>
+    <a class="button secondary no-print" href="edit-profile.html">Edit profile</a>
   </section>
 
   <section>
@@ -41,8 +41,10 @@
     <p class="print-only"><br>Student signature ______________________ &nbsp; Date __________</p>
   </section>
 
+  <p id="msg" role="status" class="no-print"></p>
   <p id="who" class="muted no-print"></p>
   <button id="import" class="secondary no-print" hidden></button>
+  <p class="no-print"><a class="label" href="club.html">I'm a club leader →</a></p>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
 <script src="db.js"></script>

@@ -9,11 +9,30 @@
 <body>
 <header class="top"><a class="label" href="home.html">Menu</a><a class="brand" href="home.html">comp.</a><a class="label" href="profile.html">Profile</a></header>
 <main>
-  <section>
-    <h1>Find opportunities</h1>
-    <!-- TODO: club leader posts go here -->
-    <p class="muted">Club leaders will post their volunteer events here soon.</p>
+  <h1>Find opportunities</h1>
+
+  <section id="post-section" hidden>
+    <h2>Post an opportunity</h2>
+    <form id="post-form" class="grid">
+      <label>Club <select name="club_id" required></select></label>
+      <label>Event <input name="title" required></label>
+      <label>Date <input name="date" type="date" required></label>
+      <label>Time <input name="time" placeholder="9am–12pm"></label>
+      <label>Location <input name="location"></label>
+      <label class="wide">Details <textarea name="details" rows="3"></textarea></label>
+      <div><button>Post</button></div>
+    </form>
   </section>
+
+  <p id="msg" role="status"></p>
+  <section>
+    <div id="posts"></div>
+    <p id="empty" class="muted" hidden>No upcoming opportunities yet.</p>
+  </section>
+  <p id="leader-hint" class="muted">Run a club? <a href="club.html">Register it</a> to post opportunities here.</p>
 </main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
+<script src="db.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
