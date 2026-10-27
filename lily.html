@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>comp.</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2250%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2260%22 font-family=%22Georgia,serif%22 fill=%22white%22 text-anchor=%22middle%22%3Ec.%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="lily.css">
+</head>
+<body>
+<!-- Lily UI: the home page from before the redesign, switched on from the sidebar (shell.js sends home.html here) -->
+<div id="lilies" aria-hidden="true"></div>
+<header class="top">
+  <a class="label" href="login.html">Account</a>
+  <a class="brand" href="lily.html">comp.</a>
+  <div class="top-right">
+    <label class="switch label"><input type="checkbox" id="lily" role="switch" checked><span class="track"></span>Lily UI</label>
+    <a class="label" href="profile.html">Profile</a>
+  </div>
+</header>
+
+<!-- First screen: the three main links sit on lilies (lilies.js), the other pages in a row below -->
+<nav class="nav home-nav">
+  <a href="log.html">Log volunteer hours</a>
+  <a href="profile.html">My profile</a>
+  <a href="discover.html?type=event">Find opportunities</a>
+  <div class="more">
+    <a class="label" href="scholarships.html">Scholarships</a>
+    <a class="label" href="programs.html">Programs</a>
+    <a class="label" href="colleges.html">Colleges</a>
+    <a class="label" href="resume.html">Resume</a>
+    <a class="label" href="discover.html">Discover</a>
+    <a class="label" href="calendar.html">Calendar</a>
+    <a class="label" href="study.html">Study</a>
+    <a class="label" href="submit-event.html">Submit an event</a>
+    <a class="label" href="settings.html">Settings</a>
+    <a class="label" href="review.html" id="nav-review" hidden>Review events</a>
+  </div>
+</nav>
+
+<main>
+  <section class="home-hours">
+    <a href="profile.html" class="big"><span id="h-total">0</span> / <span id="h-goal">100</span> hours</a>
+    <progress id="h-bar" max="100" value="0"></progress>
+    <p class="muted"><span id="h-pct">0%</span> · <span id="h-left"></span></p>
+  </section>
+
+  <section class="upcoming">
+    <h2>Coming up</h2>
+    <ul id="upcoming"></ul>
+    <p id="upcoming-empty" class="muted">Nothing due yet. Add a <a href="scholarships.html">scholarship</a> or <a href="programs.html">program</a>, or <a href="calendar.html">connect a calendar</a>.</p>
+  </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
+<script src="db.js"></script>
+<script>
+  window.compGoal = () => { try { return Number(localStorage.getItem('comp-goal')) || 100; } catch { return 100; } }; // same as shell.js
+  document.getElementById('lily').onchange = () => {
+    try { localStorage.setItem('comp-lily', '0'); } catch {}
+    location.href = 'home.html';
+  };
+  sb?.auth.getSession().then(async ({ data }) => { // reviewers get a Review link, as in the sidebar
+    if (data.session && (await sb.rpc('is_reviewer')).data) document.getElementById('nav-review').hidden = false;
+  });
+</script>
+<script src="track.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@19.3.0",
+    "react/jsx-runtime": "https://esm.sh/react@19.3.0/jsx-runtime",
+    "react-dom": "https://esm.sh/react-dom@19.3.0?external=react",
+    "react-dom/client": "https://esm.sh/react-dom@19.3.0/client?external=react",
+    "three": "https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/",
+    "@react-three/fiber": "https://esm.sh/@react-three/fiber@9.8.1?external=react,react-dom,three",
+    "maath/easing": "https://esm.sh/maath@0.10.8/easing?external=three",
+    "htm": "https://esm.sh/htm@3.1.1"
+  }
+}
+</script>
+<script type="module" src="lilies.js"></script>
+</body>
+</html>

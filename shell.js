@@ -26,6 +26,12 @@
   const link = (href, ic, text) => `<a href="${href}">${icon(I[ic])}<span>${text}</span></a>`;
   const brand = '<a class="brand" href="home.html"><span class="logo">c.</span>comp.</a>';
 
+  // Lily UI switch (sidebar footer): Home becomes the lily page from before the redesign (lily.html)
+  const here = location.pathname.split('/').pop() || 'home.html';
+  let lily = false;
+  try { lily = localStorage.getItem('comp-lily') === '1'; } catch {}
+  if (lily && here === 'home.html') return location.replace('lily.html');
+
   document.body.classList.add('shell');
   document.body.insertAdjacentHTML('afterbegin', `
 <aside class="side" id="side" aria-label="Main">
@@ -47,6 +53,7 @@
     <a href="review.html" id="nav-review" hidden>${icon(I.shield)}<span>Review events</span></a>
   </nav>
   <div class="side-foot">
+    <label class="switch"><input type="checkbox" id="lily-ui" role="switch"><span class="track"></span>Lily UI</label>
     <nav>${link('settings.html', 'gear', 'Settings')}${link('login.html', 'account', 'Account')}</nav>
   </div>
 </aside>
@@ -68,7 +75,6 @@
     } catch {}
   });
 
-  const here = location.pathname.split('/').pop() || 'home.html';
   const store = { get: (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } }, set: (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} } };
 
   // Installable app with offline support
@@ -139,6 +145,11 @@
     d.showModal();
   };
   if (here === 'home.html') addEventListener('DOMContentLoaded', () => window.compSetup());
+  document.getElementById('lily-ui').onchange = () => {
+    try { localStorage.setItem('comp-lily', '1'); } catch {}
+    location.href = 'lily.html';
+  };
+
   const alias = { 'edit-profile.html': 'profile.html' };
   document.querySelectorAll('.side nav a').forEach(a => {
     if (a.getAttribute('href') === (alias[here] || here)) a.setAttribute('aria-current', 'page');
