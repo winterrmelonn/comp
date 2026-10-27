@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resume · comp.</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2224%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2256%22 font-weight=%22700%22 font-family=%22Inter,Arial,sans-serif%22 fill=%22white%22 text-anchor=%22middle%22%3Ec.%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#191919" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<script src="theme.js"></script>
+</head>
+<body>
+<script src="shell.js"></script>
+<main class="resume-page">
+  <div class="page-head no-print">
+    <h1>Resume</h1>
+    <p class="muted">Turn your hours, clubs and awards into a one-page resume and a Common App–style activities list. It fills in from what you've logged; edit anything.</p>
+  </div>
+  <p id="msg" role="status" class="no-print"></p>
+
+  <div class="tabs no-print" role="group" aria-label="View">
+    <button type="button" class="tab" data-view="edit" aria-pressed="true">Edit</button>
+    <button type="button" class="tab" data-view="resume" aria-pressed="false">Resume preview</button>
+    <button type="button" class="tab" data-view="commonapp" aria-pressed="false">Common App list</button>
+  </div>
+
+  <div id="edit">
+    <section class="card">
+      <h2>About you</h2>
+      <div class="grid" id="header-fields">
+        <label>Name <input data-h="name" autocomplete="name"></label>
+        <label>School <input data-h="school"></label>
+        <label>Graduation year <input data-h="gradYear" inputmode="numeric" placeholder="2028"></label>
+        <label>Email <input data-h="email" type="email" autocomplete="email"></label>
+        <label class="wide">Skills &amp; languages <input data-h="skills" placeholder="Spanish (fluent), Python, Photoshop"></label>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-h"><h2>Activities <span class="muted" id="act-count"></span></h2>
+        <div class="row" style="margin:0"><button type="button" class="secondary" id="import">Fill in from my hours &amp; clubs</button><button type="button" id="add-act">+ Activity</button></div></div>
+      <p class="muted" style="font-size:12.5px">Common App allows 10 activities: position (50 characters), organization (100) and description (150). Put the most important first.</p>
+      <div id="acts"></div>
+    </section>
+
+    <section class="card">
+      <div class="card-h"><h2>Honors &amp; awards</h2><button type="button" id="add-award">+ Award</button></div>
+      <div id="awards"></div>
+    </section>
+  </div>
+
+  <article id="resume" class="paper" hidden></article>
+  <div id="commonapp" hidden></div>
+
+  <div class="row no-print"><button type="button" id="print">Print or save as PDF</button><button type="button" id="copy" class="secondary">Copy Common App list</button></div>
+  <p class="muted no-print" style="font-size:12.5px">Saved on this device as you type. Include it in your backups (Settings).</p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
+<script src="db.js"></script>
+<script src="resume.js"></script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+{
+ "note": "Grade-by-grade checklist for Home and the senior timeline on Colleges. 'month' is when it usually happens (1–12); 'date' only where the official date is fixed. Check each college's own deadlines.",
+ "grades": {
+  "9": [
+   {
+    "id": "9-clubs",
+    "month": 9,
+    "text": "Join one or two clubs or activities you actually enjoy",
+    "link": "discover.html"
+   },
+   {
+    "id": "9-hours",
+    "month": 9,
+    "text": "Start logging volunteer hours from day one, with a supervisor for each",
+    "link": "log.html"
+   },
+   {
+    "id": "9-plan",
+    "month": 10,
+    "text": "Meet your counselor and sketch a 4-year course plan (in California, check the UC/CSU A–G list)"
+   },
+   {
+    "id": "9-grades",
+    "month": 12,
+    "text": "Make your first semester count. Freshman grades go on your transcript"
+   },
+   {
+    "id": "9-summer",
+    "month": 2,
+    "text": "Look for a free summer program, camp or volunteer role",
+    "link": "discover.html?type=program&grade=9"
+   },
+   {
+    "id": "9-resume",
+    "month": 5,
+    "text": "Write down every activity, award and job so far",
+    "link": "resume.html"
+   }
+  ],
+  "10": [
+   {
+    "id": "10-psat",
+    "month": 10,
+    "text": "Take the PSAT 10 or PSAT 8/9 if your school offers it (practice for junior year)",
+    "link": "study.html?group=tests"
+   },
+   {
+    "id": "10-lead",
+    "month": 9,
+    "text": "Go deeper in one or two activities: aim for a bigger role or project"
+   },
+   {
+    "id": "10-hours",
+    "month": 11,
+    "text": "Check your volunteer hours against your goal",
+    "link": "profile.html"
+   },
+   {
+    "id": "10-ap",
+    "month": 2,
+    "text": "Choose junior-year classes: challenge yourself where you're strong"
+   },
+   {
+    "id": "10-summer",
+    "month": 1,
+    "text": "Apply to summer programs and competitions (many close Jan–Mar)",
+    "link": "discover.html?type=program&grade=10"
+   },
+   {
+    "id": "10-resume",
+    "month": 5,
+    "text": "Update your activities list and resume",
+    "link": "resume.html"
+   }
+  ],
+  "11": [
+   {
+    "id": "11-psat",
+    "month": 10,
+    "text": "Take the PSAT/NMSQT in October: junior scores decide National Merit",
+    "link": "study.html?group=tests"
+   },
+   {
+    "id": "11-list",
+    "month": 11,
+    "text": "Start a college list with reach, match and likely schools",
+    "link": "colleges.html"
+   },
+   {
+    "id": "11-test",
+    "month": 12,
+    "text": "Plan your SAT or ACT: first try by spring, retake in summer or fall if needed",
+    "link": "study.html?group=tests"
+   },
+   {
+    "id": "11-summer",
+    "month": 1,
+    "text": "Apply to summer programs, research and internships",
+    "link": "discover.html?type=program&grade=11"
+   },
+   {
+    "id": "11-recs",
+    "month": 4,
+    "text": "Ask two junior-year teachers for recommendation letters before summer"
+   },
+   {
+    "id": "11-ap",
+    "month": 5,
+    "text": "Take your AP exams in May",
+    "link": "study.html?mine=1"
+   },
+   {
+    "id": "11-visit",
+    "month": 4,
+    "text": "Visit colleges (virtual tours count) and note what you like"
+   },
+   {
+    "id": "11-essay",
+    "month": 6,
+    "text": "Draft your personal essay (and the UC Personal Insight Questions if applying to UCs)"
+   },
+   {
+    "id": "11-resume",
+    "month": 7,
+    "text": "Turn your activities into a Common App-style list",
+    "link": "resume.html"
+   }
+  ],
+  "12": [
+   {
+    "id": "12-commonapp",
+    "month": 8,
+    "text": "Common App opens August 1: create your account and finalize your list",
+    "link": "colleges.html"
+   },
+   {
+    "id": "12-recs",
+    "month": 9,
+    "text": "Confirm recommenders and request transcripts and test scores"
+   },
+   {
+    "id": "12-fafsa",
+    "month": 10,
+    "text": "Fill out the FAFSA (and CSS Profile if your colleges require it) as soon as it opens"
+   },
+   {
+    "id": "12-ea",
+    "month": 10,
+    "text": "Early Action and Early Decision deadlines are usually Nov 1 or Nov 15",
+    "link": "colleges.html"
+   },
+   {
+    "id": "12-uc",
+    "month": 11,
+    "date": "2026-11-30",
+    "text": "University of California application due November 30 (filing opens Oct 1)",
+    "link": "https://admission.universityofcalifornia.edu/how-to-apply/applying-as-a-freshman/",
+    "short": "UC application due"
+   },
+   {
+    "id": "12-csu",
+    "month": 11,
+    "text": "Cal State applications open Oct 1. Check Cal State Apply for this year's deadline",
+    "link": "https://www.calstate.edu/apply/freshman"
+   },
+   {
+    "id": "12-rd",
+    "month": 12,
+    "text": "Regular Decision deadlines are usually Jan 1–15",
+    "link": "colleges.html"
+   },
+   {
+    "id": "12-scholar",
+    "month": 1,
+    "text": "Apply to scholarships: many close January through March",
+    "link": "discover.html?type=scholarship&grade=12"
+   },
+   {
+    "id": "12-aid",
+    "month": 3,
+    "text": "Compare financial aid offers side by side, and ask about appeals"
+   },
+   {
+    "id": "12-decide",
+    "month": 5,
+    "date": "2027-05-01",
+    "text": "National College Decision Day: commit and pay your deposit by May 1",
+    "short": "College Decision Day (commit by May 1)"
+   },
+   {
+    "id": "12-final",
+    "month": 6,
+    "text": "Send your final transcript and thank your recommenders"
+   }
+  ]
+ }
+}
