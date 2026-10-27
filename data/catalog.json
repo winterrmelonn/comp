@@ -1,42 +1,2214 @@
 {
-  "checked": "2026-10-26",
-  "items": [
-    { "id": "elks-mvs", "kind": "scholarship", "name": "Elks Most Valuable Student", "org": "Elks National Foundation", "url": "https://www.elks.org/scholars/scholarships/mvs.cfm", "amount": 30000, "amountText": "$4,000–$30,000", "deadline": "2026-11-12", "verified": true, "grades": [12], "fields": ["general", "leadership"], "basis": "both", "region": "National", "summary": "500 four-year awards for seniors, judged on scholarship, leadership and financial need. U.S. citizens only; no Elks connection needed." },
-    { "id": "jkcf", "kind": "scholarship", "name": "Jack Kent Cooke College Scholarship", "org": "Jack Kent Cooke Foundation", "url": "https://www.jkcf.org/our-scholarships/college-scholarship-program/", "amount": 55000, "amountText": "Up to $55,000 a year", "deadline": "2026-11-11", "verified": true, "grades": [12], "fields": ["general"], "basis": "need", "region": "National", "summary": "Last-dollar funding for high-achieving seniors with financial need, renewable through a bachelor's degree." },
-    { "id": "ron-brown", "kind": "scholarship", "name": "Ron Brown Scholar Program", "org": "Ron Brown Scholar Program", "url": "https://www.ronbrown.org/apply", "amount": 40000, "amountText": "$40,000 ($10,000 a year)", "deadline": "2026-12-01", "verified": true, "grades": [12], "fields": ["leadership", "service"], "basis": "both", "region": "National", "summary": "For Black/African American seniors showing academic excellence, leadership, community service and financial need." },
-    { "id": "live-mas", "kind": "scholarship", "name": "Live Más Scholarship", "org": "Taco Bell Foundation", "url": "https://www.tacobellfoundation.org/live-mas-scholarship/", "amount": 25000, "amountText": "Up to $25,000", "deadline": "2027-01-05", "verified": true, "grades": [11, 12], "fields": ["general", "arts"], "basis": "contest", "region": "National", "summary": "Passion-based: apply with a short video about what drives you instead of grades or test scores." },
-    { "id": "voice-of-democracy", "kind": "scholarship", "name": "Voice of Democracy", "org": "Veterans of Foreign Wars", "url": "https://www.vfw.org/community/youth-and-education/youth-scholarships", "amount": 35000, "amountText": "Up to $35,000", "deadline": "2026-10-31", "verified": true, "grades": [9, 10, 11, 12], "fields": ["writing", "humanities"], "basis": "contest", "region": "National", "summary": "Audio-essay contest on a patriotic theme, entered through a local VFW Post. Local and state prizes too." },
-    { "id": "coolidge", "kind": "scholarship", "name": "Coolidge Scholarship", "org": "Calvin Coolidge Presidential Foundation", "url": "https://www.coolidgescholars.org/", "amount": null, "amountText": "Full tuition, room and board", "deadline": null, "dueMonth": 12, "verified": false, "grades": [11], "fields": ["humanities", "general"], "basis": "merit", "region": "National", "summary": "Full four-year merit scholarship for juniors with an interest in public policy, economics or the humanities." },
-    { "id": "burger-king", "kind": "scholarship", "name": "Burger King Scholars", "org": "Burger King Foundation", "url": "https://burgerkingfoundation.org/", "amount": 60000, "amountText": "$1,000–$60,000", "deadline": null, "dueMonth": 12, "verified": false, "grades": [12], "fields": ["general", "service"], "basis": "both", "region": "National", "summary": "Weighs GPA, work experience, activities, community service and need. Closes early once it hits its application cap." },
-    { "id": "dell-scholars", "kind": "scholarship", "name": "Dell Scholars Program", "org": "Michael & Susan Dell Foundation", "url": "https://www.dellscholars.org/", "amount": 20000, "amountText": "$20,000 plus support", "deadline": null, "dueMonth": 2, "verified": false, "grades": [12], "fields": ["general"], "basis": "need", "region": "National", "summary": "For Pell-eligible seniors in a college-readiness program, with a laptop, textbook credits and coaching through college." },
-    { "id": "davidson", "kind": "scholarship", "name": "Davidson Fellows Scholarship", "org": "Davidson Institute", "url": "https://www.davidsongifted.org/gifted-programs/fellows-scholarship/", "amount": 100000, "amountText": "$25,000–$100,000", "deadline": null, "dueMonth": 2, "verified": false, "grades": [9, 10, 11, 12], "fields": ["stem", "cs", "math", "writing", "arts", "humanities"], "basis": "contest", "region": "National", "summary": "For students 18 or under who completed a significant project in STEM, literature, music or philosophy. 2027 application opens Nov 2." },
-    { "id": "hsf", "kind": "scholarship", "name": "HSF Scholar Program", "org": "Hispanic Scholarship Fund", "url": "https://www.hsf.net/scholarship", "amount": 5000, "amountText": "$500–$5,000", "deadline": null, "dueMonth": 2, "verified": false, "grades": [12], "fields": ["general"], "basis": "need", "region": "National", "summary": "For students of Hispanic heritage with a 3.0+ GPA. Opens in January; needs a completed FAFSA." },
-    { "id": "coca-cola", "kind": "scholarship", "name": "Coca-Cola Scholars", "org": "Coca-Cola Scholars Foundation", "url": "https://www.coca-colascholarsfoundation.org/", "amount": 20000, "amountText": "$20,000", "deadline": null, "dueMonth": 9, "verified": false, "grades": [12], "fields": ["leadership", "service"], "basis": "merit", "region": "National", "summary": "150 seniors chosen for leadership and service impact. Opens each August; plan for next year if you're a junior." },
-    { "id": "gates", "kind": "scholarship", "name": "The Gates Scholarship", "org": "Gates Foundation", "url": "https://www.thegatesscholarship.org/", "amount": null, "amountText": "Full cost of attendance", "deadline": null, "dueMonth": 9, "verified": false, "grades": [12], "fields": ["general", "leadership"], "basis": "need", "region": "National", "summary": "Last-dollar full scholarship for Pell-eligible minority seniors with strong academics and leadership." },
-    { "id": "questbridge", "kind": "scholarship", "name": "QuestBridge National College Match", "org": "QuestBridge", "url": "https://www.questbridge.org/", "amount": null, "amountText": "Full four-year scholarship", "deadline": null, "dueMonth": 9, "verified": false, "grades": [12], "fields": ["general"], "basis": "need", "region": "National", "summary": "Matches high-achieving, low-income seniors with full scholarships at partner colleges. Juniors can apply to the College Prep Scholars program in spring." },
-    { "id": "horatio-alger", "kind": "scholarship", "name": "Horatio Alger National Scholarship", "org": "Horatio Alger Association", "url": "https://scholars.horatioalger.org/", "amount": 25000, "amountText": "Up to $25,000", "deadline": null, "dueMonth": 10, "verified": false, "grades": [12], "fields": ["general", "service"], "basis": "need", "region": "National", "summary": "For seniors who have overcome significant adversity and show financial need and community involvement." },
-    { "id": "national-merit", "kind": "scholarship", "name": "National Merit Scholarship", "org": "National Merit Scholarship Corporation", "url": "https://www.nationalmerit.org/", "amount": 2500, "amountText": "$2,500 plus corporate and college awards", "deadline": null, "dueMonth": 10, "verified": false, "grades": [11], "fields": ["general"], "basis": "merit", "region": "National", "summary": "You enter by taking the PSAT/NMSQT in October of junior year. Top scorers become Semifinalists the next fall." },
-    { "id": "regeneron-sts", "kind": "scholarship", "name": "Regeneron Science Talent Search", "org": "Society for Science", "url": "https://www.societyforscience.org/regeneron-sts/", "amount": 250000, "amountText": "Up to $250,000", "deadline": null, "dueMonth": 11, "verified": false, "grades": [12], "fields": ["stem", "cs", "math"], "basis": "contest", "region": "National", "summary": "The top research competition for seniors: submit an original science, math or engineering research project." },
-    { "id": "ncwit", "kind": "scholarship", "name": "NCWIT Award for Aspirations in Computing", "org": "NCWIT", "url": "https://www.aspirations.org/", "amount": null, "amountText": "Recognition, prizes and a community", "deadline": null, "dueMonth": 11, "verified": false, "grades": [9, 10, 11, 12], "fields": ["cs"], "basis": "merit", "region": "National", "summary": "Honors women, genderqueer and nonbinary students for computing achievements and interests. National and regional affiliate awards." },
-    { "id": "scholastic", "kind": "scholarship", "name": "Scholastic Art & Writing Awards", "org": "Alliance for Young Artists & Writers", "url": "https://www.artandwriting.org/", "amount": null, "amountText": "Scholarships for top senior portfolios", "deadline": null, "dueMonth": 12, "verified": false, "grades": [9, 10, 11, 12], "fields": ["arts", "writing"], "basis": "contest", "region": "National", "summary": "The longest-running recognition program for teen artists and writers. Regional deadlines are usually December–January." },
-    { "id": "youngarts", "kind": "scholarship", "name": "YoungArts National Arts Competition", "org": "National YoungArts Foundation", "url": "https://youngarts.org/", "amount": 10000, "amountText": "Up to $10,000", "deadline": null, "dueMonth": 10, "verified": false, "grades": [10, 11, 12], "fields": ["arts", "writing"], "basis": "contest", "region": "National", "summary": "For artists 15–18 in visual, literary, design and performing arts. Winners get cash awards and mentorship." },
-    { "id": "senate-youth", "kind": "scholarship", "name": "United States Senate Youth Program", "org": "Hearst Foundations", "url": "https://ussenateyouth.org/", "amount": 10000, "amountText": "$10,000 plus a week in Washington", "deadline": null, "dueMonth": 10, "verified": false, "grades": [11, 12], "fields": ["leadership", "humanities"], "basis": "merit", "region": "National", "summary": "Two delegates per state, chosen from students in elected student-government or civic positions. Selection runs through the state." },
-    { "id": "cal-grant", "kind": "scholarship", "name": "Cal Grant (via FAFSA or CADAA)", "org": "California Student Aid Commission", "url": "https://www.csac.ca.gov/cal-grants", "amount": null, "amountText": "Covers UC/CSU tuition or helps at private colleges", "deadline": null, "dueMonth": 4, "verified": false, "grades": [12], "fields": ["general"], "basis": "need", "region": "California", "summary": "California's state grant. You apply by filing the FAFSA or California Dream Act Application and a verified GPA by the state deadline." },
-    { "id": "congressional-award", "kind": "program", "category": "Service", "name": "Congressional Award", "org": "U.S. Congress", "url": "https://www.congressionalaward.org/", "deadline": null, "rolling": true, "verified": false, "grades": [9, 10, 11, 12], "fields": ["service", "leadership"], "cost": "free", "region": "National", "summary": "Earn bronze to gold medals for goals in volunteer service, personal development, fitness and exploration. Your comp hours count." },
-    { "id": "rsi", "kind": "program", "category": "Research", "name": "Research Science Institute (RSI)", "org": "Center for Excellence in Education at MIT", "url": "https://www.cee.org/programs/research-science-institute", "deadline": "2026-12-11", "verified": true, "grades": [11], "fields": ["stem", "math", "cs"], "cost": "free", "region": "National", "summary": "Six-week summer research program at MIT for juniors. Free to students and highly selective." },
-    { "id": "tass", "kind": "program", "category": "Summer program", "name": "Telluride Association Summer Seminar (TASS)", "org": "Telluride Association", "url": "https://www.tellurideassociation.org/our-programs/high-school-students/", "deadline": null, "dueMonth": 12, "verified": false, "grades": [10, 11], "fields": ["humanities", "writing"], "cost": "free", "region": "National", "summary": "Free six-week college-level seminar in critical Black studies or anti-oppressive studies for sophomores and juniors." },
-    { "id": "cosmos", "kind": "program", "category": "Summer program", "name": "COSMOS", "org": "University of California", "url": "https://cosmos-ucop.ucdavis.edu/", "deadline": null, "dueMonth": 2, "verified": false, "grades": [9, 10, 11, 12], "fields": ["stem", "math", "cs"], "cost": "aid", "region": "California", "summary": "Four-week residential STEM program at UC Irvine, Davis, San Diego or Santa Cruz for California students. Financial aid available." },
-    { "id": "mites", "kind": "program", "category": "Summer program", "name": "MITES Summer", "org": "MIT", "url": "https://mites.mit.edu/", "deadline": null, "dueMonth": 2, "verified": false, "grades": [11], "fields": ["stem", "cs", "math"], "cost": "free", "region": "National", "summary": "Free six-week residential STEM program at MIT for rising seniors, especially those underrepresented in STEM." },
-    { "id": "sumac", "kind": "program", "category": "Summer program", "name": "Stanford University Mathematics Camp (SUMaC)", "org": "Stanford Pre-Collegiate Studies", "url": "https://spcs.stanford.edu/programs/stanford-university-mathematics-camp-sumac", "deadline": null, "dueMonth": 2, "verified": false, "grades": [10, 11], "fields": ["math"], "cost": "aid", "region": "National", "summary": "Advanced summer math program covering abstract algebra, number theory and research-style problem solving." },
-    { "id": "ross", "kind": "program", "category": "Summer program", "name": "Ross Mathematical Program", "org": "Ross Program", "url": "https://rossprogram.org/", "deadline": null, "dueMonth": 3, "verified": false, "grades": [9, 10, 11, 12], "fields": ["math"], "cost": "aid", "region": "National", "summary": "Six-week number theory program built around deep problem sets. Known for teaching students to think like mathematicians." },
-    { "id": "promys", "kind": "program", "category": "Summer program", "name": "PROMYS", "org": "Boston University", "url": "https://promys.org/", "deadline": null, "dueMonth": 3, "verified": false, "grades": [9, 10, 11, 12], "fields": ["math"], "cost": "aid", "region": "National", "summary": "Six-week summer program in number theory with an application problem set." },
-    { "id": "mathcamp", "kind": "program", "category": "Summer program", "name": "Canada/USA Mathcamp", "org": "Mathcamp", "url": "https://www.mathcamp.org/", "deadline": null, "dueMonth": 3, "verified": false, "grades": [9, 10, 11, 12], "fields": ["math"], "cost": "aid", "region": "National", "summary": "Five-week summer program where students choose their own advanced math classes. Entry is by a qualifying quiz." },
-    { "id": "ucsb-rmp", "kind": "program", "category": "Research", "name": "UCSB Research Mentorship Program", "org": "UC Santa Barbara", "url": "https://www.summer.ucsb.edu/pre-college/research-mentorship-program-rmp", "deadline": null, "dueMonth": 3, "verified": false, "grades": [10, 11], "fields": ["stem", "humanities"], "cost": "paid", "region": "National", "summary": "Six-week program pairing students with UCSB mentors on an interdisciplinary research project." },
-    { "id": "usaco", "kind": "program", "category": "Competition", "name": "USA Computing Olympiad (USACO)", "org": "USACO", "url": "https://www.usaco.org/", "deadline": null, "dueMonth": 1, "verified": false, "grades": [9, 10, 11, 12], "fields": ["cs"], "cost": "free", "region": "National", "summary": "Free online programming contests held through the winter. Climb from Bronze to Platinum." },
-    { "id": "amc", "kind": "program", "category": "Competition", "name": "AMC 10/12", "org": "Mathematical Association of America", "url": "https://maa.org/student-programs/amc/", "deadline": null, "dueMonth": 11, "verified": false, "grades": [9, 10, 11, 12], "fields": ["math"], "cost": "paid", "region": "National", "summary": "The first round of the U.S. math olympiad pipeline, taken in November through your school or a host site." },
-    { "id": "cac", "kind": "program", "category": "Competition", "name": "Congressional App Challenge", "org": "U.S. House of Representatives", "url": "https://www.congressionalappchallenge.us/", "deadline": null, "dueMonth": 10, "verified": false, "grades": [9, 10, 11, 12], "fields": ["cs"], "cost": "free", "region": "National", "summary": "Build an app and submit it to your representative's district competition. Winners are shown in the Capitol. (comp. is an entry!)" },
-    { "id": "hack-club", "kind": "program", "category": "Hackathon", "name": "Hack Club", "org": "Hack Club", "url": "https://hackclub.com/", "deadline": null, "rolling": true, "verified": false, "grades": [9, 10, 11, 12], "fields": ["cs", "stem"], "cost": "free", "region": "National", "summary": "Nonprofit network of teen coders: start a club, join hackathons and \"you ship, we ship\" programs that fund your projects." },
-    { "id": "hoby", "kind": "program", "category": "Leadership", "name": "HOBY Leadership Seminar", "org": "Hugh O'Brian Youth Leadership", "url": "https://www.hoby.org/", "deadline": null, "rolling": false, "verified": false, "grades": [10], "fields": ["leadership", "service"], "cost": "aid", "region": "National", "summary": "Weekend leadership seminar for sophomores, usually through a school nomination. Ask your counselor in the fall." },
-    { "id": "boys-girls-state", "kind": "program", "category": "Leadership", "name": "Boys State / Girls State", "org": "American Legion / American Legion Auxiliary", "url": "https://www.legion.org/boysnation", "deadline": null, "dueMonth": 3, "verified": false, "grades": [11], "fields": ["leadership", "humanities"], "cost": "free", "region": "National", "summary": "A week building a mock state government, for juniors. Students are nominated through their school, usually in spring." }
-  ]
+ "checked": "2026-10-26",
+ "items": [
+  {
+   "id": "elks-mvs",
+   "kind": "scholarship",
+   "name": "Elks Most Valuable Student",
+   "org": "Elks National Foundation",
+   "url": "https://www.elks.org/scholars/scholarships/mvs.cfm",
+   "amount": 30000,
+   "amountText": "$4,000–$30,000",
+   "deadline": "2026-11-12",
+   "verified": true,
+   "grades": [
+    12
+   ],
+   "fields": [
+    "general",
+    "leadership"
+   ],
+   "basis": "both",
+   "region": "National",
+   "summary": "500 four-year awards for seniors, judged on scholarship, leadership and financial need. U.S. citizens only; no Elks connection needed."
+  },
+  {
+   "id": "jkcf",
+   "kind": "scholarship",
+   "name": "Jack Kent Cooke College Scholarship",
+   "org": "Jack Kent Cooke Foundation",
+   "url": "https://www.jkcf.org/our-scholarships/college-scholarship-program/",
+   "amount": 55000,
+   "amountText": "Up to $55,000 a year",
+   "deadline": "2026-11-11",
+   "verified": true,
+   "grades": [
+    12
+   ],
+   "fields": [
+    "general"
+   ],
+   "basis": "need",
+   "region": "National",
+   "summary": "Last-dollar funding for high-achieving seniors with financial need, renewable through a bachelor's degree."
+  },
+  {
+   "id": "ron-brown",
+   "kind": "scholarship",
+   "name": "Ron Brown Scholar Program",
+   "org": "Ron Brown Scholar Program",
+   "url": "https://www.ronbrown.org/apply",
+   "amount": 40000,
+   "amountText": "$40,000 ($10,000 a year)",
+   "deadline": "2026-12-01",
+   "verified": true,
+   "grades": [
+    12
+   ],
+   "fields": [
+    "leadership",
+    "service"
+   ],
+   "basis": "both",
+   "region": "National",
+   "summary": "For Black/African American seniors showing academic excellence, leadership, community service and financial need."
+  },
+  {
+   "id": "live-mas",
+   "kind": "scholarship",
+   "name": "Live Más Scholarship",
+   "org": "Taco Bell Foundation",
+   "url": "https://www.tacobellfoundation.org/live-mas-scholarship/",
+   "amount": 25000,
+   "amountText": "Up to $25,000",
+   "deadline": "2027-01-05",
+   "verified": true,
+   "grades": [
+    11,
+    12
+   ],
+   "fields": [
+    "general",
+    "arts"
+   ],
+   "basis": "contest",
+   "region": "National",
+   "summary": "Passion-based: apply with a short video about what drives you instead of grades or test scores."
+  },
+  {
+   "id": "voice-of-democracy",
+   "kind": "scholarship",
+   "name": "Voice of Democracy",
+   "org": "Veterans of Foreign Wars",
+   "url": "https://www.vfw.org/community/youth-and-education/youth-scholarships",
+   "amount": 35000,
+   "amountText": "Up to $35,000",
+   "deadline": "2026-10-31",
+   "verified": true,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "writing",
+    "humanities"
+   ],
+   "basis": "contest",
+   "region": "National",
+   "summary": "Audio-essay contest on a patriotic theme, entered through a local VFW Post. Local and state prizes too."
+  },
+  {
+   "id": "coolidge",
+   "kind": "scholarship",
+   "name": "Coolidge Scholarship",
+   "org": "Calvin Coolidge Presidential Foundation",
+   "url": "https://www.coolidgescholars.org/",
+   "amount": null,
+   "amountText": "Full tuition, room and board",
+   "deadline": null,
+   "dueMonth": 12,
+   "verified": false,
+   "grades": [
+    11
+   ],
+   "fields": [
+    "humanities",
+    "general"
+   ],
+   "basis": "merit",
+   "region": "National",
+   "summary": "Full four-year merit scholarship for juniors with an interest in public policy, economics or the humanities."
+  },
+  {
+   "id": "burger-king",
+   "kind": "scholarship",
+   "name": "Burger King Scholars",
+   "org": "Burger King Foundation",
+   "url": "https://burgerkingfoundation.org/",
+   "amount": 60000,
+   "amountText": "$1,000–$60,000",
+   "deadline": null,
+   "dueMonth": 12,
+   "verified": false,
+   "grades": [
+    12
+   ],
+   "fields": [
+    "general",
+    "service"
+   ],
+   "basis": "both",
+   "region": "National",
+   "summary": "Weighs GPA, work experience, activities, community service and need. Closes early once it hits its application cap."
+  },
+  {
+   "id": "dell-scholars",
+   "kind": "scholarship",
+   "name": "Dell Scholars Program",
+   "org": "Michael & Susan Dell Foundation",
+   "url": "https://www.dellscholars.org/",
+   "amount": 20000,
+   "amountText": "$20,000 plus support",
+   "deadline": null,
+   "dueMonth": 2,
+   "verified": false,
+   "grades": [
+    12
+   ],
+   "fields": [
+    "general"
+   ],
+   "basis": "need",
+   "region": "National",
+   "summary": "For Pell-eligible seniors in a college-readiness program, with a laptop, textbook credits and coaching through college."
+  },
+  {
+   "id": "davidson",
+   "kind": "scholarship",
+   "name": "Davidson Fellows Scholarship",
+   "org": "Davidson Institute",
+   "url": "https://www.davidsongifted.org/gifted-programs/fellows-scholarship/",
+   "amount": 100000,
+   "amountText": "$25,000–$100,000",
+   "deadline": null,
+   "dueMonth": 2,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "stem",
+    "cs",
+    "math",
+    "writing",
+    "arts",
+    "humanities"
+   ],
+   "basis": "contest",
+   "region": "National",
+   "summary": "For students 18 or under who completed a significant project in STEM, literature, music or philosophy. 2027 application opens Nov 2."
+  },
+  {
+   "id": "hsf",
+   "kind": "scholarship",
+   "name": "HSF Scholar Program",
+   "org": "Hispanic Scholarship Fund",
+   "url": "https://www.hsf.net/scholarship",
+   "amount": 5000,
+   "amountText": "$500–$5,000",
+   "deadline": null,
+   "dueMonth": 2,
+   "verified": false,
+   "grades": [
+    12
+   ],
+   "fields": [
+    "general"
+   ],
+   "basis": "need",
+   "region": "National",
+   "summary": "For students of Hispanic heritage with a 3.0+ GPA. Opens in January; needs a completed FAFSA."
+  },
+  {
+   "id": "coca-cola",
+   "kind": "scholarship",
+   "name": "Coca-Cola Scholars",
+   "org": "Coca-Cola Scholars Foundation",
+   "url": "https://www.coca-colascholarsfoundation.org/",
+   "amount": 20000,
+   "amountText": "$20,000",
+   "deadline": null,
+   "dueMonth": 9,
+   "verified": false,
+   "grades": [
+    12
+   ],
+   "fields": [
+    "leadership",
+    "service"
+   ],
+   "basis": "merit",
+   "region": "National",
+   "summary": "150 seniors chosen for leadership and service impact. Opens each August; plan for next year if you're a junior."
+  },
+  {
+   "id": "gates",
+   "kind": "scholarship",
+   "name": "The Gates Scholarship",
+   "org": "Gates Foundation",
+   "url": "https://www.thegatesscholarship.org/",
+   "amount": null,
+   "amountText": "Full cost of attendance",
+   "deadline": null,
+   "dueMonth": 9,
+   "verified": false,
+   "grades": [
+    12
+   ],
+   "fields": [
+    "general",
+    "leadership"
+   ],
+   "basis": "need",
+   "region": "National",
+   "summary": "Last-dollar full scholarship for Pell-eligible minority seniors with strong academics and leadership."
+  },
+  {
+   "id": "questbridge",
+   "kind": "scholarship",
+   "name": "QuestBridge National College Match",
+   "org": "QuestBridge",
+   "url": "https://www.questbridge.org/",
+   "amount": null,
+   "amountText": "Full four-year scholarship",
+   "deadline": null,
+   "dueMonth": 9,
+   "verified": false,
+   "grades": [
+    12
+   ],
+   "fields": [
+    "general"
+   ],
+   "basis": "need",
+   "region": "National",
+   "summary": "Matches high-achieving, low-income seniors with full scholarships at partner colleges. Juniors can apply to the College Prep Scholars program in spring."
+  },
+  {
+   "id": "horatio-alger",
+   "kind": "scholarship",
+   "name": "Horatio Alger National Scholarship",
+   "org": "Horatio Alger Association",
+   "url": "https://scholars.horatioalger.org/",
+   "amount": 25000,
+   "amountText": "Up to $25,000",
+   "deadline": null,
+   "dueMonth": 10,
+   "verified": false,
+   "grades": [
+    12
+   ],
+   "fields": [
+    "general",
+    "service"
+   ],
+   "basis": "need",
+   "region": "National",
+   "summary": "For seniors who have overcome significant adversity and show financial need and community involvement."
+  },
+  {
+   "id": "national-merit",
+   "kind": "scholarship",
+   "name": "National Merit Scholarship",
+   "org": "National Merit Scholarship Corporation",
+   "url": "https://www.nationalmerit.org/",
+   "amount": 2500,
+   "amountText": "$2,500 plus corporate and college awards",
+   "deadline": null,
+   "dueMonth": 10,
+   "verified": false,
+   "grades": [
+    11
+   ],
+   "fields": [
+    "general"
+   ],
+   "basis": "merit",
+   "region": "National",
+   "summary": "You enter by taking the PSAT/NMSQT in October of junior year. Top scorers become Semifinalists the next fall."
+  },
+  {
+   "id": "regeneron-sts",
+   "kind": "scholarship",
+   "name": "Regeneron Science Talent Search",
+   "org": "Society for Science",
+   "url": "https://www.societyforscience.org/regeneron-sts/",
+   "amount": 250000,
+   "amountText": "Up to $250,000",
+   "deadline": null,
+   "dueMonth": 11,
+   "verified": false,
+   "grades": [
+    12
+   ],
+   "fields": [
+    "stem",
+    "cs",
+    "math"
+   ],
+   "basis": "contest",
+   "region": "National",
+   "summary": "The top research competition for seniors: submit an original science, math or engineering research project."
+  },
+  {
+   "id": "ncwit",
+   "kind": "scholarship",
+   "name": "NCWIT Award for Aspirations in Computing",
+   "org": "NCWIT",
+   "url": "https://www.aspirations.org/",
+   "amount": null,
+   "amountText": "Recognition, prizes and a community",
+   "deadline": null,
+   "dueMonth": 11,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "cs"
+   ],
+   "basis": "merit",
+   "region": "National",
+   "summary": "Honors women, genderqueer and nonbinary students for computing achievements and interests. National and regional affiliate awards."
+  },
+  {
+   "id": "scholastic",
+   "kind": "scholarship",
+   "name": "Scholastic Art & Writing Awards",
+   "org": "Alliance for Young Artists & Writers",
+   "url": "https://www.artandwriting.org/",
+   "amount": null,
+   "amountText": "Scholarships for top senior portfolios",
+   "deadline": null,
+   "dueMonth": 12,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "arts",
+    "writing"
+   ],
+   "basis": "contest",
+   "region": "National",
+   "summary": "The longest-running recognition program for teen artists and writers. Regional deadlines are usually December–January."
+  },
+  {
+   "id": "youngarts",
+   "kind": "scholarship",
+   "name": "YoungArts National Arts Competition",
+   "org": "National YoungArts Foundation",
+   "url": "https://youngarts.org/",
+   "amount": 10000,
+   "amountText": "Up to $10,000",
+   "deadline": null,
+   "dueMonth": 10,
+   "verified": false,
+   "grades": [
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "arts",
+    "writing"
+   ],
+   "basis": "contest",
+   "region": "National",
+   "summary": "For artists 15–18 in visual, literary, design and performing arts. Winners get cash awards and mentorship."
+  },
+  {
+   "id": "senate-youth",
+   "kind": "scholarship",
+   "name": "United States Senate Youth Program",
+   "org": "Hearst Foundations",
+   "url": "https://ussenateyouth.org/",
+   "amount": 10000,
+   "amountText": "$10,000 plus a week in Washington",
+   "deadline": null,
+   "dueMonth": 10,
+   "verified": false,
+   "grades": [
+    11,
+    12
+   ],
+   "fields": [
+    "leadership",
+    "humanities"
+   ],
+   "basis": "merit",
+   "region": "National",
+   "summary": "Two delegates per state, chosen from students in elected student-government or civic positions. Selection runs through the state."
+  },
+  {
+   "id": "cal-grant",
+   "kind": "scholarship",
+   "name": "Cal Grant (via FAFSA or CADAA)",
+   "org": "California Student Aid Commission",
+   "url": "https://www.csac.ca.gov/cal-grants",
+   "amount": null,
+   "amountText": "Covers UC/CSU tuition or helps at private colleges",
+   "deadline": null,
+   "dueMonth": 4,
+   "verified": false,
+   "grades": [
+    12
+   ],
+   "fields": [
+    "general"
+   ],
+   "basis": "need",
+   "region": "California",
+   "summary": "California's state grant. You apply by filing the FAFSA or California Dream Act Application and a verified GPA by the state deadline."
+  },
+  {
+   "id": "congressional-award",
+   "kind": "program",
+   "category": "Service",
+   "name": "Congressional Award",
+   "org": "U.S. Congress",
+   "url": "https://www.congressionalaward.org/",
+   "deadline": null,
+   "rolling": true,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "service",
+    "leadership"
+   ],
+   "cost": "free",
+   "region": "National",
+   "summary": "Earn bronze to gold medals for goals in volunteer service, personal development, fitness and exploration. Your comp hours count."
+  },
+  {
+   "id": "rsi",
+   "kind": "program",
+   "category": "Research",
+   "name": "Research Science Institute (RSI)",
+   "org": "Center for Excellence in Education at MIT",
+   "url": "https://www.cee.org/programs/research-science-institute",
+   "deadline": "2026-12-11",
+   "verified": true,
+   "grades": [
+    11
+   ],
+   "fields": [
+    "stem",
+    "math",
+    "cs"
+   ],
+   "cost": "free",
+   "region": "National",
+   "summary": "Six-week summer research program at MIT for juniors. Free to students and highly selective."
+  },
+  {
+   "id": "tass",
+   "kind": "program",
+   "category": "Summer program",
+   "name": "Telluride Association Summer Seminar (TASS)",
+   "org": "Telluride Association",
+   "url": "https://www.tellurideassociation.org/our-programs/high-school-students/",
+   "deadline": null,
+   "dueMonth": 12,
+   "verified": false,
+   "grades": [
+    10,
+    11
+   ],
+   "fields": [
+    "humanities",
+    "writing"
+   ],
+   "cost": "free",
+   "region": "National",
+   "summary": "Free six-week college-level seminar in critical Black studies or anti-oppressive studies for sophomores and juniors."
+  },
+  {
+   "id": "cosmos",
+   "kind": "program",
+   "category": "Summer program",
+   "name": "COSMOS",
+   "org": "University of California",
+   "url": "https://cosmos-ucop.ucdavis.edu/",
+   "deadline": null,
+   "dueMonth": 2,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "stem",
+    "math",
+    "cs"
+   ],
+   "cost": "aid",
+   "region": "California",
+   "summary": "Four-week residential STEM program at UC Irvine, Davis, San Diego or Santa Cruz for California students. Financial aid available."
+  },
+  {
+   "id": "mites",
+   "kind": "program",
+   "category": "Summer program",
+   "name": "MITES Summer",
+   "org": "MIT",
+   "url": "https://mites.mit.edu/",
+   "deadline": null,
+   "dueMonth": 2,
+   "verified": false,
+   "grades": [
+    11
+   ],
+   "fields": [
+    "stem",
+    "cs",
+    "math"
+   ],
+   "cost": "free",
+   "region": "National",
+   "summary": "Free six-week residential STEM program at MIT for rising seniors, especially those underrepresented in STEM."
+  },
+  {
+   "id": "sumac",
+   "kind": "program",
+   "category": "Summer program",
+   "name": "Stanford University Mathematics Camp (SUMaC)",
+   "org": "Stanford Pre-Collegiate Studies",
+   "url": "https://spcs.stanford.edu/programs/stanford-university-mathematics-camp-sumac",
+   "deadline": null,
+   "dueMonth": 2,
+   "verified": false,
+   "grades": [
+    10,
+    11
+   ],
+   "fields": [
+    "math"
+   ],
+   "cost": "aid",
+   "region": "National",
+   "summary": "Advanced summer math program covering abstract algebra, number theory and research-style problem solving."
+  },
+  {
+   "id": "ross",
+   "kind": "program",
+   "category": "Summer program",
+   "name": "Ross Mathematical Program",
+   "org": "Ross Program",
+   "url": "https://rossprogram.org/",
+   "deadline": null,
+   "dueMonth": 3,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "math"
+   ],
+   "cost": "aid",
+   "region": "National",
+   "summary": "Six-week number theory program built around deep problem sets. Known for teaching students to think like mathematicians."
+  },
+  {
+   "id": "promys",
+   "kind": "program",
+   "category": "Summer program",
+   "name": "PROMYS",
+   "org": "Boston University",
+   "url": "https://promys.org/",
+   "deadline": null,
+   "dueMonth": 3,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "math"
+   ],
+   "cost": "aid",
+   "region": "National",
+   "summary": "Six-week summer program in number theory with an application problem set."
+  },
+  {
+   "id": "mathcamp",
+   "kind": "program",
+   "category": "Summer program",
+   "name": "Canada/USA Mathcamp",
+   "org": "Mathcamp",
+   "url": "https://www.mathcamp.org/",
+   "deadline": null,
+   "dueMonth": 3,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "math"
+   ],
+   "cost": "aid",
+   "region": "National",
+   "summary": "Five-week summer program where students choose their own advanced math classes. Entry is by a qualifying quiz."
+  },
+  {
+   "id": "ucsb-rmp",
+   "kind": "program",
+   "category": "Research",
+   "name": "UCSB Research Mentorship Program",
+   "org": "UC Santa Barbara",
+   "url": "https://www.summer.ucsb.edu/pre-college/research-mentorship-program-rmp",
+   "deadline": null,
+   "dueMonth": 3,
+   "verified": false,
+   "grades": [
+    10,
+    11
+   ],
+   "fields": [
+    "stem",
+    "humanities"
+   ],
+   "cost": "paid",
+   "region": "National",
+   "summary": "Six-week program pairing students with UCSB mentors on an interdisciplinary research project."
+  },
+  {
+   "id": "usaco",
+   "kind": "program",
+   "category": "Competition",
+   "name": "USA Computing Olympiad (USACO)",
+   "org": "USACO",
+   "url": "https://www.usaco.org/",
+   "deadline": null,
+   "dueMonth": 1,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "cs"
+   ],
+   "cost": "free",
+   "region": "National",
+   "summary": "Free online programming contests held through the winter. Climb from Bronze to Platinum."
+  },
+  {
+   "id": "amc",
+   "kind": "program",
+   "category": "Competition",
+   "name": "AMC 10/12",
+   "org": "Mathematical Association of America",
+   "url": "https://maa.org/student-programs/amc/",
+   "deadline": null,
+   "dueMonth": 11,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "math"
+   ],
+   "cost": "paid",
+   "region": "National",
+   "summary": "The first round of the U.S. math olympiad pipeline, taken in November through your school or a host site."
+  },
+  {
+   "id": "cac",
+   "kind": "program",
+   "category": "Competition",
+   "name": "Congressional App Challenge",
+   "org": "U.S. House of Representatives",
+   "url": "https://www.congressionalappchallenge.us/",
+   "deadline": null,
+   "dueMonth": 10,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "cs"
+   ],
+   "cost": "free",
+   "region": "National",
+   "summary": "Build an app and submit it to your representative's district competition. Winners are shown in the Capitol. (comp. is an entry!)"
+  },
+  {
+   "id": "hack-club",
+   "kind": "program",
+   "category": "Hackathon",
+   "name": "Hack Club",
+   "org": "Hack Club",
+   "url": "https://hackclub.com/",
+   "deadline": null,
+   "rolling": true,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "cs",
+    "stem"
+   ],
+   "cost": "free",
+   "region": "National",
+   "summary": "Nonprofit network of teen coders: start a club, join hackathons and \"you ship, we ship\" programs that fund your projects."
+  },
+  {
+   "id": "hoby",
+   "kind": "program",
+   "category": "Leadership",
+   "name": "HOBY Leadership Seminar",
+   "org": "Hugh O'Brian Youth Leadership",
+   "url": "https://www.hoby.org/",
+   "deadline": null,
+   "rolling": false,
+   "verified": false,
+   "grades": [
+    10
+   ],
+   "fields": [
+    "leadership",
+    "service"
+   ],
+   "cost": "aid",
+   "region": "National",
+   "summary": "Weekend leadership seminar for sophomores, usually through a school nomination. Ask your counselor in the fall."
+  },
+  {
+   "id": "boys-girls-state",
+   "kind": "program",
+   "category": "Leadership",
+   "name": "Boys State / Girls State",
+   "org": "American Legion / American Legion Auxiliary",
+   "url": "https://www.legion.org/boysnation",
+   "deadline": null,
+   "dueMonth": 3,
+   "verified": false,
+   "grades": [
+    11
+   ],
+   "fields": [
+    "leadership",
+    "humanities"
+   ],
+   "cost": "free",
+   "region": "National",
+   "summary": "A week building a mock state government, for juniors. Students are nominated through their school, usually in spring."
+  },
+  {
+   "id": "equitable",
+   "kind": "scholarship",
+   "name": "Equitable Excellence Scholarship",
+   "org": "Equitable Foundation",
+   "url": "https://equitable.com/foundation/equitable-excellence-scholarship",
+   "amount": null,
+   "amountText": "One-time and renewable awards",
+   "deadline": null,
+   "dueMonth": 12,
+   "verified": false,
+   "grades": [
+    12
+   ],
+   "fields": [
+    "general",
+    "leadership"
+   ],
+   "basis": "both",
+   "region": "National",
+   "summary": "Rewards seniors who show ambition and self-drive through community impact. Hundreds of awards each year."
+  },
+  {
+   "id": "jackie-robinson",
+   "kind": "scholarship",
+   "name": "Jackie Robinson Foundation Scholarship",
+   "org": "Jackie Robinson Foundation",
+   "url": "https://jackierobinson.org/apply/",
+   "amount": null,
+   "amountText": "Multi-year award plus mentoring",
+   "deadline": null,
+   "dueMonth": 1,
+   "verified": false,
+   "grades": [
+    12
+   ],
+   "fields": [
+    "general",
+    "leadership"
+   ],
+   "basis": "both",
+   "region": "National",
+   "summary": "Four-year support, mentoring and career help for seniors of color with financial need and leadership potential."
+  },
+  {
+   "id": "apia",
+   "kind": "scholarship",
+   "name": "APIA Scholars",
+   "org": "APIA Scholars",
+   "url": "https://apiascholars.org/",
+   "amount": null,
+   "amountText": "$2,500–$20,000",
+   "deadline": null,
+   "dueMonth": 1,
+   "verified": false,
+   "grades": [
+    12
+   ],
+   "fields": [
+    "general"
+   ],
+   "basis": "both",
+   "region": "National",
+   "summary": "Scholarships for Asian American and Pacific Islander students, with priority for those with financial need."
+  },
+  {
+   "id": "uncf",
+   "kind": "scholarship",
+   "name": "UNCF Scholarships",
+   "org": "United Negro College Fund",
+   "url": "https://uncf.org/scholarships",
+   "amount": null,
+   "amountText": "Many awards, varying amounts",
+   "deadline": null,
+   "dueMonth": null,
+   "rolling": true,
+   "verified": false,
+   "grades": [
+    12
+   ],
+   "fields": [
+    "general"
+   ],
+   "basis": "both",
+   "region": "National",
+   "summary": "One application unlocks hundreds of scholarships, mostly for students attending UNCF member and other colleges."
+  },
+  {
+   "id": "cameron-impact",
+   "kind": "scholarship",
+   "name": "Cameron Impact Scholarship",
+   "org": "Bryan Cameron Education Foundation",
+   "url": "https://www.bryancameroneducationfoundation.org/",
+   "amount": null,
+   "amountText": "Full tuition for four years",
+   "deadline": null,
+   "dueMonth": 9,
+   "verified": false,
+   "grades": [
+    11,
+    12
+   ],
+   "fields": [
+    "leadership",
+    "service"
+   ],
+   "basis": "merit",
+   "region": "National",
+   "summary": "Full-tuition merit scholarship for students with strong academics, leadership and community service. Apply the fall of senior year."
+  },
+  {
+   "id": "gen-kelly",
+   "kind": "scholarship",
+   "name": "Gen and Kelly Tanabe Scholarship",
+   "org": "Gen and Kelly Tanabe",
+   "url": "https://www.genkellyscholarship.com/",
+   "amount": 1000,
+   "amountText": "$1,000",
+   "deadline": null,
+   "dueMonth": 12,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "general"
+   ],
+   "basis": "merit",
+   "region": "National",
+   "summary": "Short essay scholarship open to grades 9–12 with two rounds a year (winter and summer)."
+  },
+  {
+   "id": "doodle-google",
+   "kind": "scholarship",
+   "name": "Doodle for Google",
+   "org": "Google",
+   "url": "https://doodles.google.com/d4g/",
+   "amount": null,
+   "amountText": "Up to $30,000 national winner",
+   "deadline": null,
+   "dueMonth": 3,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "arts"
+   ],
+   "basis": "contest",
+   "region": "National",
+   "summary": "Design a Google Doodle on the year's theme. The national winner's art appears on Google's homepage."
+  },
+  {
+   "id": "profile-courage",
+   "kind": "scholarship",
+   "name": "Profile in Courage Essay Contest",
+   "org": "JFK Library Foundation",
+   "url": "https://www.jfklibrary.org/learn/education/profile-in-courage-essay-contest",
+   "amount": 10000,
+   "amountText": "Up to $10,000",
+   "deadline": null,
+   "dueMonth": 1,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "writing",
+    "humanities"
+   ],
+   "basis": "contest",
+   "region": "National",
+   "summary": "Write about an elected official who showed political courage. Open to grades 9–12 nationwide."
+  },
+  {
+   "id": "ayn-rand",
+   "kind": "scholarship",
+   "name": "Ayn Rand Essay Contests",
+   "org": "Ayn Rand Institute",
+   "url": "https://aynrand.org/students/essay-contests/",
+   "amount": null,
+   "amountText": "Prizes up to $25,000",
+   "deadline": null,
+   "dueMonth": null,
+   "rolling": true,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "writing",
+    "humanities"
+   ],
+   "basis": "contest",
+   "region": "National",
+   "summary": "Essay contests on Anthem, The Fountainhead and Atlas Shrugged. Deadlines vary by book."
+  },
+  {
+   "id": "afsa-essay",
+   "kind": "scholarship",
+   "name": "AFSA National High School Essay Contest",
+   "org": "American Foreign Service Association",
+   "url": "https://afsa.org/essay-contest",
+   "amount": 2500,
+   "amountText": "$2,500 plus a trip to D.C.",
+   "deadline": null,
+   "dueMonth": 4,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "writing",
+    "humanities"
+   ],
+   "basis": "contest",
+   "region": "National",
+   "summary": "Essay on diplomacy and U.S. foreign policy. The winner also gets a Semester at Sea voyage."
+  },
+  {
+   "id": "amazon-fe",
+   "kind": "scholarship",
+   "name": "Amazon Future Engineer Scholarship",
+   "org": "Amazon",
+   "url": "https://www.amazonfutureengineer.com/scholarships",
+   "amount": 40000,
+   "amountText": "$40,000 plus a paid internship",
+   "deadline": null,
+   "dueMonth": 12,
+   "verified": false,
+   "grades": [
+    12
+   ],
+   "fields": [
+    "cs",
+    "stem"
+   ],
+   "basis": "both",
+   "region": "National",
+   "summary": "For seniors planning to study computer science, with a paid Amazon internship after freshman year."
+  },
+  {
+   "id": "courage-grow",
+   "kind": "scholarship",
+   "name": "Courage to Grow Scholarship",
+   "org": "Courage to Grow",
+   "url": "https://www.couragetogrowscholarship.com/",
+   "amount": 500,
+   "amountText": "$500 monthly",
+   "deadline": null,
+   "dueMonth": null,
+   "rolling": true,
+   "verified": false,
+   "grades": [
+    11,
+    12
+   ],
+   "fields": [
+    "general"
+   ],
+   "basis": "both",
+   "region": "National",
+   "summary": "Short essay scholarship awarded every month to juniors and seniors with a 2.5+ GPA."
+  },
+  {
+   "id": "niche-no-essay",
+   "kind": "scholarship",
+   "name": "Niche $10,000 No Essay Scholarship",
+   "org": "Niche",
+   "url": "https://www.niche.com/colleges/scholarships/no-essay-scholarship/",
+   "amount": 10000,
+   "amountText": "$10,000",
+   "deadline": null,
+   "dueMonth": null,
+   "rolling": true,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "general"
+   ],
+   "basis": "both",
+   "region": "National",
+   "summary": "Random drawing with no essay. Open to high school and college students; a new drawing runs regularly."
+  },
+  {
+   "id": "swe",
+   "kind": "scholarship",
+   "name": "SWE Scholarships",
+   "org": "Society of Women Engineers",
+   "url": "https://swe.org/scholarships/",
+   "amount": null,
+   "amountText": "$1,000–$20,000",
+   "deadline": null,
+   "dueMonth": 2,
+   "verified": false,
+   "grades": [
+    12
+   ],
+   "fields": [
+    "stem"
+   ],
+   "basis": "both",
+   "region": "National",
+   "summary": "Scholarships for women planning to study engineering or computer science in college."
+  },
+  {
+   "id": "posse",
+   "kind": "scholarship",
+   "name": "Posse Scholarship",
+   "org": "The Posse Foundation",
+   "url": "https://www.possefoundation.org/",
+   "amount": null,
+   "amountText": "Full tuition at a partner college",
+   "deadline": null,
+   "dueMonth": null,
+   "verified": false,
+   "grades": [
+    12
+   ],
+   "fields": [
+    "leadership",
+    "general"
+   ],
+   "basis": "merit",
+   "region": "Select cities",
+   "summary": "Nominated seniors go to a partner college in a group of 10 with full tuition. Nominations come from schools and community groups in Posse cities.",
+   "rolling": false
+  },
+  {
+   "id": "legion-oratorical",
+   "kind": "scholarship",
+   "name": "American Legion Oratorical Contest",
+   "org": "The American Legion",
+   "url": "https://www.legion.org/scholarships/oratorical",
+   "amount": 25000,
+   "amountText": "Up to $25,000",
+   "deadline": null,
+   "dueMonth": 12,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "humanities",
+    "leadership"
+   ],
+   "basis": "contest",
+   "region": "National",
+   "summary": "Give a speech on the U.S. Constitution. Local contests start in the fall and lead to nationals."
+  },
+  {
+   "id": "nhs",
+   "kind": "scholarship",
+   "name": "NHS Scholarship",
+   "org": "National Honor Society",
+   "url": "https://www.nhs.us/students/the-nhs-scholarship/",
+   "amount": 25000,
+   "amountText": "$3,200–$25,000",
+   "deadline": null,
+   "dueMonth": 12,
+   "verified": false,
+   "grades": [
+    12
+   ],
+   "fields": [
+    "general",
+    "leadership"
+   ],
+   "basis": "merit",
+   "region": "National",
+   "summary": "For senior NHS members, judged on scholarship, service, leadership and character."
+  },
+  {
+   "id": "optimist-essay",
+   "kind": "scholarship",
+   "name": "Optimist International Essay Contest",
+   "org": "Optimist International",
+   "url": "https://www.optimist.org/member/scholarships3.cfm",
+   "amount": 2500,
+   "amountText": "Up to $2,500",
+   "deadline": null,
+   "dueMonth": 2,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "writing"
+   ],
+   "basis": "contest",
+   "region": "National",
+   "summary": "Essay contest for students under 19, entered through a local Optimist Club."
+  },
+  {
+   "id": "think-mit",
+   "kind": "program",
+   "category": "Research",
+   "name": "MIT THINK Scholars",
+   "org": "MIT",
+   "url": "https://think.mit.edu/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": 1,
+   "rolling": false,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "stem",
+    "cs"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "online",
+   "summary": "Propose a science or engineering project. Finalists get funding and mentorship from MIT students."
+  },
+  {
+   "id": "bu-rise",
+   "kind": "program",
+   "category": "Research",
+   "name": "BU RISE Internship",
+   "org": "Boston University",
+   "url": "https://www.bu.edu/summer/high-school-programs/rise-internship-practicum/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": 2,
+   "rolling": false,
+   "verified": false,
+   "grades": [
+    11
+   ],
+   "fields": [
+    "stem"
+   ],
+   "cost": "aid",
+   "region": "National",
+   "format": "in_person",
+   "summary": "Six-week summer research internship in a Boston University lab for rising seniors."
+  },
+  {
+   "id": "nasa-ostem",
+   "kind": "program",
+   "category": "Internship",
+   "name": "NASA Internships",
+   "org": "NASA",
+   "url": "https://intern.nasa.gov/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": null,
+   "rolling": true,
+   "verified": false,
+   "grades": [
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "stem",
+    "cs"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "in_person",
+   "summary": "Paid internships at NASA centers and virtually for students 16 and older. Spring, summer and fall sessions."
+  },
+  {
+   "id": "aeop",
+   "kind": "program",
+   "category": "Research",
+   "name": "Army Educational Outreach Program",
+   "org": "U.S. Army",
+   "url": "https://www.usaeop.com/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": null,
+   "rolling": true,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "stem"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "in_person",
+   "summary": "Paid research apprenticeships and competitions in Army labs and universities."
+  },
+  {
+   "id": "jax-summer",
+   "kind": "program",
+   "category": "Research",
+   "name": "JAX Summer Student Program",
+   "org": "The Jackson Laboratory",
+   "url": "https://www.jax.org/education-and-learning/high-school-students-and-undergraduates",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": 1,
+   "rolling": false,
+   "verified": false,
+   "grades": [
+    11,
+    12
+   ],
+   "fields": [
+    "stem"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "in_person",
+   "summary": "Paid summer genetics research with a mentor at The Jackson Laboratory."
+  },
+  {
+   "id": "ssp",
+   "kind": "program",
+   "category": "Summer program",
+   "name": "Summer Science Program",
+   "org": "Summer Science Program",
+   "url": "https://summerscience.org/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": 2,
+   "rolling": false,
+   "verified": false,
+   "grades": [
+    11
+   ],
+   "fields": [
+    "stem"
+   ],
+   "cost": "aid",
+   "region": "National",
+   "format": "in_person",
+   "summary": "Five-week research program in astrophysics, biochemistry or genomics. Need-based aid covers up to the full cost."
+  },
+  {
+   "id": "yygs",
+   "kind": "program",
+   "category": "Summer program",
+   "name": "Yale Young Global Scholars",
+   "org": "Yale University",
+   "url": "https://globalscholars.yale.edu/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": 1,
+   "rolling": false,
+   "verified": false,
+   "grades": [
+    10,
+    11
+   ],
+   "fields": [
+    "humanities",
+    "leadership",
+    "stem"
+   ],
+   "cost": "aid",
+   "region": "National",
+   "format": "in_person",
+   "summary": "Two-week academic program on Yale's campus for students from around the world. Generous financial aid."
+  },
+  {
+   "id": "rise",
+   "kind": "program",
+   "category": "Leadership",
+   "name": "Rise",
+   "org": "Schmidt Futures & Rhodes Trust",
+   "url": "https://www.risefortheworld.org/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": 1,
+   "rolling": false,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11
+   ],
+   "fields": [
+    "leadership",
+    "service"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "in_person",
+   "summary": "For ages 15–17. Winners get lifelong support, including scholarships and funding for service projects."
+  },
+  {
+   "id": "leda",
+   "kind": "program",
+   "category": "Summer program",
+   "name": "LEDA Scholars",
+   "org": "Leadership Enterprise for a Diverse America",
+   "url": "https://ledascholars.org/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": 1,
+   "rolling": false,
+   "verified": false,
+   "grades": [
+    11
+   ],
+   "fields": [
+    "leadership"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "in_person",
+   "summary": "Free summer program at Princeton plus college admissions coaching for high-achieving, low-income juniors."
+  },
+  {
+   "id": "nsliy",
+   "kind": "program",
+   "category": "Summer program",
+   "name": "NSLI for Youth",
+   "org": "U.S. Department of State",
+   "url": "https://www.nsliforyouth.org/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": 11,
+   "rolling": false,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "humanities"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "in_person",
+   "summary": "Full scholarships to study critical languages (Arabic, Chinese, Korean and more) abroad for a summer or year."
+  },
+  {
+   "id": "cbyx",
+   "kind": "program",
+   "category": "Summer program",
+   "name": "Congress-Bundestag Youth Exchange",
+   "org": "U.S. Department of State",
+   "url": "https://www.usagermanyscholarship.org/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": 12,
+   "rolling": false,
+   "verified": false,
+   "grades": [
+    10,
+    11
+   ],
+   "fields": [
+    "humanities",
+    "leadership"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "in_person",
+   "summary": "Fully funded year living with a host family and attending school in Germany."
+  },
+  {
+   "id": "beaverworks",
+   "kind": "program",
+   "category": "Summer program",
+   "name": "MIT Beaver Works Summer Institute",
+   "org": "MIT Lincoln Laboratory",
+   "url": "https://beaverworks.ll.mit.edu/CMS/bw/bwsi",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": 3,
+   "rolling": false,
+   "verified": false,
+   "grades": [
+    11
+   ],
+   "fields": [
+    "stem",
+    "cs"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "in_person",
+   "summary": "Free four-week engineering program (online course plus a summer project) for rising seniors."
+  },
+  {
+   "id": "girls-who-code",
+   "kind": "program",
+   "category": "Summer program",
+   "name": "Girls Who Code Summer Programs",
+   "org": "Girls Who Code",
+   "url": "https://girlswhocode.com/programs",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": 3,
+   "rolling": false,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "cs"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "online",
+   "summary": "Free virtual summer coding programs and year-round clubs for girls and nonbinary students."
+  },
+  {
+   "id": "kode-klossy",
+   "kind": "program",
+   "category": "Summer program",
+   "name": "Kode With Klossy",
+   "org": "Kode With Klossy",
+   "url": "https://www.kodewithklossy.com/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": 3,
+   "rolling": false,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "cs"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "online",
+   "summary": "Free two-week summer coding camps for young women and gender-expansive youth ages 13–18."
+  },
+  {
+   "id": "technovation",
+   "kind": "program",
+   "category": "Competition",
+   "name": "Technovation Girls",
+   "org": "Technovation",
+   "url": "https://technovation.org/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": 4,
+   "rolling": false,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "cs",
+    "stem"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "online",
+   "summary": "Teams of girls build a mobile app or AI project that solves a community problem."
+  },
+  {
+   "id": "picoctf",
+   "kind": "program",
+   "category": "Competition",
+   "name": "picoCTF",
+   "org": "Carnegie Mellon University",
+   "url": "https://picoctf.org/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": 3,
+   "rolling": false,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "cs"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "online",
+   "summary": "Free online cybersecurity capture-the-flag competition, plus year-round practice problems."
+  },
+  {
+   "id": "cyberpatriot",
+   "kind": "program",
+   "category": "Competition",
+   "name": "CyberPatriot",
+   "org": "Air & Space Forces Association",
+   "url": "https://www.uscyberpatriot.org/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": 10,
+   "rolling": false,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "cs"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "in_person",
+   "summary": "Team cybersecurity competition where you secure virtual networks. Register as a school or club team."
+  },
+  {
+   "id": "science-olympiad",
+   "kind": "program",
+   "category": "Competition",
+   "name": "Science Olympiad",
+   "org": "Science Olympiad",
+   "url": "https://www.soinc.org/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": null,
+   "rolling": true,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "stem"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "in_person",
+   "summary": "Team competition in 23 science and engineering events. Join through your school's team."
+  },
+  {
+   "id": "isef",
+   "kind": "program",
+   "category": "Competition",
+   "name": "Regeneron ISEF",
+   "org": "Society for Science",
+   "url": "https://www.societyforscience.org/isef/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": 3,
+   "rolling": false,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "stem",
+    "cs"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "in_person",
+   "summary": "The world's largest high school science fair. Qualify through a local or regional affiliated fair."
+  },
+  {
+   "id": "first-robotics",
+   "kind": "program",
+   "category": "Competition",
+   "name": "FIRST Robotics Competition",
+   "org": "FIRST",
+   "url": "https://www.firstinspires.org/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": null,
+   "rolling": true,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "stem",
+    "cs"
+   ],
+   "cost": "aid",
+   "region": "National",
+   "format": "in_person",
+   "summary": "Teams build and program a robot in six weeks each winter. Find or start a team near you."
+  },
+  {
+   "id": "usabo",
+   "kind": "program",
+   "category": "Competition",
+   "name": "USA Biology Olympiad",
+   "org": "Center for Excellence in Education",
+   "url": "https://www.usabo-trc.org/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": 2,
+   "rolling": false,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "stem"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "in_person",
+   "summary": "Biology exam that selects the U.S. team for the International Biology Olympiad. Your school registers."
+  },
+  {
+   "id": "usnco",
+   "kind": "program",
+   "category": "Competition",
+   "name": "U.S. National Chemistry Olympiad",
+   "org": "American Chemical Society",
+   "url": "https://www.acs.org/education/students/highschool/olympiad.html",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": 3,
+   "rolling": false,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "stem"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "in_person",
+   "summary": "Chemistry exam series that picks the U.S. team for the International Chemistry Olympiad."
+  },
+  {
+   "id": "physics-bowl",
+   "kind": "program",
+   "category": "Competition",
+   "name": "F=ma and USAPhO",
+   "org": "American Association of Physics Teachers",
+   "url": "https://aapt.org/physicsteam/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": 1,
+   "rolling": false,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "stem",
+    "math"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "in_person",
+   "summary": "Physics exams that select the U.S. Physics Team. Take F=ma through your school."
+  },
+  {
+   "id": "hmmt",
+   "kind": "program",
+   "category": "Competition",
+   "name": "HMMT",
+   "org": "Harvard–MIT Math Tournament",
+   "url": "https://www.hmmt.org/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": null,
+   "rolling": true,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "math"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "in_person",
+   "summary": "One of the biggest student-run math tournaments, held in November and February. Compete as a team."
+  },
+  {
+   "id": "diamond",
+   "kind": "program",
+   "category": "Competition",
+   "name": "Diamond Challenge",
+   "org": "University of Delaware",
+   "url": "https://diamondchallenge.org/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": 1,
+   "rolling": false,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "leadership"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "online",
+   "summary": "Entrepreneurship competition for teens: pitch a business or social venture concept."
+  },
+  {
+   "id": "nhd",
+   "kind": "program",
+   "category": "Competition",
+   "name": "National History Day",
+   "org": "National History Day",
+   "url": "https://www.nhd.org/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": null,
+   "rolling": true,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "humanities",
+    "writing"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "in_person",
+   "summary": "Research a historical topic and present it as a paper, exhibit, documentary, performance or website."
+  },
+  {
+   "id": "nyt-contests",
+   "kind": "program",
+   "category": "Competition",
+   "name": "NYT Learning Network Contests",
+   "org": "The New York Times",
+   "url": "https://www.nytimes.com/column/learning-student-contests",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": null,
+   "rolling": true,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "writing",
+    "arts"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "online",
+   "summary": "Free contests all year: personal essays, editorials, podcasts, photos, and more."
+  },
+  {
+   "id": "john-locke",
+   "kind": "program",
+   "category": "Competition",
+   "name": "John Locke Essay Competition",
+   "org": "John Locke Institute",
+   "url": "https://www.johnlockeinstitute.com/essay-competition",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": 6,
+   "rolling": false,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "writing",
+    "humanities"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "online",
+   "summary": "International essay competition in philosophy, politics, economics, history and more."
+  },
+  {
+   "id": "bennington",
+   "kind": "program",
+   "category": "Competition",
+   "name": "Bennington Young Writers Awards",
+   "org": "Bennington College",
+   "url": "https://www.bennington.edu/events/young-writers-awards",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": 11,
+   "rolling": false,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "writing"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "in_person",
+   "summary": "Writing contest in poetry, fiction and nonfiction for grades 9–12."
+  },
+  {
+   "id": "volunteermatch",
+   "kind": "program",
+   "category": "Volunteering",
+   "name": "VolunteerMatch",
+   "org": "VolunteerMatch",
+   "url": "https://www.volunteermatch.org/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": null,
+   "rolling": true,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "service"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "in_person",
+   "summary": "Search thousands of local and virtual volunteer opportunities by cause and location."
+  },
+  {
+   "id": "dosomething",
+   "kind": "program",
+   "category": "Volunteering",
+   "name": "DoSomething.org",
+   "org": "DoSomething",
+   "url": "https://www.dosomething.org/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": null,
+   "rolling": true,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "service"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "online",
+   "summary": "Youth-led campaigns for social change that you can join online or in your community. Some come with scholarships."
+  },
+  {
+   "id": "red-cross",
+   "kind": "program",
+   "category": "Volunteering",
+   "name": "American Red Cross Youth Volunteering",
+   "org": "American Red Cross",
+   "url": "https://www.redcross.org/volunteer/become-a-volunteer.html",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": null,
+   "rolling": true,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "service"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "in_person",
+   "summary": "Help with blood drives, disaster preparedness and Red Cross clubs. Many roles are open to teens."
+  },
+  {
+   "id": "habitat-youth",
+   "kind": "program",
+   "category": "Volunteering",
+   "name": "Habitat for Humanity Youth Programs",
+   "org": "Habitat for Humanity",
+   "url": "https://www.habitat.org/volunteer/near-you/youth-programs",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": null,
+   "rolling": true,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "service"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "in_person",
+   "summary": "Build homes with a local Habitat affiliate or start a campus chapter. Ages vary by affiliate."
+  },
+  {
+   "id": "smithsonian-transcription",
+   "kind": "program",
+   "category": "Volunteering",
+   "name": "Smithsonian Digital Volunteers",
+   "org": "Smithsonian Institution",
+   "url": "https://transcription.si.edu/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": null,
+   "rolling": true,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "service",
+    "humanities"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "online",
+   "summary": "Transcribe historical documents and specimen records online, on your own schedule."
+  },
+  {
+   "id": "special-olympics",
+   "kind": "program",
+   "category": "Volunteering",
+   "name": "Special Olympics",
+   "org": "Special Olympics",
+   "url": "https://www.specialolympics.org/get-involved/volunteer",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": null,
+   "rolling": true,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "service"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "in_person",
+   "summary": "Coach, partner or help at events with athletes with intellectual disabilities."
+  },
+  {
+   "id": "feeding-america",
+   "kind": "program",
+   "category": "Volunteering",
+   "name": "Volunteer at a Food Bank",
+   "org": "Feeding America",
+   "url": "https://www.feedingamerica.org/find-your-local-foodbank",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": null,
+   "rolling": true,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "service"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "in_person",
+   "summary": "Find your local food bank to sort and pack food. Most welcome teen volunteers, some with a parent."
+  },
+  {
+   "id": "key-club",
+   "kind": "program",
+   "category": "Volunteering",
+   "name": "Key Club",
+   "org": "Kiwanis International",
+   "url": "https://www.keyclub.org/",
+   "amount": null,
+   "deadline": null,
+   "dueMonth": null,
+   "rolling": true,
+   "verified": false,
+   "grades": [
+    9,
+    10,
+    11,
+    12
+   ],
+   "fields": [
+    "service",
+    "leadership"
+   ],
+   "cost": "free",
+   "region": "National",
+   "format": "in_person",
+   "summary": "The largest student-led service organization. Join or start a club at your high school."
+  }
+ ]
 }

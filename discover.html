@@ -10,28 +10,31 @@
 <body>
 <script src="shell.js"></script>
 <main>
-  <h1>Discover</h1>
-  <p class="muted">Scholarships and programs worth your time, picked for high schoolers. Track one and it lands on your list with its deadline. Dates marked confirmed were checked on the official site; others show the usual month, so check the site for this year's date.</p>
+  <div class="page-head">
+    <h1>Discover</h1>
+    <p class="muted">Scholarships, programs, competitions, volunteering and local events for high schoolers. Track one and it lands on your list and calendar. Dates marked confirmed were checked on the official site; others show the usual month.</p>
+  </div>
 
-  <form id="filters-form" class="filters" role="search">
-    <label class="wide">Search <input name="q" type="search" placeholder="math, essay, full tuition…" autocomplete="off"></label>
-    <label>Type <select name="kind"><option value="">Everything</option><option value="scholarship">Scholarships</option><option value="program">Programs</option></select></label>
-    <label>Your grade <select name="grade"><option value="">Any</option><option value="9">9th</option><option value="10">10th</option><option value="11">11th</option><option value="12">12th</option></select></label>
-    <label>Due <select name="due"><option value="">Anytime</option><option value="month">Next 30 days</option><option value="quarter">Next 3 months</option></select></label>
-    <label>Based on <select name="basis"><option value="">Anything</option><option value="merit">Merit</option><option value="need">Financial need</option><option value="both">Merit + need</option><option value="contest">Contest / project</option></select></label>
-    <label>Open to <select name="region"><option value="">Everyone</option><option value="National">Nationwide</option><option value="California">California students</option></select></label>
-    <label>Sort <select name="sort"><option value="deadline">Soonest deadline</option><option value="amount">Biggest award</option><option value="name">A–Z</option></select></label>
-    <label class="check"><input name="free" type="checkbox"> Free programs only</label>
+  <form id="filters-form" class="disc-tools" role="search">
+    <div class="disc-bar">
+      <label class="search-box"><span class="sr-only">Search</span><input id="d-q" type="search" placeholder="Search scholarships, programs, events…" autocomplete="off"></label>
+      <button id="filters-btn" type="button" class="secondary" aria-expanded="false" aria-controls="filter-panel">Filters <span id="f-count" class="badge" hidden></span></button>
+      <label class="sort"><span class="sr-only">Sort</span><select id="d-sort"><option value="deadline">Soonest deadline</option><option value="amount">Biggest award</option><option value="name">A–Z</option></select></label>
+    </div>
+    <div id="filter-panel" class="filter-panel" hidden>
+      <div id="panel-fields" class="panel-grid"></div>
+      <div class="row" style="justify-content:flex-end;margin-top:12px"><button id="panel-clear" type="button" class="secondary">Clear all</button><button id="panel-done" type="button">Done</button></div>
+    </div>
+    <div id="type-tabs" class="tabs" role="group" aria-label="Type"></div>
+    <div class="active-row"><span id="count" class="muted"></span><div id="active-filters" class="chips"></div></div>
   </form>
-  <div id="field-chips" class="chips"></div>
-  <p class="row muted"><span id="count"></span><button id="clear" type="button" class="chip">Clear filters</button></p>
 
   <p id="msg" role="status"></p>
   <section>
     <div id="catalog"></div>
     <p id="catalog-empty" class="muted" hidden>Nothing matches. Try clearing a filter.</p>
   </section>
-  <p class="muted">Know one we're missing? Club leaders can post it on <a href="find.html">Find opportunities</a>.</p>
+  <p class="muted">Hosting an event for students? <a href="submit-event.html">Submit it for review</a> and it will show up here once approved.</p>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
 <script src="db.js"></script>

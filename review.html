@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Review events · comp.</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2224%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2256%22 font-weight=%22700%22 font-family=%22Inter,Arial,sans-serif%22 fill=%22white%22 text-anchor=%22middle%22%3Ec.%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<script src="shell.js"></script>
+<main>
+  <div class="page-head">
+    <h1>Review events</h1>
+    <p class="muted">Approve events submitted by organizers before they appear on Discover. Only approved reviewers can see this page.</p>
+  </div>
+  <p id="msg" role="status"></p>
+
+  <div id="review" hidden>
+    <div id="r-tabs" class="chips"></div>
+    <div id="apps"></div>
+    <p id="apps-empty" class="muted" hidden>Nothing here. 🎉</p>
+
+    <section id="team-section" class="card" style="margin-top:40px">
+      <h2 style="font-size:15px">Review team</h2>
+      <ul id="team" class="sources" style="margin-bottom:16px"></ul>
+      <form id="add-reviewer" class="goal-form" hidden>
+        <label style="flex:1">Add by email <input name="email" type="email" required placeholder="They need an account first"></label>
+        <label style="width:140px">Role <select name="role"><option value="reviewer">Reviewer</option><option value="admin">Admin</option></select></label>
+        <button>Add</button>
+      </form>
+    </section>
+  </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
+<script src="db.js"></script>
+<script src="review.js"></script>
+</body>
+</html>
