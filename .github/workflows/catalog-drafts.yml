@@ -1,0 +1,42 @@
+# On the 1st of each month: re-read entries due this month or next and send AI drafts with this year's dates
+# to the review page. Runs only once the repo has these secrets (Settings → Secrets and variables → Actions):
+# ANTHROPIC_API_KEY, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY.
+name: Catalog drafts
+on:
+  schedule:
+    - cron: '0 16 1 * *'
+  workflow_dispatch:
+    inputs:
+      urls:
+        description: 'Official page URLs to draft (space-separated). Leave blank to re-read entries due soon.'
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - name: Skip until secrets are set
+        id: ready
+        run: |
+          if [ -n "$ANTHROPIC_API_KEY" ] && [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_SERVICE_ROLE_KEY" ]; then echo "ok=1" >> "$GITHUB_OUTPUT"; else echo "Secrets not set; skipping."; fi
+      - uses: actions/checkout@v4
+        if: steps.ready.outputs.ok == '1'
+      - uses: actions/setup-node@v4
+        if: steps.ready.outputs.ok == '1'
+        with:
+          node-version: 20
+      - name: Draft entries
+        if: steps.ready.outputs.ok == '1'
+        working-directory: scripts
+        env:
+          URLS: ${{ github.event.inputs.urls }}
+        run: |
+          npm ci
+          if [ -n "$URLS" ]; then node extract-opportunity.mjs $URLS; else node extract-opportunity.mjs --due-soon; fi

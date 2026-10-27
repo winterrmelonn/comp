@@ -5,6 +5,9 @@
 //   cd scripts && npm install
 //   ANTHROPIC_API_KEY=... node extract-opportunity.mjs https://example.org/scholarship [more urls]
 //   ANTHROPIC_API_KEY=... node extract-opportunity.mjs --due-soon    # re-read catalog items due this month or next
+//
+// With SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY set, drafts go to the catalog_drafts table (supabase-10.sql)
+// instead, so reviewers approve them on review.html and they appear on Discover without a code change.
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import Anthropic from '@anthropic-ai/sdk';
 import { betaZodOutputFormat } from '@anthropic-ai/sdk/helpers/beta/zod';
@@ -101,16 +104,39 @@ if (args[0] === '--due-soon') {
   process.exit(2);
 }
 
+// Catalog-shaped entry, as Discover reads it
+const toEntry = c => Object.fromEntries(Object.entries({
+  kind: c.kind, category: c.kind === 'program' ? c.category : undefined, name: c.name, org: c.org, url: c.url,
+  amount: c.amount, amountText: c.amountText, deadline: c.deadline, dueMonth: c.dueMonth, rolling: c.rolling,
+  verified: false, grades: c.grades.length ? c.grades : [9, 10, 11, 12], fields: c.fields.length ? c.fields : ['general'],
+  basis: c.kind === 'scholarship' ? c.basis : undefined, region: c.region, cost: c.kind === 'program' ? c.cost : undefined,
+  format: c.format, summary: c.summary,
+}).filter(([, v]) => v !== undefined));
+
+const SUPA = process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY
+  ? { url: process.env.SUPABASE_URL.replace(/\/$/, ''), key: process.env.SUPABASE_SERVICE_ROLE_KEY } : null;
+async function sendToReview(c) {
+  const res = await fetch(`${SUPA.url}/rest/v1/catalog_drafts`, {
+    method: 'POST',
+    headers: { apikey: SUPA.key, authorization: `Bearer ${SUPA.key}`, 'content-type': 'application/json', prefer: 'return=minimal' },
+    body: JSON.stringify({ updates: c.updates, entry: toEntry(c), evidence: c.evidence, confidence: c.confidence, concerns: c.concerns, source_url: c.sourceUrl }),
+  });
+  if (!res.ok) throw new Error(`Supabase ${res.status}: ${await res.text()}`);
+}
+
 const candidates = existsSync(CANDIDATES) ? JSON.parse(readFileSync(CANDIDATES, 'utf8')) : [];
 for (const { url, existing } of targets) {
   try {
     const c = await extract(url, existing);
-    candidates.push(c);
+    if (!c.isOpportunity) { console.log(`– ${url}: not an opportunity page, skipped`); continue; }
+    if (SUPA) await sendToReview(c);
+    else candidates.push(c);
     const when = c.deadline || (c.dueMonth ? `usually month ${c.dueMonth}` : c.rolling ? 'rolling' : 'no date');
     console.log(`✓ ${c.name} · ${when} · ${c.amountText ?? ''} · confidence ${c.confidence}${c.concerns.length ? ` · ${c.concerns.length} concern(s)` : ''}`);
   } catch (err) {
     console.log(`✗ ${url}: ${err.message}`);
   }
-  writeFileSync(CANDIDATES, JSON.stringify(candidates, null, 1) + '\n'); // save as we go
+  if (!SUPA) writeFileSync(CANDIDATES, JSON.stringify(candidates, null, 1) + '\n'); // save as we go
 }
-console.log(`\n${candidates.filter(c => c.status === 'pending').length} draft(s) waiting for review in data/candidates.json`);
+console.log(SUPA ? '\nDrafts sent to the review page (Review events → Catalog drafts).'
+  : `\n${candidates.filter(c => c.status === 'pending').length} draft(s) waiting for review in data/candidates.json`);

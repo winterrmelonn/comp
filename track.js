@@ -485,6 +485,19 @@ if (typeof document === 'object') (async () => {
         sb.from('posts').select('*, clubs(name)').gte('date', today()).eq('kind', 'volunteer').order('date').then(r => r.data || [], () => []),
       ]);
       catalog = [...ev.map(e => asEvent(e, 'ev')), ...posts.map(p => asEvent(p, 'post')), ...catalog];
+      // Reviewer-approved drafts (supabase-10.sql): updates replace their catalog entry, new ones are added
+      const approved = await sb.from('approved_catalog').select().then(r => r.data || [], () => []);
+      for (const d of approved) {
+        const e = d.entry || {};
+        if (!e.name || !['scholarship', 'program'].includes(e.kind) || !safeUrl(e.url)) continue;
+        const item = {
+          grades: [9, 10, 11, 12], fields: ['general'], region: 'National', rolling: false, summary: '', ...e,
+          id: d.updates || `draft-${d.id}`, url: safeUrl(e.url), verified: !!(e.verified && e.deadline),
+        };
+        const n = catalog.findIndex(i => i.id === d.updates);
+        if (n >= 0) catalog[n] = { ...catalog[n], ...item };
+        else catalog.push(item);
+      }
     }
     let mine = await tracked.list().catch(() => []);
     const isTracked = i => mine.some(t => t.kind === i.kind && t.name === i.name);

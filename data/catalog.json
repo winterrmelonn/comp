@@ -298,7 +298,7 @@
    "amount": 25000,
    "amountText": "Up to $25,000",
    "deadline": null,
-   "dueMonth": 10,
+   "dueMonth": 2,
    "verified": false,
    "grades": [
     12
@@ -309,7 +309,7 @@
    ],
    "basis": "need",
    "region": "National",
-   "summary": "For seniors who have overcome significant adversity and show financial need and community involvement."
+   "summary": "For seniors who have overcome significant adversity and show financial need and community involvement. The senior application runs December 1 to February 15."
   },
   {
    "id": "national-merit",
@@ -340,9 +340,8 @@
    "url": "https://www.societyforscience.org/regeneron-sts/",
    "amount": 250000,
    "amountText": "Up to $250,000",
-   "deadline": null,
-   "dueMonth": 11,
-   "verified": false,
+   "deadline": "2026-11-05",
+   "verified": true,
    "grades": [
     12
    ],
@@ -363,9 +362,8 @@
    "url": "https://www.aspirations.org/",
    "amount": null,
    "amountText": "Recognition, prizes and a community",
-   "deadline": null,
-   "dueMonth": 11,
-   "verified": false,
+   "deadline": "2026-10-27",
+   "verified": true,
    "grades": [
     9,
     10,
@@ -751,9 +749,8 @@
    "name": "Congressional App Challenge",
    "org": "U.S. House of Representatives",
    "url": "https://www.congressionalappchallenge.us/",
-   "deadline": null,
-   "dueMonth": 10,
-   "verified": false,
+   "deadline": "2026-10-26",
+   "verified": true,
    "grades": [
     9,
     10,
@@ -1484,10 +1481,9 @@
    "org": "U.S. Department of State",
    "url": "https://www.nsliforyouth.org/",
    "amount": null,
-   "deadline": null,
-   "dueMonth": 11,
+   "deadline": "2026-11-12",
    "rolling": false,
-   "verified": false,
+   "verified": true,
    "grades": [
     9,
     10,
@@ -1982,10 +1978,9 @@
    "org": "Bennington College",
    "url": "https://www.bennington.edu/events/bennington-young-creators-awards/bennington-young-writers-awards",
    "amount": null,
-   "deadline": null,
-   "dueMonth": 11,
+   "deadline": "2026-11-01",
    "rolling": false,
-   "verified": false,
+   "verified": true,
    "grades": [
     9,
     10,
