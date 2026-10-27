@@ -12,6 +12,7 @@
     users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/>',
     cal: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
     book: '<path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H20v15H5.5A1.5 1.5 0 0 0 4 19.5z"/><path d="M4 19.5A1.5 1.5 0 0 0 5.5 21H20"/>',
+    shield: '<path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/>',
     plus: '<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/>',
     menu: '<path d="M4 6h16M4 12h16M4 18h16"/>',
     account: '<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/>',
@@ -37,8 +38,8 @@
     <p class="side-h">Explore</p>
     ${link('discover.html', 'compass', 'Discover')}
     ${link('study.html', 'book', 'Study')}
-    ${link('find.html', 'search', 'Find opportunities')}
     ${link('submit-event.html', 'plus', 'Submit an event')}
+    <a href="review.html" id="nav-review" hidden>${icon(I.shield)}<span>Review events</span></a>
   </nav>
   <div class="side-foot">
     <nav>${link('login.html', 'account', 'Account')}</nav>
@@ -49,6 +50,18 @@
   <button class="icon-btn" id="menu-btn" type="button" aria-label="Open menu" aria-controls="side" aria-expanded="false">${icon(I.menu)}</button>
   ${brand}
 </header>`);
+
+  // Reviewers (supabase-9.sql) get a Review link; checked once the page's Supabase client exists
+  addEventListener('DOMContentLoaded', async () => {
+    const a = document.getElementById('nav-review');
+    if (here === 'review.html') a.hidden = false;
+    if (typeof sb === 'undefined' || !sb) return;
+    try {
+      if (!(await sb.auth.getSession()).data.session) return;
+      const { data } = await sb.rpc('is_reviewer');
+      if (data) a.hidden = false;
+    } catch {}
+  });
 
   const here = location.pathname.split('/').pop() || 'home.html';
   const alias = { 'edit-profile.html': 'profile.html' };

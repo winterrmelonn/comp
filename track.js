@@ -132,13 +132,28 @@ function dueText(item, today) {
   return item.rolling ? 'Rolling: apply anytime' : 'Through your school';
 }
 
-const DUE_WINDOWS = { month: 31, quarter: 92 };
+const DUE_WINDOWS = { week: 8, month: 31, quarter: 92 };
+
+// What a catalog item is, for the Discover tabs: scholarships, programs, competitions, volunteering, or community events
+function typeOf(i) {
+  if (i.type) return i.type;
+  if (i.kind === 'scholarship') return 'scholarship';
+  if (i.category === 'Competition' || i.category === 'Hackathon') return 'competition';
+  if (i.category === 'Volunteering' || i.category === 'Service') return 'volunteer';
+  return 'program';
+}
 
 function filterCatalog(items, f, today) {
   const q = (f.q || '').trim().toLowerCase();
   return items.filter(i => {
-    if (q && ![i.name, i.org, i.summary, i.category, i.amountText, ...i.fields].join(' ').toLowerCase().includes(q)) return false;
+    if (q && ![i.name, i.org, i.summary, i.category, i.amountText, i.address, ...i.fields].join(' ').toLowerCase().includes(q)) return false;
     if (f.kind && i.kind !== f.kind) return false;
+    if (f.type && typeOf(i) !== f.type) return false;
+    if (f.format && (i.kind === 'scholarship' || (i.format || 'in_person') !== f.format)) return false;
+    if (f.cost === 'free' && i.kind !== 'scholarship' && i.cost !== 'free') return false;
+    if (f.cost === 'aid' && i.kind !== 'scholarship' && !['free', 'aid'].includes(i.cost)) return false;
+    if (f.min && !(Number(i.amount) >= Number(f.min))) return false;
+    if (f.confirmed && !i.verified) return false;
     if (f.grade && !i.grades.includes(Number(f.grade))) return false;
     if (f.field && !i.fields.includes(f.field)) return false;
     if (f.basis && i.basis !== f.basis) return false;
@@ -163,7 +178,7 @@ function sortCatalog(items, sort, today) {
   return [...items].sort((a, b) => by(a, b) || a.name.localeCompare(b.name));
 }
 
-if (typeof module === 'object') module.exports = { daysUntil, deadlineText, sortTracked, trackSummary, safeUrl, toICS, calendarLinks, csvOf, parseICS, nextDue, dueText, filterCatalog, sortCatalog };
+if (typeof module === 'object') module.exports = { daysUntil, deadlineText, sortTracked, trackSummary, safeUrl, toICS, calendarLinks, csvOf, parseICS, nextDue, dueText, filterCatalog, sortCatalog, typeOf };
 
 // UI
 if (typeof document === 'object') (async () => {
@@ -422,14 +437,29 @@ if (typeof document === 'object') (async () => {
     document.body.classList.remove('loading');
   }
 
-  // discover.html: the catalog in data/catalog.json, with filters kept in the URL so a filtered view can be shared
+  // discover.html: the catalog in data/catalog.json plus approved community events, with filters kept in the URL
   if ($('catalog')) {
     const FIELDS_ = { stem: 'STEM', cs: 'Computer science', math: 'Math', arts: 'Arts', writing: 'Writing', humanities: 'Humanities', leadership: 'Leadership', service: 'Service', general: 'Any major' };
     const BASIS = { need: 'Need-based', merit: 'Merit', both: 'Merit + need', contest: 'Contest' };
     const COST = { free: 'Free', aid: 'Financial aid available', paid: 'Paid' };
+    const TYPES = { '': 'All', scholarship: 'Scholarships', program: 'Programs', competition: 'Competitions', volunteer: 'Volunteering', event: 'Events' };
+    // Panel filters: key → [label, options]; each shows as a removable chip when set
+    const PANEL = {
+      grade: ['Your grade', { 9: '9th grade', 10: '10th grade', 11: '11th grade', 12: '12th grade' }],
+      field: ['Interest', FIELDS_],
+      due: ['Due', { week: 'Due this week', month: 'Next 30 days', quarter: 'Next 3 months' }],
+      basis: ['Scholarship type', BASIS],
+      min: ['Award size', { 1000: '$1,000+', 5000: '$5,000+', 10000: '$10,000+', 25000: '$25,000+' }],
+      cost: ['Cost', { free: 'Free only', aid: 'Free or financial aid' }],
+      format: ['Format', { online: 'Online', in_person: 'In person' }],
+      region: ['Open to', { National: 'Nationwide', California: 'California' }],
+    };
+    const TOGGLES = { confirmed: 'Confirmed dates only', untracked: 'Hide ones I track' };
+    const KEYS = ['q', 'type', ...Object.keys(PANEL), 'sort'];
     const params = new URLSearchParams(location.search);
-    const f = Object.fromEntries(['q', 'kind', 'grade', 'field', 'basis', 'region', 'due', 'sort'].map(k => [k, params.get(k) || '']));
-    f.free = params.get('free') === '1';
+    const f = Object.fromEntries(KEYS.map(k => [k, params.get(k) || '']));
+    for (const k of Object.keys(TOGGLES)) f[k] = params.get(k) === '1';
+    if (params.get('kind')) f.type = params.get('kind'); // old links
     if (!f.grade) { try { f.grade = localStorage.getItem('comp-grade') || ''; } catch {} }
     f.sort ||= 'deadline';
 
@@ -441,45 +471,70 @@ if (typeof document === 'object') (async () => {
     } catch {
       say("Couldn't load the catalog. Check your connection and refresh.");
     }
+    // Community events: approved applications (supabase-9.sql) and older club posts
+    const asEvent = (e, src) => ({
+      id: `${src}-${e.id}`, type: 'event', kind: 'program', category: 'Event', name: e.title, org: e.org || e.clubs?.name || '',
+      url: safeUrl(e.link) || safeUrl(e.org_url) || '', deadline: e.date, verified: true, grades: [9, 10, 11, 12], fields: ['service'],
+      cost: e.cost === 'paid' ? 'paid' : 'free', format: e.format === 'virtual' ? 'online' : 'in_person', region: 'Local',
+      summary: e.description || e.details || '', address: e.address || e.location || '', time: e.start_time ? `${e.start_time.slice(0, 5)}–${e.end_time?.slice(0, 5)}` : e.time,
+      hours: e.hours_offered, eligibility: e.eligibility,
+    });
+    if (sb) {
+      const [ev, posts] = await Promise.all([
+        sb.from('approved_events').select().order('date').then(r => r.data || [], () => []),
+        sb.from('posts').select('*, clubs(name)').gte('date', today()).eq('kind', 'volunteer').order('date').then(r => r.data || [], () => []),
+      ]);
+      catalog = [...ev.map(e => asEvent(e, 'ev')), ...posts.map(p => asEvent(p, 'post')), ...catalog];
+    }
     let mine = await tracked.list().catch(() => []);
     const isTracked = i => mine.some(t => t.kind === i.kind && t.name === i.name);
 
     // Controls
     const form = $('filters-form');
-    for (const [k, v] of Object.entries(f)) if (form[k] && form[k].type !== 'checkbox') form[k].value = v;
-    form.free.checked = f.free;
-    $('field-chips').replaceChildren(...Object.entries({ '': 'All fields', ...FIELDS_ }).map(([key, label]) => {
-      const b = el('button', { className: 'chip', type: 'button', textContent: label });
-      b.dataset.field = key;
-      b.onclick = () => { f.field = key; update(); };
-      return b;
-    }));
-    form.oninput = form.onchange = () => {
-      for (const k of ['q', 'kind', 'grade', 'basis', 'region', 'due', 'sort']) f[k] = form[k].value;
-      f.free = form.free.checked;
-      try { localStorage.setItem('comp-grade', f.grade); } catch {}
-      update();
-    };
     form.onsubmit = ev => ev.preventDefault();
-    $('clear').onclick = () => {
-      Object.assign(f, { q: '', kind: '', grade: '', field: '', basis: '', region: '', due: '', free: false, sort: 'deadline' });
-      for (const k of ['q', 'kind', 'grade', 'basis', 'region', 'due', 'sort']) form[k].value = f[k];
-      form.free.checked = false;
+    $('d-q').value = f.q;
+    $('d-sort').value = f.sort;
+    $('d-q').oninput = () => { f.q = $('d-q').value; update(); };
+    $('d-sort').onchange = () => { f.sort = $('d-sort').value; update(); };
+    $('panel-fields').replaceChildren(...Object.entries(PANEL).map(([k, [label, opts]]) => {
+      const sel = el('select', { name: k });
+      sel.append(new Option('Any', ''), ...Object.entries(opts).map(([v, t]) => new Option(t, v)));
+      sel.value = f[k];
+      sel.onchange = () => { f[k] = sel.value; if (k === 'grade') { try { localStorage.setItem('comp-grade', f.grade); } catch {} } update(); };
+      const l = el('label', { textContent: label });
+      l.append(sel);
+      return l;
+    }), ...Object.entries(TOGGLES).map(([k, label]) => {
+      const box = el('input', { type: 'checkbox', name: k, checked: f[k] });
+      box.onchange = () => { f[k] = box.checked; update(); };
+      const l = el('label', { className: 'check' });
+      l.append(box, document.createTextNode(label));
+      return l;
+    }));
+    const panel = $('filter-panel');
+    $('filters-btn').onclick = () => { panel.hidden = !panel.hidden; $('filters-btn').setAttribute('aria-expanded', !panel.hidden); };
+    $('panel-done').onclick = () => { panel.hidden = true; $('filters-btn').setAttribute('aria-expanded', 'false'); };
+    const clearAll = () => {
+      for (const k of [...Object.keys(PANEL)]) f[k] = '';
+      for (const k of Object.keys(TOGGLES)) f[k] = false;
       try { localStorage.removeItem('comp-grade'); } catch {}
+      for (const s of form.querySelectorAll('#panel-fields select')) s.value = '';
+      for (const c of form.querySelectorAll('#panel-fields input')) c.checked = false;
       update();
     };
+    $('panel-clear').onclick = clearAll;
 
     const trackButton = i => {
       const page = KINDS[i.kind].page;
       if (isTracked(i)) return el('a', { href: page, className: 'button', textContent: 'Tracked ✓' });
-      const b = el('button', { textContent: 'Track', type: 'button' });
+      const b = el('button', { textContent: i.type === 'event' ? 'Save' : 'Track', type: 'button' });
       b.onclick = async () => {
         b.disabled = true;
         const exact = !!i.deadline;
         try {
           await tracked.add([{
             kind: i.kind, name: i.name, org: i.org, amount: i.amount ?? null, category: i.category ?? null,
-            deadline: exact ? i.deadline : null, link: i.url, status: 'interested',
+            deadline: exact ? i.deadline : null, link: i.url || null, status: 'interested',
             notes: [i.summary, exact ? null : `${dueText(i, today())}; check the official site for this year's date.`].filter(Boolean).join('\n'),
           }]);
           mine = await tracked.list().catch(() => mine);
@@ -493,43 +548,78 @@ if (typeof document === 'object') (async () => {
       return b;
     };
 
+    const TYPE_LABEL = { scholarship: 'Scholarship', program: 'Program', competition: 'Competition', volunteer: 'Volunteering', event: 'Event' };
     const card = i => {
-      const c = el('article', { className: 'post track' });
-      const due = dueText(i, today());
+      const t = typeOf(i);
+      const c = el('article', { className: `post track type-${t}` });
+      const ev = t === 'event';
+      const due = ev ? null : dueText(i, today());
       const soon = i.deadline && daysUntil(i.deadline, today()) >= 0 && daysUntil(i.deadline, today()) <= 14;
       const date = i.deadline ? shortDate(i.deadline) : null;
       c.append(
-        el('p', { className: `label${soon ? ' soon' : ''}`, textContent: [KINDS[i.kind].label, date, due].filter(Boolean).join(' · ') }),
+        el('p', { className: `label${soon ? ' soon' : ''}`, textContent: [TYPE_LABEL[t], date, ev ? i.time : due].filter(Boolean).join(' · ') }),
         el('h2', { textContent: i.name }),
       );
       const grades = i.grades.length === 4 ? 'Grades 9–12' : i.grades.length === 1 ? `Grade ${i.grades[0]}` : `Grades ${i.grades[0]}–${i.grades.at(-1)}`;
-      const money = i.kind === 'scholarship' ? i.amountText : [i.category, COST[i.cost]].filter(Boolean).join(' · ');
+      const money = i.kind === 'scholarship' ? i.amountText : ev ? [i.format === 'online' ? 'Virtual' : i.address] : [i.category, COST[i.cost]].filter(Boolean).join(' · ');
       c.append(
-        el('p', { className: 'muted', textContent: [i.org, money].filter(Boolean).join(' · ') }),
+        el('p', { className: 'muted', textContent: [i.org, money].flat().filter(Boolean).join(' · ') }),
         el('p', { className: 'notes', textContent: i.summary }),
       );
       const tags = el('ul', { className: 'tags small' });
-      tags.append(...[grades, i.region === 'National' ? 'Nationwide' : `${i.region} only`, BASIS[i.basis], ...i.fields.map(k => FIELDS_[k])]
-        .filter(Boolean).map(t => el('li', { textContent: t })));
+      tags.append(...(ev
+        ? [i.eligibility, i.hours && `${Number(i.hours)} volunteer hours`, i.cost === 'paid' ? 'Paid' : 'Free']
+        : [grades, i.region === 'National' ? 'Nationwide' : `${i.region} only`, i.format === 'online' ? 'Online' : null, BASIS[i.basis], ...i.fields.map(k => FIELDS_[k])])
+        .filter(Boolean).map(x => el('li', { textContent: x })));
       c.append(tags);
       const links = el('p', { className: 'cal-links' });
-      links.append(el('a', { href: i.url, target: '_blank', rel: 'noopener noreferrer', className: 'label', textContent: 'Official site ↗' }));
+      if (i.url) links.append(el('a', { href: i.url, target: '_blank', rel: 'noopener noreferrer', className: 'label', textContent: ev ? 'Details & sign up ↗' : 'Official site ↗' }));
       if (i.deadline && daysUntil(i.deadline, today()) >= 0) {
-        links.append(el('a', { href: calendarLinks({ name: i.name, deadline: i.deadline, org: i.org, link: i.url }).google, target: '_blank', rel: 'noopener noreferrer', className: 'label', textContent: '+ Google Calendar' }));
+        links.append(el('a', { href: calendarLinks({ name: i.name, title: ev ? i.name : undefined, deadline: i.deadline, org: i.org, link: i.url }).google, target: '_blank', rel: 'noopener noreferrer', className: 'label', textContent: '+ Google Calendar' }));
       }
-      if (i.verified) links.append(el('span', { className: 'label muted', textContent: `Date confirmed ${shortDate(checked)}` }));
+      if (i.verified && !ev) links.append(el('span', { className: 'label muted', textContent: `Date confirmed ${shortDate(checked)}` }));
       c.append(links, el('div', { className: 'row' }));
       c.lastChild.append(trackButton(i));
       return c;
     };
 
     const update = () => {
-      const shown = sortCatalog(filterCatalog(catalog, f, today()), f.sort, today());
+      const base = filterCatalog(catalog, { ...f, type: '' }, today()).filter(i => !f.untracked || !isTracked(i));
+      const counts = base.reduce((m, i) => (m[typeOf(i)] = (m[typeOf(i)] || 0) + 1, m), {});
+      $('type-tabs').replaceChildren(...Object.entries(TYPES).filter(([k]) => k !== 'event' || counts.event || f.type === 'event').map(([k, label]) => {
+        const b = el('button', { className: 'tab', type: 'button' });
+        b.append(label, el('span', { className: 'n', textContent: k ? counts[k] || 0 : base.length }));
+        b.setAttribute('aria-pressed', f.type === k);
+        b.onclick = () => { f.type = k; update(); };
+        return b;
+      }));
+      const shown = sortCatalog(base.filter(i => !f.type || typeOf(i) === f.type), f.sort, today());
       $('catalog').replaceChildren(...shown.map(card));
-      $('count').textContent = `${shown.length} of ${catalog.length}`;
+      $('count').textContent = `${shown.length} ${shown.length === 1 ? 'result' : 'results'}`;
       $('catalog-empty').hidden = shown.length > 0;
-      for (const b of $('field-chips').children) b.setAttribute('aria-pressed', b.dataset.field === f.field);
-      const qs = new URLSearchParams(Object.entries({ ...f, free: f.free ? '1' : '', sort: f.sort === 'deadline' ? '' : f.sort }).filter(([, v]) => v));
+
+      // Active filters as removable chips; the Filters button shows how many are on
+      const active = [
+        ...Object.entries(PANEL).filter(([k]) => f[k]).map(([k, [, opts]]) => [k, opts[f[k]]]),
+        ...Object.entries(TOGGLES).filter(([k]) => f[k]).map(([k, label]) => [k, label]),
+      ];
+      $('active-filters').replaceChildren(...active.map(([k, label]) => {
+        const b = el('button', { className: 'chip on', type: 'button', textContent: `${label} ×` });
+        b.setAttribute('aria-label', `Remove filter: ${label}`);
+        b.onclick = () => {
+          f[k] = typeof f[k] === 'boolean' ? false : '';
+          const input = form.querySelector(`#panel-fields [name=${k}]`);
+          if (input) input.type === 'checkbox' ? (input.checked = false) : (input.value = '');
+          if (k === 'grade') { try { localStorage.removeItem('comp-grade'); } catch {} }
+          update();
+        };
+        return b;
+      }), ...(active.length > 1 ? [Object.assign(el('button', { className: 'chip link', type: 'button', textContent: 'Clear all' }), { onclick: clearAll })] : []));
+      $('f-count').textContent = active.length || '';
+      $('f-count').hidden = !active.length;
+
+      const qs = new URLSearchParams(Object.entries({ ...f, sort: f.sort === 'deadline' ? '' : f.sort })
+        .map(([k, v]) => [k, v === true ? '1' : v === false ? '' : v]).filter(([, v]) => v));
       history.replaceState(null, '', qs.size ? `?${qs}` : location.pathname);
     };
 
