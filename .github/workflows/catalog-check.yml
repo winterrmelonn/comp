@@ -1,0 +1,35 @@
+# Every Monday: check catalog and study links and deadlines; open or update an issue if anything needs a human.
+name: Catalog check
+on:
+  schedule:
+    - cron: '0 15 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check links and deadlines
+        id: check
+        run: node scripts/check-catalog.mjs report.md || echo "attention=1" >> "$GITHUB_OUTPUT"
+      - name: Open or update the catalog issue
+        if: steps.check.outputs.attention == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create catalog-check --color FBCA04 --description "Weekly catalog check" --force
+          n=$(gh issue list --label catalog-check --state open --json number --jq '.[0].number')
+          if [ -n "$n" ]; then
+            gh issue edit "$n" --body-file report.md
+            gh issue comment "$n" --body "Updated by the weekly check on $(date -u +%F)."
+          else
+            gh issue create --title "Catalog check: links and deadlines to review" --label catalog-check --body-file report.md
+          fi
