@@ -28,6 +28,18 @@
   </section>
 
   <section class="card">
+    <div class="card-h"><h2>Club leaderboard</h2>
+      <fieldset class="seg" id="club-sort"><legend class="sr-only">Rank clubs by</legend>
+        <label><input type="radio" name="club-sort" value="members" checked><span>Members</span></label>
+        <label><input type="radio" name="club-sort" value="events"><span>Events</span></label>
+        <label><input type="radio" name="club-sort" value="hours"><span>Hours</span></label>
+      </fieldset>
+    </div>
+    <ol id="s-clubs" class="leaderboard"></ol>
+    <p id="s-clubs-empty" class="muted" style="margin:0">No clubs to display yet.</p>
+  </section>
+
+  <section class="card">
     <div class="card-h"><h2>Students</h2><span id="s-count" class="label"></span></div>
     <ul id="s-members" class="school-members"></ul>
   </section>

@@ -203,6 +203,12 @@ table:has(#rows:empty) { display: none; }
 main > .school-events { margin-bottom: 16px; }
 .school-members { list-style: none; padding: 0; margin: 0; columns: 2 200px; }
 .school-members li { padding: 4px 0; }
+.leaderboard { margin: 0; padding: 0 0 0 1.6em; }
+.leaderboard li { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.leaderboard li:last-child { border-bottom: 0; }
+.leaderboard .club { display: block; font-weight: 600; }
+.leaderboard b { color: var(--text); font-weight: 600; }
+#club-sort label > span { height: 28px; padding: 0 12px; font-size: 13px; }
 .upcoming ul { list-style: none; padding: 0; margin: 0; }
 .upcoming li { display: grid; grid-template-columns: 1fr auto; gap: 0 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
 .upcoming li:last-child { border-bottom: 0; }
@@ -438,7 +444,7 @@ dialog.setup .row { margin-top: 4px; }
 /* Settings */
 .settings section { margin-bottom: 16px; }
 .settings h2 { font-size: 15px; }
-.settings fieldset.seg { border: 0; padding: 0; margin: 0; }
+fieldset.seg { border: 0; padding: 0; margin: 0; }
 .settings .row { margin-top: 12px; }
 
 /* Colleges */

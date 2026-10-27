@@ -260,6 +260,31 @@ if (typeof document === 'object') (async () => {
     $('school-events').hidden = false;
   })().catch(() => {}); // offline, or supabase-13.sql not run yet: no notice
 
+  // school.html club leaderboard (supabase-14.sql), ranked by members, events published or members' hours
+  const loadClubs = async sid => {
+    const [me, clubs] = await Promise.all([
+      sb.from('profiles').select('school_id').eq('id', user.id).maybeSingle().then(check),
+      sb.rpc('school_clubs', { sid }).then(check),
+    ]);
+    if (me?.school_id !== sid) { $('s-clubs-empty').textContent = 'Only students at this school can see its club leaderboard.'; return; }
+    const UNITS = { members: ['member', 'members'], events: ['event', 'events'], hours: ['hour', 'hours'] };
+    const stat = (c, k) => { const n = Math.round(Number(c[k]) * 100) / 100; return `${n} ${UNITS[k][n === 1 ? 0 : 1]}`; };
+    const rank = () => {
+      const by = document.querySelector('[name=club-sort]:checked').value;
+      const sorted = [...clubs].sort((a, b) => Number(b[by]) - Number(a[by]) || b.members - a.members || a.club.localeCompare(b.club));
+      $('s-clubs').replaceChildren(...sorted.map(c => {
+        const li = el('li');
+        const stats = el('span', { className: 'muted' });
+        stats.append(...Object.keys(UNITS).flatMap((k, i) => [i ? ' · ' : '', k === by ? el('b', { textContent: stat(c, k) }) : stat(c, k)]));
+        li.append(el('span', { className: 'club', textContent: c.club }), stats);
+        return li;
+      }));
+    };
+    document.querySelectorAll('[name=club-sort]').forEach(r => { r.onchange = rank; });
+    rank();
+    $('s-clubs-empty').hidden = clubs.length > 0;
+  };
+
   // school.html: the comp. students at a school and the events they've posted
   if ($('school-page') && sb) (async () => {
     const params = new URLSearchParams(location.search);
@@ -272,8 +297,10 @@ if (typeof document === 'object') (async () => {
     $('s-events-empty').hidden = events.length > 0;
     if (!user) {
       $('s-members').replaceChildren(el('li', { className: 'muted', textContent: 'Log in to see the students here.' }));
+      $('s-clubs-empty').textContent = 'Log in to see the club leaderboard.';
       return;
     }
+    loadClubs(sid).catch(() => {}); // supabase-14.sql
     const members = await sb.rpc('school_members', { sid }).then(check).catch(() => null);
     if (!members) return say("Couldn't load this school. Try again in a minute.");
     $('s-count').textContent = `${members.length} on comp.`;
