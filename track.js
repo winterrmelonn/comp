@@ -188,8 +188,16 @@ if (typeof document === 'object') (async () => {
   const KINDS = {
     scholarship: { page: 'scholarships.html', label: 'Scholarship', accepted: 'Won' },
     program: { page: 'programs.html', label: 'Program', accepted: 'Accepted' },
+    college: { page: 'colleges.html', label: 'College', accepted: 'Admitted' },
   };
-  const statusLabel = (kind, s) => ({ interested: 'Interested', applying: 'Working on it', submitted: 'Submitted', accepted: KINDS[kind].accepted, rejected: 'Not this time' })[s];
+  const statusLabel = (kind, s) => (kind === 'college'
+    ? { interested: 'Researching', applying: 'Working on it', submitted: 'Applied', accepted: 'Admitted', rejected: 'Not admitted' }
+    : { interested: 'Interested', applying: 'Working on it', submitted: 'Submitted', accepted: KINDS[kind].accepted, rejected: 'Not this time' })[s];
+  // College checklists live in notes as "[ ] Item" / "[x] Item" lines, so they sync for accounts with no new columns
+  const CHECKLIST = ['Essays and supplements', 'Recommendation letters requested', 'Transcript sent', 'Test scores sent (or test-optional)', 'Application fee paid or waived', 'FAFSA / CSS Profile done'];
+  const checklistOf = notes => String(notes || '').split('\n').map(l => l.match(/^\[( |x)\] (.+)$/i)).filter(Boolean).map(m => ({ done: m[1].toLowerCase() === 'x', text: m[2] }));
+  const otherNotes = notes => String(notes || '').split('\n').filter(l => !/^\[( |x)\] /i.test(l)).join('\n').trim();
+  const withChecklist = (notes, list) => [otherNotes(notes), ...list.map(c => `[${c.done ? 'x' : ' '}] ${c.text}`)].filter(Boolean).join('\n');
 
   const $ = id => document.getElementById(id);
   const el = (tag, props) => Object.assign(document.createElement(tag), props);
@@ -224,7 +232,8 @@ if (typeof document === 'object') (async () => {
   // Logged in: data lives in Supabase (table in supabase-5.sql)
   const user = sb ? (await sb.auth.getSession()).data.session?.user : null;
   const check = ({ data, error }) => { if (error) throw error; return data; };
-  const explain = err => err?.code === 'PGRST205' ? "tracking isn't set up for accounts yet (supabase-5.sql hasn't been run)." : err?.message;
+  const explain = err => err?.code === 'PGRST205' ? "tracking isn't set up for accounts yet (supabase-5.sql hasn't been run)."
+    : err?.code === '23514' ? "colleges aren't set up for accounts yet (supabase-11.sql hasn't been run). Log out to use them on this device." : err?.message;
   const clean = row => Object.fromEntries(FIELDS.filter(k => k in row).map(k => [k, row[k] === '' ? null : row[k]]));
 
   const tracked = {
@@ -272,9 +281,30 @@ if (typeof document === 'object') (async () => {
         el('h2', { textContent: i.name }),
       );
       const amount = i.amount ? `$${Number(i.amount).toLocaleString()}` : null;
-      const meta = [i.org, kind === 'scholarship' ? amount : i.category].filter(Boolean).join(' · ');
+      const meta = kind === 'college' ? [i.category, i.org].filter(Boolean).join(' · ') : [i.org, kind === 'scholarship' ? amount : i.category].filter(Boolean).join(' · ');
       if (meta) c.append(el('p', { className: 'muted', textContent: meta }));
-      if (i.notes) c.append(el('p', { className: 'notes', textContent: i.notes }));
+      const list = kind === 'college' ? checklistOf(i.notes) : [];
+      const text = kind === 'college' ? otherNotes(i.notes) : i.notes;
+      if (text) c.append(el('p', { className: 'notes', textContent: text }));
+      if (list.length) {
+        const done = list.filter(x => x.done).length;
+        const box = el('div', { className: 'checklist' });
+        box.append(el('p', { className: 'label', textContent: `Checklist · ${done} of ${list.length} done` }));
+        const bar = el('progress', { max: list.length, value: done });
+        box.append(bar);
+        list.forEach((item, n) => {
+          const cb = el('input', { type: 'checkbox', checked: item.done });
+          cb.onchange = async () => {
+            list[n].done = cb.checked;
+            try { await tracked.update(i.id, { notes: withChecklist(i.notes, list) }); await refresh(); }
+            catch (err) { say(`Couldn't update: ${explain(err)}`); }
+          };
+          const l = el('label', { className: 'check' });
+          l.append(cb, document.createTextNode(item.text));
+          box.append(l);
+        });
+        c.append(box);
+      }
       const href = safeUrl(i.link);
       if (href) {
         c.append(el('p'));
@@ -315,7 +345,7 @@ if (typeof document === 'object') (async () => {
       $('stats').replaceChildren(
         stat(sum.total, 'Tracking'),
         stat(sum.submitted, 'Applied'),
-        kind === 'scholarship' ? stat(`$${sum.won.toLocaleString()}`, 'Won') : stat(sum.accepted, 'Accepted'),
+        kind === 'scholarship' ? stat(`$${sum.won.toLocaleString()}`, 'Won') : stat(sum.accepted, kind === 'college' ? 'Admitted' : 'Accepted'),
         stat(sum.nextIn === null ? '—' : `${sum.nextIn}d`, 'Next deadline'),
       );
       $('filters').replaceChildren(...Object.entries(FILTERS).map(([key, [label]]) => {
@@ -389,6 +419,7 @@ if (typeof document === 'object') (async () => {
           location.href = KINDS[kind].page;
           return;
         }
+        if (kind === 'college' && !checklistOf(row.notes).length) row.notes = withChecklist(row.notes, CHECKLIST.map(text => ({ done: false, text })));
         await tracked.add([{ ...row, kind }]);
         form.reset();
         $('form-title').textContent = `+ Add a ${KINDS[kind].label.toLowerCase()}`;
@@ -405,8 +436,8 @@ if (typeof document === 'object') (async () => {
     $('ics').onclick = () => download(toICS(items), 'text/calendar', `${kind}-deadlines.ics`);
     $('notion').onclick = () => download(csvOf(sortTracked(items).map(i => ({
       Name: i.name,
-      [kind === 'scholarship' ? 'Offered by' : 'Run by']: i.org ?? '',
-      ...(kind === 'scholarship' ? { Amount: i.amount ?? '' } : { Type: i.category ?? '' }),
+      [kind === 'scholarship' ? 'Offered by' : kind === 'college' ? 'Applies through' : 'Run by']: i.org ?? '',
+      ...(kind === 'scholarship' ? { Amount: i.amount ?? '' } : { [kind === 'college' ? 'Plan' : 'Type']: i.category ?? '' }),
       Deadline: i.deadline ?? '',
       Status: statusLabel(kind, i.status),
       Link: safeUrl(i.link) ?? '',
@@ -434,6 +465,35 @@ if (typeof document === 'object') (async () => {
 
     await refresh();
     if (!items.length && !entry) $('add').open = true;
+
+    // colleges.html: senior-year timeline from data/roadmap.json; fixed dates can go on the calendar
+    if ($('timeline')) {
+      const road = await fetch('data/roadmap.json').then(r => r.json()).catch(() => null);
+      const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      let exams = [];
+      try { exams = JSON.parse(localStorage.getItem('comp-exams')) || []; } catch {}
+      const now = Number(today().slice(5, 7));
+      $('timeline').replaceChildren(...(road?.grades['12'] || []).map(t => {
+        const li = el('li', { className: t.month === now ? 'now' : '' });
+        li.append(el('span', { className: 'when', textContent: t.date ? shortDate(t.date) : MON[t.month - 1] }));
+        const body = el('span');
+        body.append(t.link ? el('a', { href: t.link, textContent: t.text, ...(t.link.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {}) }) : document.createTextNode(t.text));
+        li.append(body);
+        if (t.date && t.date >= today()) {
+          const key = `roadmap:${t.id}`;
+          const b = el('button', { type: 'button', className: 'chip' });
+          const sync = () => { const on = exams.some(e => e.key === key); b.textContent = on ? '✓ On calendar' : '+ Calendar'; b.setAttribute('aria-pressed', on); };
+          b.onclick = () => {
+            exams = exams.some(e => e.key === key) ? exams.filter(e => e.key !== key) : [...exams, { key, subject: 'college', date: t.date, title: t.short || t.text }];
+            try { localStorage.setItem('comp-exams', JSON.stringify(exams)); } catch {}
+            sync();
+          };
+          sync();
+          li.append(b);
+        }
+        return li;
+      }));
+    }
     document.body.classList.remove('loading');
   }
 
@@ -708,7 +768,7 @@ if (typeof document === 'object') (async () => {
       ...items.filter(i => i.deadline).map(i => ({ date: i.deadline, title: `${i.name} deadline`, type: i.kind, source: KINDS[i.kind].label, href: KINDS[i.kind].page, done: !isActive(i) })),
       ...hourRows.map(h => ({ date: h.date, title: `${Number(h.hours)} h · ${h.org}`, type: 'hours', source: 'Volunteer hours', href: 'profile.html' })),
       ...calendars.flatMap(c => c.events.map(e => ({ ...e, type: 'cal', source: c.name }))),
-      ...exams.map(e => ({ date: e.date, title: e.title, type: 'exam', source: 'Exams & tests', href: 'study.html?mine=1' })),
+      ...exams.map(e => ({ date: e.date, title: e.title, type: 'exam', source: 'Exams & key dates', href: 'study.html?mine=1' })),
     ].filter(e => !hidden.has(e.source));
 
     const render = () => {
@@ -746,7 +806,7 @@ if (typeof document === 'object') (async () => {
       $('day-empty').hidden = list.length > 0;
 
       // Sources: built-in ones plus each connected calendar, each can be hidden
-      const sources = [['Scholarship', 'scholarship'], ['Program', 'program'], ['Volunteer hours', 'hours'], ['Exams & tests', 'exam'], ...calendars.map(c => [c.name, 'cal'])];
+      const sources = [['College', 'college'], ['Scholarship', 'scholarship'], ['Program', 'program'], ['Volunteer hours', 'hours'], ['Exams & key dates', 'exam'], ...calendars.map(c => [c.name, 'cal'])];
       $('cal-sources').replaceChildren(...sources.map(([name, type], n) => {
         const li = el('li', { className: `src ev-${type}` });
         const box = el('input', { type: 'checkbox', checked: !hidden.has(name) });

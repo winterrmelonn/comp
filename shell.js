@@ -13,6 +13,9 @@
     cal: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
     book: '<path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H20v15H5.5A1.5 1.5 0 0 0 4 19.5z"/><path d="M4 19.5A1.5 1.5 0 0 0 5.5 21H20"/>',
     shield: '<path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/>',
+    school: '<path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11v5c3 2.5 9 2.5 12 0v-5M22 9v6"/>',
+    doc: '<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>',
+    gear: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
     plus: '<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/>',
     menu: '<path d="M4 6h16M4 12h16M4 18h16"/>',
     account: '<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/>',
@@ -32,7 +35,9 @@
     ${link('calendar.html', 'cal', 'Calendar')}
     ${link('log.html', 'clock', 'Log hours')}
     ${link('profile.html', 'user', 'My hours &amp; profile')}
+    ${link('resume.html', 'doc', 'Resume')}
     <p class="side-h">Applications</p>
+    ${link('colleges.html', 'school', 'Colleges')}
     ${link('scholarships.html', 'award', 'Scholarships')}
     ${link('programs.html', 'case', 'Programs')}
     <p class="side-h">Explore</p>
@@ -42,7 +47,7 @@
     <a href="review.html" id="nav-review" hidden>${icon(I.shield)}<span>Review events</span></a>
   </nav>
   <div class="side-foot">
-    <nav>${link('login.html', 'account', 'Account')}</nav>
+    <nav>${link('settings.html', 'gear', 'Settings')}${link('login.html', 'account', 'Account')}</nav>
   </div>
 </aside>
 <div class="scrim" id="scrim"></div>
@@ -64,6 +69,76 @@
   });
 
   const here = location.pathname.split('/').pop() || 'home.html';
+  const store = { get: (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } }, set: (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} } };
+
+  // Installable app with offline support
+  if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('sw.js').catch(() => {});
+
+  // Reminder banner: anything due in the next 7 days, on every page, until dismissed for the day
+  const todayStr = new Date().toLocaleDateString('en-CA');
+  const daysTo = d => Math.round((Date.parse(d) - Date.parse(todayStr)) / 864e5);
+  async function remind() {
+    if (store.get('comp-banner-dismissed', '') === todayStr || ['review.html', 'settings.html'].includes(here)) return;
+    let tracked = store.get('comp-tracked', []);
+    try {
+      if (typeof sb !== 'undefined' && sb && (await sb.auth.getSession()).data.session) {
+        const { data } = await sb.from('tracked').select('name, kind, deadline, status');
+        if (data) tracked = data;
+      }
+    } catch {}
+    const due = [
+      ...tracked.filter(i => i.deadline && ['interested', 'applying'].includes(i.status)).map(i => ({ date: i.deadline, title: i.name })),
+      ...store.get('comp-exams', []).map(e => ({ date: e.date, title: e.title })),
+    ].filter(i => daysTo(i.date) >= 0 && daysTo(i.date) <= 7).sort((a, b) => a.date.localeCompare(b.date));
+    if (!due.length || !document.querySelector('main')) return;
+    const when = d => { const n = daysTo(d); return n === 0 ? 'today' : n === 1 ? 'tomorrow' : new Date(`${d}T00:00`).toLocaleDateString(undefined, { weekday: 'short' }); };
+    const bar = document.createElement('div');
+    bar.className = 'remind';
+    bar.setAttribute('role', 'status');
+    const list = due.slice(0, 3).map(i => `<b>${i.title.replace(/[<&]/g, c => c === '<' ? '&lt;' : '&amp;')}</b> ${when(i.date)}`).join(', ');
+    bar.innerHTML = `<span>⏰ Due this week: ${list}${due.length > 3 ? ` and ${due.length - 3} more` : ''}</span><a href="calendar.html">Calendar</a><button type="button" class="icon-btn" aria-label="Dismiss for today">×</button>`;
+    bar.querySelector('button').onclick = () => { store.set('comp-banner-dismissed', todayStr); bar.remove(); };
+    document.querySelector('main').prepend(bar);
+  }
+  addEventListener('DOMContentLoaded', remind);
+
+  // First visit: a short setup so Home, Discover and the hours goal fit the student
+  const INTERESTS = { stem: 'STEM', cs: 'Computer science', math: 'Math', arts: 'Arts', writing: 'Writing', humanities: 'History & social studies', leadership: 'Leadership', service: 'Community service' };
+  window.compSetup = (force = false) => {
+    if (!force && store.get('comp-setup', null)) return;
+    const cur = store.get('comp-setup', {}) || {};
+    const d = document.createElement('dialog');
+    d.className = 'setup';
+    d.innerHTML = `<form method="dialog">
+      <h2>Welcome to comp. 👋</h2>
+      <p class="muted">Three quick questions so we can show what matters for you. You can change these in Settings.</p>
+      <fieldset class="seg"><legend>What grade are you in?</legend>
+        ${[9, 10, 11, 12].map(g => `<label><input type="radio" name="grade" value="${g}" ${String(cur.grade) === String(g) ? 'checked' : ''}><span>${g}th</span></label>`).join('')}
+        <label><input type="radio" name="grade" value="" ${cur.grade === '' ? 'checked' : ''}><span>Other</span></label>
+      </fieldset>
+      <label>Volunteer hours goal <input name="goal" type="number" min="1" max="2000" value="${store.get('comp-goal', 100)}"></label>
+      <p class="muted hint">Use your school's graduation requirement or service cord, or an award goal (e.g. 100).</p>
+      <fieldset class="picks"><legend>What are you into? <span class="muted">(pick any)</span></legend>
+        ${Object.entries(INTERESTS).map(([k, t]) => `<label><input type="checkbox" name="interests" value="${k}" ${(cur.interests || []).includes(k) ? 'checked' : ''}><span>${t}</span></label>`).join('')}
+      </fieldset>
+      <div class="row"><button value="save">Save</button><button value="skip" class="secondary" formnovalidate>Skip for now</button></div>
+    </form>`;
+    document.body.append(d);
+    d.addEventListener('close', () => {
+      const f = d.querySelector('form');
+      if (d.returnValue === 'save') {
+        const grade = f.grade.value;
+        const interests = [...f.querySelectorAll('[name=interests]:checked')].map(x => x.value);
+        store.set('comp-setup', { grade, interests, at: todayStr });
+        if (Number(f.goal.value) >= 1) localStorage.setItem('comp-goal', String(Math.round(Number(f.goal.value))));
+        try { grade ? localStorage.setItem('comp-grade', grade) : localStorage.removeItem('comp-grade'); } catch {}
+        location.reload();
+      } else if (!store.get('comp-setup', null)) store.set('comp-setup', { skipped: true, at: todayStr });
+      d.remove();
+    });
+    d.showModal();
+  };
+  if (here === 'home.html') addEventListener('DOMContentLoaded', () => window.compSetup());
   const alias = { 'edit-profile.html': 'profile.html' };
   document.querySelectorAll('.side nav a').forEach(a => {
     if (a.getAttribute('href') === (alias[here] || here)) a.setAttribute('aria-current', 'page');
