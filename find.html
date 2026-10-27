@@ -10,36 +10,16 @@
 <body>
 <script src="shell.js"></script>
 <main>
-  <h1>Find opportunities</h1>
-
-  <section id="post-section" hidden>
-    <h2>Post an opportunity</h2>
-    <form id="post-form" class="grid">
-      <label>Club <select name="club_id" required></select></label>
-      <label>Type <select name="kind">
-        <option value="volunteer">Volunteer event</option>
-        <option value="scholarship">Scholarship</option>
-        <option value="program">Program / extracurricular</option>
-      </select></label>
-      <label>Title <input name="title" required></label>
-      <label id="date-label">Date <input name="date" type="date" required></label>
-      <label id="time-field">Time <input name="time" placeholder="9am–12pm"></label>
-      <label id="location-field">Location <input name="location"></label>
-      <label id="amount-field" hidden>Amount ($) <input name="amount" type="number" min="0" step="any"></label>
-      <label>Link <input name="link" inputmode="url" placeholder="https://"></label>
-      <label class="wide">Details <textarea name="details" rows="3"></textarea></label>
-      <div><button>Post</button></div>
-    </form>
-  </section>
+  <div class="page-head"><h1>Find opportunities</h1><p class="muted">Reviewed volunteer events and opportunities from organizations near you.</p></div>
 
   <p id="msg" role="status"></p>
   <section>
-    <label class="search">Search <input id="find-q" type="search" placeholder="Event, club, place…" autocomplete="off"></label>
+    <label class="search">Search <input id="find-q" type="search" placeholder="Event, organization, place…" autocomplete="off"></label>
     <div id="kind-filters" class="chips"></div>
     <div id="posts"></div>
     <p id="empty" class="muted" hidden>No upcoming opportunities yet.</p>
   </section>
-  <p id="leader-hint" class="muted">Run a club? <a href="club.html">Register it</a> to post opportunities here.</p>
+  <p class="muted">Hosting an event for students? <a href="submit-event.html">Submit it for review →</a></p>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
 <script src="db.js"></script>

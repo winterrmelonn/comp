@@ -536,70 +536,147 @@ if (typeof document === 'object') (async () => {
     update();
   }
 
+  // Calendars imported from .ics files (Canvas, Google, Outlook, Apple), kept in this browser
+  const CAL_KEY = 'comp-calendars';
+  let calendars = [];
+  try { calendars = JSON.parse(localStorage.getItem(CAL_KEY)) || []; } catch {}
+  const saveCalendars = () => {
+    try { localStorage.setItem(CAL_KEY, JSON.stringify(calendars)); return true; }
+    catch { say("Couldn't save that calendar in this browser."); return false; }
+  };
+  // Hours: same sources as the profile page (Supabase when logged in, else this browser)
+  const loadHours = async cols => {
+    let guest = [];
+    try { guest = JSON.parse(localStorage.getItem('comp'))?.entries || []; } catch {}
+    return user ? await sb.from('hours').select(cols).then(r => r.data || []) : guest;
+  };
+  const GOAL = window.compGoal ? compGoal() : 100;
+
   // home.html: hours progress, then upcoming deadlines from scholarships, programs and imported calendars
   if ($('upcoming')) {
-    const CAL_KEY = 'comp-calendars';
-    let calendars = [];
-    try { calendars = JSON.parse(localStorage.getItem(CAL_KEY)) || []; } catch {}
-    const saveCalendars = () => {
-      try { localStorage.setItem(CAL_KEY, JSON.stringify(calendars)); return true; }
-      catch { say("Couldn't save that calendar in this browser."); return false; }
-    };
-
-    // Hours: same sources as the profile page (Supabase when logged in, else this browser)
-    let guestHours = [];
-    try { guestHours = JSON.parse(localStorage.getItem('comp'))?.entries || []; } catch {}
-    const hourRows = user ? await sb.from('hours').select('hours').then(r => r.data || []) : guestHours;
+    const hourRows = await loadHours('hours');
     const total = Math.round(hourRows.reduce((sum, e) => sum + Number(e.hours), 0) * 100) / 100;
     $('h-total').textContent = total;
-    $('h-bar').value = Math.min(total, 160);
-    if ($('h-left')) $('h-left').textContent = total >= 160 ? 'Cord requirement met 🎉' : `${Math.round((160 - total) * 100) / 100} hours to go for the service cord`;
-    if ($('h-pct')) $('h-pct').textContent = `${Math.min(100, Math.round(total / 160 * 100))}%`;
+    $('h-goal').textContent = GOAL;
+    $('h-bar').max = GOAL;
+    $('h-bar').value = Math.min(total, GOAL);
+    $('h-left').textContent = total >= GOAL ? 'Goal reached 🎉' : `${Math.round((GOAL - total) * 100) / 100} hours to go`;
+    $('h-pct').textContent = `${Math.min(100, Math.round(total / GOAL * 100))}%`;
 
     const items = await tracked.list().catch(() => []);
+    const t = today();
+    const fromTrackers = items.filter(i => isActive(i) && i.deadline && daysUntil(i.deadline, t) >= 0)
+      .map(i => ({ date: i.deadline, title: i.name, source: KINDS[i.kind].label, href: KINDS[i.kind].page }));
+    // Calendars can hold hundreds of events, so only the next two weeks of those
+    const fromCalendars = calendars.flatMap(c => c.events
+      .filter(e => daysUntil(e.date, t) >= 0 && daysUntil(e.date, t) <= 14)
+      .map(e => ({ ...e, source: c.name })));
+    const soon = [...fromTrackers, ...fromCalendars].sort((a, b) => a.date.localeCompare(b.date)).slice(0, 8);
+
+    $('upcoming').replaceChildren(...soon.map(i => {
+      const li = el('li');
+      li.append(
+        el('span', { className: 'label', textContent: `${shortDate(i.date)} · ${deadlineText(i.date, t)}` }),
+        i.href ? el('a', { href: i.href, textContent: i.title }) : el('span', { className: 'title', textContent: i.title }),
+        el('span', { className: 'muted', textContent: i.source }),
+      );
+      return li;
+    }));
+    $('upcoming-empty').hidden = soon.length > 0;
+    if ($('cal-count')) $('cal-count').textContent = calendars.length ? `${calendars.length} connected` : 'None connected yet';
+  }
+
+  // calendar.html: month view of deadlines, logged hours and connected calendars
+  if ($('cal-grid')) {
+    const t = today();
+    const [items, hourRows] = await Promise.all([tracked.list().catch(() => []), loadHours('date, org, hours').catch(() => [])]);
+    let cursor = new Date(`${t.slice(0, 7)}-01T00:00`);
+    let picked = t;
+    const hidden = new Set();
+    const ymd = d => d.toLocaleDateString('en-CA');
+
+    const allEvents = () => [
+      ...items.filter(i => i.deadline).map(i => ({ date: i.deadline, title: `${i.name} deadline`, type: i.kind, source: KINDS[i.kind].label, href: KINDS[i.kind].page, done: !isActive(i) })),
+      ...hourRows.map(h => ({ date: h.date, title: `${Number(h.hours)} h · ${h.org}`, type: 'hours', source: 'Volunteer hours', href: 'profile.html' })),
+      ...calendars.flatMap(c => c.events.map(e => ({ ...e, type: 'cal', source: c.name }))),
+    ].filter(e => !hidden.has(e.source));
 
     const render = () => {
-      const t = today();
-      const fromTrackers = items.filter(i => isActive(i) && i.deadline && daysUntil(i.deadline, t) >= 0)
-        .map(i => ({ date: i.deadline, title: i.name, source: KINDS[i.kind].label, href: KINDS[i.kind].page }));
-      // Calendars can hold hundreds of events, so only the next two weeks of those
-      const fromCalendars = calendars.flatMap(c => c.events
-        .filter(e => daysUntil(e.date, t) >= 0 && daysUntil(e.date, t) <= 14)
-        .map(e => ({ ...e, source: c.name })));
-      const soon = [...fromTrackers, ...fromCalendars].sort((a, b) => a.date.localeCompare(b.date)).slice(0, 8);
+      const events = allEvents();
+      const byDay = Map.groupBy ? Map.groupBy(events, e => e.date) : events.reduce((m, e) => m.set(e.date, [...(m.get(e.date) || []), e]), new Map());
+      $('cal-title').textContent = cursor.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+      const start = new Date(cursor);
+      start.setDate(1 - start.getDay());
+      const cells = [];
+      for (let n = 0; n < 42; n++) {
+        const d = new Date(start);
+        d.setDate(start.getDate() + n);
+        const key = ymd(d);
+        const list = byDay.get(key) || [];
+        const cell = el('button', { type: 'button', className: 'day' });
+        if (d.getMonth() !== cursor.getMonth()) cell.classList.add('other');
+        if (key === t) cell.classList.add('today');
+        if (key === picked) cell.classList.add('picked');
+        cell.setAttribute('aria-label', `${d.toDateString()}, ${list.length} events`);
+        cell.append(el('span', { className: 'num', textContent: d.getDate() }));
+        for (const e of list.slice(0, 3)) cell.append(el('span', { className: `ev ev-${e.type}`, textContent: e.title }));
+        if (list.length > 3) cell.append(el('span', { className: 'more', textContent: `+${list.length - 3} more` }));
+        cell.onclick = () => { picked = key; render(); };
+        cells.push(cell);
+      }
+      $('cal-grid').replaceChildren(...cells);
 
-      $('upcoming').replaceChildren(...soon.map(i => {
-        const li = el('li');
-        li.append(
-          el('span', { className: 'label', textContent: `${shortDate(i.date)} · ${deadlineText(i.date, t)}` }),
-          i.href ? el('a', { href: i.href, textContent: i.title }) : el('span', { className: 'title', textContent: i.title }),
-          el('span', { className: 'muted', textContent: i.source }),
-        );
+      const list = byDay.get(picked) || [];
+      $('day-title').textContent = new Date(`${picked}T00:00`).toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
+      $('day-list').replaceChildren(...list.map(e => {
+        const li = el('li', { className: `ev-${e.type}` });
+        li.append(e.href ? el('a', { href: e.href, textContent: e.title }) : el('span', { className: 'title', textContent: e.title }), el('span', { className: 'muted', textContent: e.source }));
         return li;
       }));
-      $('upcoming-empty').hidden = soon.length > 0;
+      $('day-empty').hidden = list.length > 0;
 
-      $('cal-sources').replaceChildren(...calendars.map((c, n) => {
-        const li = el('li', { textContent: `${c.name} · ${c.events.length} events ` });
-        const x = el('button', { className: 'chip', textContent: 'Remove', type: 'button' });
-        x.onclick = () => { calendars.splice(n, 1); saveCalendars(); render(); };
-        li.append(x);
+      // Sources: built-in ones plus each connected calendar, each can be hidden
+      const sources = [['Scholarship', 'scholarship'], ['Program', 'program'], ['Volunteer hours', 'hours'], ...calendars.map(c => [c.name, 'cal'])];
+      $('cal-sources').replaceChildren(...sources.map(([name, type], n) => {
+        const li = el('li', { className: `src ev-${type}` });
+        const box = el('input', { type: 'checkbox', checked: !hidden.has(name) });
+        box.onchange = () => { box.checked ? hidden.delete(name) : hidden.add(name); render(); };
+        const label = el('label', { className: 'check' });
+        label.append(box, el('span', { className: 'dot' }), document.createTextNode(name));
+        li.append(label);
+        if (type === 'cal') {
+          const c = calendars.find(x => x.name === name);
+          const x = el('button', { className: 'chip', textContent: 'Disconnect', type: 'button' });
+          x.onclick = () => { calendars = calendars.filter(y => y !== c); saveCalendars(); render(); };
+          li.append(el('span', { className: 'muted', textContent: `${c.events.length} events` }), x);
+        }
         return li;
       }));
     };
+
+    $('cal-prev').onclick = () => { cursor.setMonth(cursor.getMonth() - 1); render(); };
+    $('cal-next').onclick = () => { cursor.setMonth(cursor.getMonth() + 1); render(); };
+    $('cal-today').onclick = () => { cursor = new Date(`${t.slice(0, 7)}-01T00:00`); picked = t; render(); };
 
     $('ics-file').onchange = async ev => {
       const file = ev.target.files[0];
       ev.target.value = '';
       if (!file) return;
       const text = await file.text();
-      // Drop old events so big feeds fit in localStorage
-      const events = parseICS(text).filter(e => daysUntil(e.date, today()) >= -1).slice(0, 500);
+      // Keep the last month and everything ahead, capped so big feeds fit in localStorage
+      const events = parseICS(text).filter(e => daysUntil(e.date, today()) >= -31).slice(0, 800);
       if (!events.length) { say(`No upcoming events found in ${file.name}.`); return; }
       const name = text.match(/^X-WR-CALNAME:(.+)$/m)?.[1].trim() || file.name.replace(/\.ics$/i, '');
       calendars = calendars.filter(c => c.name !== name).concat({ name, events });
-      if (saveCalendars()) say(`Imported ${events.length} upcoming events from ${name}.`);
+      if (saveCalendars()) say(`Connected ${name}: ${events.length} events.`);
       render();
+    };
+
+    $('cal-export').onclick = () => {
+      const blob = new Blob([toICS(items)], { type: 'text/calendar' });
+      const a = el('a', { href: URL.createObjectURL(blob), download: 'comp-deadlines.ics' });
+      a.click();
+      URL.revokeObjectURL(a.href);
     };
 
     render();

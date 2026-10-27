@@ -1,0 +1,891 @@
+{
+ "groups": {
+  "tests": "Standardized tests",
+  "math": "Math & computer science",
+  "sci": "Sciences",
+  "hist": "History & social sciences",
+  "eng": "English",
+  "lang": "World languages",
+  "arts": "Arts",
+  "cap": "AP Capstone"
+ },
+ "items": [
+  {
+   "id": "sat",
+   "name": "SAT",
+   "group": "tests",
+   "tip": "Take a full timed practice test in Bluebook first to find your weak areas. Drill those in the official question bank, then retake a full test every 2–3 weeks and review every miss.",
+   "resources": [
+    {
+     "name": "Bluebook practice tests",
+     "url": "https://bluebook.collegeboard.org/",
+     "note": "Official. Full-length adaptive practice tests in the same app as the real exam."
+    },
+    {
+     "name": "SAT Suite Question Bank",
+     "url": "https://satsuitequestionbank.collegeboard.org/",
+     "note": "Official. Thousands of real questions, filterable by skill and difficulty."
+    },
+    {
+     "name": "Khan Academy Digital SAT prep",
+     "url": "https://www.khanacademy.org/test-prep/digital-sat",
+     "note": "Official partner. Free lessons and practice by skill."
+    }
+   ]
+  },
+  {
+   "id": "psat",
+   "name": "PSAT/NMSQT",
+   "group": "tests",
+   "tip": "The PSAT is a shorter SAT and decides National Merit eligibility (taken in 11th grade). Prep the same way: Bluebook practice tests and the question bank.",
+   "resources": [
+    {
+     "name": "PSAT/NMSQT overview",
+     "url": "https://satsuite.collegeboard.org/psat-nmsqt",
+     "note": "Official. Dates, format, and National Merit info."
+    },
+    {
+     "name": "Bluebook practice tests",
+     "url": "https://bluebook.collegeboard.org/",
+     "note": "Official. Includes full PSAT practice tests."
+    },
+    {
+     "name": "SAT Suite Question Bank",
+     "url": "https://satsuitequestionbank.collegeboard.org/",
+     "note": "Official. Filter questions to PSAT/NMSQT."
+    }
+   ]
+  },
+  {
+   "id": "act",
+   "name": "ACT",
+   "group": "tests",
+   "tip": "Pacing is the hardest part of the ACT. Take official practice tests under real time limits and learn to skip and come back. Science is about reading graphs, not memorizing facts.",
+   "resources": [
+    {
+     "name": "ACT free test prep",
+     "url": "https://www.act.org/content/act/en/products-and-services/the-act/test-preparation.html",
+     "note": "Official. Free full practice test and sample questions."
+    },
+    {
+     "name": "Khan Academy",
+     "url": "https://www.khanacademy.org/search?page_search_query=ACT%20math",
+     "note": "Free lessons and practice by unit."
+    }
+   ]
+  },
+  {
+   "id": "ap-general",
+   "name": "AP exams in general",
+   "group": "tests",
+   "tip": "Start reviewing about 6 weeks out. Use AP Daily videos in AP Classroom (free through your class), and above all practice past free-response questions graded against the official scoring guidelines.",
+   "resources": [
+    {
+     "name": "AP exam calendar",
+     "url": "https://apstudents.collegeboard.org/exam-calendar",
+     "note": "Official. Exam dates and times for this May."
+    }
+   ]
+  },
+  {
+   "id": "calc-ab",
+   "name": "AP Calculus AB",
+   "group": "math",
+   "tip": "Understand the 'why' behind limits, derivatives and integrals, then grind problems. Do every past FRQ from the last ~8 years; the same question types repeat.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-calculus-ab",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Khan Academy",
+     "url": "https://www.khanacademy.org/search?page_search_query=AP%20Calculus%20AB",
+     "note": "Free lessons and practice by unit."
+    },
+    {
+     "name": "3Blue1Brown: Essence of Calculus",
+     "url": "https://www.3blue1brown.com/topics/calculus",
+     "note": "Visual intuition for what calculus actually means."
+    },
+    {
+     "name": "The Organic Chemistry Tutor (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=organic+chemistry+tutor+calculus",
+     "note": "Worked examples for almost every problem type."
+    }
+   ]
+  },
+  {
+   "id": "calc-bc",
+   "name": "AP Calculus BC",
+   "group": "math",
+   "tip": "Everything from AB plus series, parametrics, polar and vectors. Series questions are where most points are lost, so drill convergence tests until they're automatic.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-calculus-bc",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Khan Academy",
+     "url": "https://www.khanacademy.org/search?page_search_query=AP%20Calculus%20BC",
+     "note": "Free lessons and practice by unit."
+    },
+    {
+     "name": "3Blue1Brown: Essence of Calculus",
+     "url": "https://www.3blue1brown.com/topics/calculus",
+     "note": "Visual intuition for what calculus actually means."
+    },
+    {
+     "name": "Professor Leonard (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=professor+leonard+calculus+2+series",
+     "note": "Full-length lectures when you need the whole topic explained."
+    }
+   ]
+  },
+  {
+   "id": "precalc",
+   "name": "AP Precalculus",
+   "group": "math",
+   "tip": "Focus on modeling: picking the right function type (polynomial, exponential, log, trig) for data. Practice explaining your reasoning in words, which the FRQs require.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-precalculus",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Khan Academy",
+     "url": "https://www.khanacademy.org/search?page_search_query=AP%20Precalculus",
+     "note": "Free lessons and practice by unit."
+    },
+    {
+     "name": "The Organic Chemistry Tutor (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=organic+chemistry+tutor+precalculus",
+     "note": "Clear worked examples for each function type."
+    }
+   ]
+  },
+  {
+   "id": "stats",
+   "name": "AP Statistics",
+   "group": "math",
+   "tip": "Half the score is communication. Memorize the 4-step inference structure (state, plan, do, conclude) and always answer in context. Practice past FRQs and read the scoring commentary.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-statistics",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Khan Academy",
+     "url": "https://www.khanacademy.org/search?page_search_query=AP%20Statistics",
+     "note": "Free lessons and practice by unit."
+    },
+    {
+     "name": "The Organic Chemistry Tutor (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=organic+chemistry+tutor+statistics+hypothesis+testing",
+     "note": "Worked examples for inference procedures."
+    }
+   ]
+  },
+  {
+   "id": "csa",
+   "name": "AP Computer Science A",
+   "group": "math",
+   "tip": "Write code by hand, because the FRQs are on paper. Practice ArrayList, 2D array and class-design problems from past exams, and trace loops carefully for the multiple choice.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-computer-science-a",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "CSAwesome",
+     "url": "https://runestone.academy/ns/books/published/csawesome/index.html",
+     "note": "Free interactive AP CSA textbook (Java), endorsed by College Board."
+    },
+    {
+     "name": "CodingBat",
+     "url": "https://codingbat.com/java",
+     "note": "Short Java drills on strings, arrays and logic."
+    }
+   ]
+  },
+  {
+   "id": "csp",
+   "name": "AP Computer Science Principles",
+   "group": "math",
+   "tip": "Start the Create performance task early, since it counts for 30% of the score. For the exam, practice reading the AP pseudocode and know the big ideas: data, the internet, and impacts of computing.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-computer-science-principles",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Khan Academy",
+     "url": "https://www.khanacademy.org/search?page_search_query=AP%20Computer%20Science%20Principles",
+     "note": "Free lessons and practice by unit."
+    }
+   ]
+  },
+  {
+   "id": "bio",
+   "name": "AP Biology",
+   "group": "sci",
+   "tip": "Learn the processes (cell respiration, gene expression, evolution) as cause-and-effect stories. Practice data analysis and experimental design FRQs, which show up every year.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-biology",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Khan Academy",
+     "url": "https://www.khanacademy.org/search?page_search_query=AP%20Biology",
+     "note": "Free lessons and practice by unit."
+    },
+    {
+     "name": "Bozeman Science (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=bozeman+science+ap+biology",
+     "note": "Short videos mapped to the AP Bio curriculum."
+    },
+    {
+     "name": "Amoeba Sisters (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=amoeba+sisters",
+     "note": "Friendly explainers for tricky concepts."
+    }
+   ]
+  },
+  {
+   "id": "chem",
+   "name": "AP Chemistry",
+   "group": "sci",
+   "tip": "Do a lot of problems, especially stoichiometry, equilibrium and thermodynamics. Explain answers at the particle level; 'justify' questions want molecular reasoning.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-chemistry",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Khan Academy",
+     "url": "https://www.khanacademy.org/search?page_search_query=AP%20Chemistry",
+     "note": "Free lessons and practice by unit."
+    },
+    {
+     "name": "Tyler DeWitt (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=tyler+dewitt+chemistry",
+     "note": "Very clear intros to core chemistry ideas."
+    },
+    {
+     "name": "The Organic Chemistry Tutor (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=organic+chemistry+tutor+equilibrium",
+     "note": "Worked problems for every unit."
+    }
+   ]
+  },
+  {
+   "id": "apes",
+   "name": "AP Environmental Science",
+   "group": "sci",
+   "tip": "Lots of vocabulary plus math without a calculator: practice unit conversions and percent change by hand. For FRQs, propose specific, realistic solutions.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-environmental-science",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Khan Academy",
+     "url": "https://www.khanacademy.org/search?page_search_query=AP%20Environmental%20Science",
+     "note": "Free lessons and practice by unit."
+    },
+    {
+     "name": "Mr. Smedes Science (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=mr+smedes+apes",
+     "note": "Unit reviews made for APES."
+    }
+   ]
+  },
+  {
+   "id": "phys1",
+   "name": "AP Physics 1",
+   "group": "sci",
+   "tip": "It's conceptual, so practice explaining with words, graphs and diagrams, not just equations. Draw free-body diagrams for everything and do the qualitative-quantitative FRQs.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-physics-1-algebra-based",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Flipping Physics",
+     "url": "https://www.flippingphysics.com/",
+     "note": "Free AP Physics 1 lessons and review videos."
+    },
+    {
+     "name": "APlusPhysics",
+     "url": "https://www.aplusphysics.com/",
+     "note": "Dan Fullerton's free notes, videos and practice."
+    }
+   ]
+  },
+  {
+   "id": "phys2",
+   "name": "AP Physics 2",
+   "group": "sci",
+   "tip": "Covers fluids, thermodynamics, E&M, optics and modern physics. Build intuition with diagrams and practice the experimental design FRQs.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-physics-2-algebra-based",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Flipping Physics",
+     "url": "https://www.flippingphysics.com/",
+     "note": "Free lessons and review videos."
+    },
+    {
+     "name": "APlusPhysics",
+     "url": "https://www.aplusphysics.com/",
+     "note": "Free notes and practice problems."
+    }
+   ]
+  },
+  {
+   "id": "physcm",
+   "name": "AP Physics C: Mechanics",
+   "group": "sci",
+   "tip": "Physics 1 with calculus. Get comfortable setting up integrals and differential equations (drag, springs), and do every recent FRQ.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-physics-c-mechanics",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Flipping Physics",
+     "url": "https://www.flippingphysics.com/",
+     "note": "Full AP Physics C: Mechanics review series."
+    },
+    {
+     "name": "Khan Academy",
+     "url": "https://www.khanacademy.org/search?page_search_query=physics",
+     "note": "Free lessons and practice by unit."
+    }
+   ]
+  },
+  {
+   "id": "physce",
+   "name": "AP Physics C: E&M",
+   "group": "sci",
+   "tip": "Gauss's and Ampère's laws plus calculus-heavy circuits (RC, RL). Practice choosing symmetry and integration setups; that's most of the work.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-physics-c-electricity-and-magnetism",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Flipping Physics",
+     "url": "https://www.flippingphysics.com/",
+     "note": "AP Physics C: E&M lessons."
+    },
+    {
+     "name": "Khan Academy",
+     "url": "https://www.khanacademy.org/search?page_search_query=electricity%20and%20magnetism",
+     "note": "Free lessons and practice by unit."
+    }
+   ]
+  },
+  {
+   "id": "apush",
+   "name": "AP U.S. History",
+   "group": "hist",
+   "tip": "Learn the themes and causation, not every date. Outline a DBQ and LEQ every week using the official rubric, and know the 9 time periods.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-united-states-history",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Heimler's History (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=heimlers+history+apush",
+     "note": "Unit-by-unit reviews plus DBQ/LEQ writing guides."
+    },
+    {
+     "name": "Tom Richey (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=tom+richey+apush",
+     "note": "In-depth lectures on key topics."
+    }
+   ]
+  },
+  {
+   "id": "apwh",
+   "name": "AP World History: Modern",
+   "group": "hist",
+   "tip": "Focus on big comparisons across regions and continuity vs. change. Practice the DBQ, LEQ and SAQ formats on a timer.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-world-history-modern",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Heimler's History (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=heimlers+history+ap+world",
+     "note": "Unit reviews and essay-writing guides."
+    },
+    {
+     "name": "Khan Academy",
+     "url": "https://www.khanacademy.org/search?page_search_query=world%20history%201200",
+     "note": "Free lessons and practice by unit."
+    }
+   ]
+  },
+  {
+   "id": "apeuro",
+   "name": "AP European History",
+   "group": "hist",
+   "tip": "Know causes and effects of the big turning points (Reformation, revolutions, world wars). Write timed DBQs and LEQs with the official rubric.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-european-history",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Tom Richey (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=tom+richey+ap+euro",
+     "note": "Lectures that follow the AP Euro course."
+    },
+    {
+     "name": "Heimler's History (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=heimlers+history+ap+euro",
+     "note": "Unit reviews and writing help."
+    }
+   ]
+  },
+  {
+   "id": "gov",
+   "name": "AP U.S. Government and Politics",
+   "group": "hist",
+   "tip": "Memorize the required Supreme Court cases and foundational documents; they're tested directly. Practice the argument essay with evidence from those documents.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-united-states-government-and-politics",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Heimler's History (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=heimlers+history+ap+gov",
+     "note": "AP Gov unit reviews and FRQ guides."
+    },
+    {
+     "name": "Khan Academy",
+     "url": "https://www.khanacademy.org/search?page_search_query=AP%20US%20Government%20and%20Politics",
+     "note": "Free lessons and practice by unit."
+    }
+   ]
+  },
+  {
+   "id": "compgov",
+   "name": "AP Comparative Government and Politics",
+   "group": "hist",
+   "tip": "Six countries: UK, Russia, China, Iran, Mexico, Nigeria. Make a comparison chart for each concept (elections, legitimacy, federalism) across all six.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-comparative-government-and-politics",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Heimler's History (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=heimlers+history+comparative+government",
+     "note": "Unit reviews for AP Comp Gov."
+    }
+   ]
+  },
+  {
+   "id": "macro",
+   "name": "AP Macroeconomics",
+   "group": "hist",
+   "tip": "It's all graphs: draw AD/AS, money market and loanable funds from memory and practice shifting them. Label everything on FRQs.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-macroeconomics",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Khan Academy",
+     "url": "https://www.khanacademy.org/search?page_search_query=AP%20Macroeconomics",
+     "note": "Free lessons and practice by unit."
+    },
+    {
+     "name": "Jacob Clifford (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=jacob+clifford+macroeconomics",
+     "note": "Fast, graph-focused reviews for every unit."
+    }
+   ]
+  },
+  {
+   "id": "micro",
+   "name": "AP Microeconomics",
+   "group": "hist",
+   "tip": "Practice the graphs for perfect competition, monopoly, and factor markets until you can draw them blind. Know where profit-maximizing (MR = MC) lands every time.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-microeconomics",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Khan Academy",
+     "url": "https://www.khanacademy.org/search?page_search_query=AP%20Microeconomics",
+     "note": "Free lessons and practice by unit."
+    },
+    {
+     "name": "Jacob Clifford (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=jacob+clifford+microeconomics",
+     "note": "Graph drills and unit reviews."
+    }
+   ]
+  },
+  {
+   "id": "psych",
+   "name": "AP Psychology",
+   "group": "hist",
+   "tip": "Heavy vocabulary, so use spaced-repetition flashcards. For FRQs, apply each term to the specific scenario given.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-psychology",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Mr. Sinn (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=mr+sinn+ap+psychology",
+     "note": "AP Psych unit reviews."
+    },
+    {
+     "name": "CrashCourse (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=crash+course+psychology",
+     "note": "Engaging overviews of every topic."
+    }
+   ]
+  },
+  {
+   "id": "hug",
+   "name": "AP Human Geography",
+   "group": "hist",
+   "tip": "Learn the models (Demographic Transition, Von Thünen, Burgess) and apply them to real places. Know at least one specific example for every concept.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-human-geography",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Mr. Sinn (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=mr+sinn+ap+human+geography",
+     "note": "APHG unit reviews."
+    }
+   ]
+  },
+  {
+   "id": "aas",
+   "name": "AP African American Studies",
+   "group": "hist",
+   "tip": "Analyze primary sources closely: who wrote it, for whom, and why. Practice source-based short answers and know the major periods and movements.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-african-american-studies",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "CrashCourse (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=crash+course+black+american+history",
+     "note": "Overview series on Black American history."
+    }
+   ]
+  },
+  {
+   "id": "lang",
+   "name": "AP English Language and Composition",
+   "group": "eng",
+   "tip": "Score points with a clear, defensible thesis and commentary that explains how the evidence supports it. Write one timed essay a week (synthesis, rhetorical analysis, argument).",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-english-language-and-composition",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Coach Hall Writes (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=coach+hall+writes+ap+lang",
+     "note": "Breaks down the rubric and essay structure."
+    }
+   ]
+  },
+  {
+   "id": "lit",
+   "name": "AP English Literature and Composition",
+   "group": "eng",
+   "tip": "Read actively: annotate for shifts, tone and figurative language. Practice the poetry, prose and open-question essays timed, with a thesis that makes an interpretive claim.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-english-literature-and-composition",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Coach Hall Writes (YouTube)",
+     "url": "https://www.youtube.com/results?search_query=coach+hall+writes+ap+lit",
+     "note": "AP Lit essay strategy and examples."
+    }
+   ]
+  },
+  {
+   "id": "ap-spanish-language-and-culture",
+   "name": "AP Spanish Language and Culture",
+   "group": "lang",
+   "tip": "Listen and speak every day, not just read. Practice the timed email reply, persuasive essay, and cultural comparison speaking task with a recorder.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-spanish-language-and-culture",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Language Transfer",
+     "url": "https://www.languagetransfer.org/",
+     "note": "Free audio courses that build speaking from day one."
+    }
+   ]
+  },
+  {
+   "id": "ap-french-language-and-culture",
+   "name": "AP French Language and Culture",
+   "group": "lang",
+   "tip": "Listen and speak every day, not just read. Practice the timed email reply, persuasive essay, and cultural comparison speaking task with a recorder.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-french-language-and-culture",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Language Transfer",
+     "url": "https://www.languagetransfer.org/",
+     "note": "Free audio courses that build speaking from day one."
+    }
+   ]
+  },
+  {
+   "id": "ap-german-language-and-culture",
+   "name": "AP German Language and Culture",
+   "group": "lang",
+   "tip": "Listen and speak every day, not just read. Practice the timed email reply, persuasive essay, and cultural comparison speaking task with a recorder.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-german-language-and-culture",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Language Transfer",
+     "url": "https://www.languagetransfer.org/",
+     "note": "Free audio courses that build speaking from day one."
+    }
+   ]
+  },
+  {
+   "id": "ap-italian-language-and-culture",
+   "name": "AP Italian Language and Culture",
+   "group": "lang",
+   "tip": "Listen and speak every day, not just read. Practice the timed email reply, persuasive essay, and cultural comparison speaking task with a recorder.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-italian-language-and-culture",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Language Transfer",
+     "url": "https://www.languagetransfer.org/",
+     "note": "Free audio courses that build speaking from day one."
+    }
+   ]
+  },
+  {
+   "id": "ap-spanish-literature-and-culture",
+   "name": "AP Spanish Literature and Culture",
+   "group": "lang",
+   "tip": "Know every work on the required reading list: author, period, themes. Practice comparing texts in Spanish under time limits.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-spanish-literature-and-culture",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    }
+   ]
+  },
+  {
+   "id": "ap-chinese-language-and-culture",
+   "name": "AP Chinese Language and Culture",
+   "group": "lang",
+   "tip": "Typing is allowed on the exam, so practice pinyin input. Do daily listening and timed speaking for the conversation and cultural presentation tasks.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-chinese-language-and-culture",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    }
+   ]
+  },
+  {
+   "id": "ap-japanese-language-and-culture",
+   "name": "AP Japanese Language and Culture",
+   "group": "lang",
+   "tip": "Drill kanji with spaced repetition and practice typing in Japanese. Record yourself for the conversation and cultural perspective tasks.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-japanese-language-and-culture",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    }
+   ]
+  },
+  {
+   "id": "latin",
+   "name": "AP Latin",
+   "group": "lang",
+   "tip": "Translate the required Caesar and Vergil passages literally until you know them cold, and practice sight-reading new passages.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-latin",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Dickinson College Commentaries",
+     "url": "https://dcc.dickinson.edu/",
+     "note": "Free annotated texts of Caesar and Vergil with vocab and notes."
+    }
+   ]
+  },
+  {
+   "id": "arthist",
+   "name": "AP Art History",
+   "group": "arts",
+   "tip": "Learn the 250 required works with images: identify, date and explain each one's context and function. Practice comparison FRQs.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-art-history",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Smarthistory",
+     "url": "https://smarthistory.org/",
+     "note": "Free essays and videos on every AP Art History work, made with College Board."
+    },
+    {
+     "name": "Khan Academy",
+     "url": "https://www.khanacademy.org/search?page_search_query=AP%20Art%20History",
+     "note": "Free lessons and practice by unit."
+    }
+   ]
+  },
+  {
+   "id": "music",
+   "name": "AP Music Theory",
+   "group": "arts",
+   "tip": "Drill ear training daily: intervals, chords, melodic dictation. Practice four-part harmony realization against the scoring guidelines.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-music-theory",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "musictheory.net",
+     "url": "https://www.musictheory.net/",
+     "note": "Free lessons and ear-training exercises."
+    }
+   ]
+  },
+  {
+   "id": "ap-2-d-art-and-design",
+   "name": "AP 2-D Art and Design",
+   "group": "arts",
+   "tip": "There's no exam. Your portfolio is the score. Pick a sustained investigation question early, document your process, and study scored sample portfolios.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-2-d-art-and-design",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    }
+   ]
+  },
+  {
+   "id": "ap-3-d-art-and-design",
+   "name": "AP 3-D Art and Design",
+   "group": "arts",
+   "tip": "There's no exam. Your portfolio is the score. Pick a sustained investigation question early, document your process, and study scored sample portfolios.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-3-d-art-and-design",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    }
+   ]
+  },
+  {
+   "id": "ap-drawing",
+   "name": "AP Drawing",
+   "group": "arts",
+   "tip": "There's no exam. Your portfolio is the score. Pick a sustained investigation question early, document your process, and study scored sample portfolios.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-drawing",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    }
+   ]
+  },
+  {
+   "id": "seminar",
+   "name": "AP Seminar",
+   "group": "cap",
+   "tip": "Most of the score comes from team and individual performance tasks during the year. Practice evaluating source credibility and building arguments from multiple perspectives.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-seminar",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    }
+   ]
+  },
+  {
+   "id": "research",
+   "name": "AP Research",
+   "group": "cap",
+   "tip": "Pick a narrow, answerable research question early and keep a process log. Read sample high-scoring academic papers for structure.",
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-research",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    }
+   ]
+  }
+ ]
+}

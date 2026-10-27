@@ -10,10 +10,15 @@
     compass: '<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>',
     search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>',
     users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/>',
+    cal: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+    book: '<path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H20v15H5.5A1.5 1.5 0 0 0 4 19.5z"/><path d="M4 19.5A1.5 1.5 0 0 0 5.5 21H20"/>',
+    plus: '<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/>',
     menu: '<path d="M4 6h16M4 12h16M4 18h16"/>',
     account: '<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/>',
   };
   window.compIcon = name => icon(I[name]);
+  // Each student sets their own hours goal (school requirement, cord, award); 100 until they do
+  window.compGoal = () => { try { return Number(localStorage.getItem('comp-goal')) || 100; } catch { return 100; } };
   const link = (href, ic, text) => `<a href="${href}">${icon(I[ic])}<span>${text}</span></a>`;
   const brand = '<a class="brand" href="home.html"><span class="logo">c.</span>comp.</a>';
 
@@ -23,6 +28,7 @@
   ${brand}
   <nav>
     ${link('home.html', 'home', 'Home')}
+    ${link('calendar.html', 'cal', 'Calendar')}
     ${link('log.html', 'clock', 'Log hours')}
     ${link('profile.html', 'user', 'My hours &amp; profile')}
     <p class="side-h">Applications</p>
@@ -30,12 +36,12 @@
     ${link('programs.html', 'case', 'Programs')}
     <p class="side-h">Explore</p>
     ${link('discover.html', 'compass', 'Discover')}
+    ${link('study.html', 'book', 'Study')}
     ${link('find.html', 'search', 'Find opportunities')}
-    ${link('club.html', 'users', 'Club leaders')}
+    ${link('submit-event.html', 'plus', 'Submit an event')}
   </nav>
   <div class="side-foot">
     <nav>${link('login.html', 'account', 'Account')}</nav>
-    <p style="margin:10px 10px 0">Built for Fountain Valley High</p>
   </div>
 </aside>
 <div class="scrim" id="scrim"></div>

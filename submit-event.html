@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Submit an event · comp.</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2224%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2256%22 font-weight=%22700%22 font-family=%22Inter,Arial,sans-serif%22 fill=%22white%22 text-anchor=%22middle%22%3Ec.%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<script src="shell.js"></script>
+<main>
+  <div class="page-head">
+    <h1>Submit an event</h1>
+    <p class="muted">Hosting a volunteer opportunity, workshop or competition for students? Apply to list it on Find opportunities. Every submission is reviewed before it goes live, usually within 3–5 days.</p>
+  </div>
+
+  <ol class="process">
+    <li><b>Apply</b><span>Tell us about the event and who's running it.</span></li>
+    <li><b>Review</b><span>We check the organizer and details are legitimate.</span></li>
+    <li><b>Go live</b><span>Approved events appear on Find opportunities and students' calendars.</span></li>
+  </ol>
+
+  <form id="event-form">
+    <fieldset class="card">
+      <legend>The event</legend>
+      <div class="grid">
+        <label class="wide">Event name <input name="title" required maxlength="120" placeholder="Beach cleanup at Huntington State Beach"></label>
+        <label>Type <select name="kind" required>
+          <option value="volunteer">Volunteer opportunity</option>
+          <option value="workshop">Workshop or class</option>
+          <option value="competition">Competition or hackathon</option>
+          <option value="info">Info session or fair</option>
+          <option value="other">Other</option>
+        </select></label>
+        <label>Category <select name="category">
+          <option>Community service</option><option>Environment</option><option>Health</option><option>Education &amp; tutoring</option><option>STEM</option><option>Arts</option><option>Animals</option><option>Other</option>
+        </select></label>
+        <label class="wide">Description <textarea name="description" rows="4" required maxlength="2000" placeholder="What students will do, what to bring, and why it matters."></textarea></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="card">
+      <legend>When and where</legend>
+      <div class="grid">
+        <label>Date <input name="date" type="date" required></label>
+        <label>Start time <input name="start_time" type="time" required></label>
+        <label>End time <input name="end_time" type="time" required></label>
+        <label>Repeats <select name="repeats"><option value="">Doesn't repeat</option><option>Weekly</option><option>Monthly</option><option>Other (explain in description)</option></select></label>
+        <label>Format <select name="format" id="format"><option value="in_person">In person</option><option value="virtual">Virtual</option><option value="hybrid">Hybrid</option></select></label>
+        <label id="address-field" class="wide">Address <input name="address" placeholder="Street, city, state, ZIP" autocomplete="street-address"></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="card">
+      <legend>Who can join</legend>
+      <div class="grid">
+        <label>Open to <select name="eligibility"><option>All high school students</option><option>Grades 9–10</option><option>Grades 11–12</option><option>Ages 16+</option><option>Ages 18+</option><option>Everyone</option></select></label>
+        <label>Spots available <input name="capacity" type="number" min="1" placeholder="Leave blank if unlimited"></label>
+        <label>Volunteer hours offered <input name="hours_offered" type="number" min="0" step="0.25" placeholder="e.g. 3"></label>
+        <label>Cost <select name="cost"><option value="free">Free</option><option value="paid">Paid (explain in description)</option></select></label>
+        <label class="wide">Registration link <input name="link" type="url" inputmode="url" placeholder="https://"></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="card">
+      <legend>Organizer</legend>
+      <div class="grid">
+        <label>Organization <input name="org" required maxlength="120" placeholder="Nonprofit, school club, business…"></label>
+        <label>Organization website <input name="org_url" type="url" inputmode="url" placeholder="https://"></label>
+        <label>Your name <input name="contact_name" required autocomplete="name"></label>
+        <label>Your role <input name="contact_role" placeholder="Volunteer coordinator"></label>
+        <label>Email <input name="contact_email" type="email" required autocomplete="email"></label>
+        <label>Phone (optional) <input name="contact_phone" type="tel" autocomplete="tel"></label>
+        <label class="wide">Who signs off students' hours? <input name="supervisor" placeholder="Name and title of the on-site supervisor"></label>
+      </div>
+    </fieldset>
+
+    <label class="check"><input name="agree" type="checkbox" required> I'm authorized to list this event for the organization, the details are accurate, and students will be supervised by an adult.</label>
+    <div class="row"><button>Submit for review</button></div>
+  </form>
+  <p id="msg" role="status"></p>
+
+  <section id="mine-section" hidden style="margin-top:40px">
+    <h2>Your submissions</h2>
+    <div id="mine"></div>
+  </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
+<script src="db.js"></script>
+<script src="events.js"></script>
+</body>
+</html>
