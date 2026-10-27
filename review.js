@@ -1,5 +1,5 @@
-// review.html: reviewers approve or reject event applications (supabase-9.sql) and AI-drafted catalog entries
-// (supabase-10.sql); admins also manage the team
+// review.html: reviewers approve or reject event applications (supabase-9.sql) and add or correct Discover entries
+// (catalog_drafts, supabase-10.sql); admins also manage the team
 (async () => {
   const $ = id => document.getElementById(id);
   const el = (tag, props) => Object.assign(document.createElement(tag), props);
@@ -67,6 +67,7 @@
     $('n-events').textContent = apps.filter(a => a.status === 'pending').length;
     $('n-drafts').textContent = drafts.filter(a => a.status === 'pending').length;
     for (const b of $('r-sections').children) b.setAttribute('aria-pressed', b.dataset.section === section);
+    $('new-entry').hidden = section !== 'drafts' || !draftsReady;
     $('r-tabs').replaceChildren(...Object.entries(TABS).map(([k, label]) => {
       const n = rows.filter(a => a.status === k).length;
       const b = el('button', { className: 'chip', type: 'button', textContent: `${label} (${n})` });
@@ -77,9 +78,17 @@
     const list = rows.filter(a => a.status === tab);
     $('apps').replaceChildren(...list.map(section === 'events' ? card : draftCard));
     $('apps-empty').hidden = list.length > 0;
-    $('apps-empty').textContent = section === 'drafts' && !draftsReady ? "Catalog drafts aren't set up yet (supabase-10.sql hasn't been run)." : 'Nothing here. 🎉';
+    $('apps-empty').textContent = section === 'drafts' && !draftsReady ? "Discover entries aren't set up yet (supabase-10.sql hasn't been run)." : 'Nothing here. 🎉';
   };
   for (const b of $('r-sections').children) b.onclick = () => { section = b.dataset.section; tab = 'pending'; render(); };
+  // Reviewers add an opportunity by hand: it starts as a pending entry to fill in and approve
+  $('new-entry').onclick = async () => {
+    const { error } = await sb.from('catalog_drafts').insert({ entry: { kind: 'scholarship', name: '', org: '', url: '', grades: [9, 10, 11, 12], fields: ['general'], region: 'National', summary: '' } });
+    if (error) return say(`Couldn't add: ${error.message}`);
+    section = 'drafts'; tab = 'pending';
+    await load();
+    say('New entry added below. Fill it in and approve it to put it on Discover.');
+  };
 
   const load = async () => {
     const [a, d] = await Promise.all([
@@ -99,13 +108,15 @@
     const e = { ...d.entry };
     const c = el('article', { className: 'post' });
     c.append(
-      el('p', { className: `label status-${d.status}`, textContent: `${d.updates ? `Update to "${d.updates}"` : 'New entry'} · ${e.kind} · confidence ${d.confidence || '?'} · drafted ${new Date(d.created_at).toLocaleDateString()}` }),
+      el('p', { className: `label status-${d.status}`, textContent: [d.updates ? `Update to "${d.updates}"` : 'New entry', d.confidence && `confidence ${d.confidence}`, `added ${new Date(d.created_at).toLocaleDateString()}`].filter(Boolean).join(' · ') }),
       el('h2', { textContent: e.name }),
       el('p', { className: 'muted', textContent: [e.org, e.amountText].filter(Boolean).join(' · ') }),
     );
     const page = el('p', { className: 'cal-links' });
-    page.append(el('a', { href: e.url || d.source_url, target: '_blank', rel: 'noopener noreferrer', textContent: 'Open the official page ↗' }));
-    c.append(page);
+    if (e.url || d.source_url) {
+      page.append(el('a', { href: e.url || d.source_url, target: '_blank', rel: 'noopener noreferrer', textContent: 'Open the official page ↗' }));
+      c.append(page);
+    }
     if (d.concerns?.length) {
       const ul = el('ul', { className: 'concerns' });
       ul.append(...d.concerns.map(t => el('li', { textContent: t })));
@@ -125,6 +136,21 @@
       l.append(i);
       f.append(l);
     };
+    const select = (label, key, opts, onchange) => {
+      const sel = el('select');
+      sel.append(...opts.map(([v, t]) => new Option(t, v)));
+      sel.value = e[key] ?? '';
+      sel.onchange = () => { e[key] = sel.value || null; onchange?.(); };
+      const l = el('label', { textContent: label });
+      l.append(sel);
+      f.append(l);
+      return l;
+    };
+    const catLabel = select('Category', 'category', ['Summer program', 'Internship', 'Research', 'Competition', 'Hackathon', 'Leadership', 'Volunteering'].map(x => [x, x]));
+    const showCat = () => { catLabel.hidden = e.kind !== 'program'; if (e.kind === 'program') e.category ||= 'Summer program'; };
+    select('Type', 'kind', [['scholarship', 'Scholarship'], ['program', 'Program / competition / volunteering']], showCat);
+    f.append(catLabel);
+    showCat();
     input('Name', 'name');
     input('Organization', 'org');
     input('Deadline', 'deadline', { type: 'date' });
@@ -155,6 +181,7 @@
     const decide = status => async () => {
       if (status === 'approved' && e.verified && !e.deadline) return say('A confirmed entry needs an exact deadline.');
       if (status === 'approved' && !e.deadline && !e.dueMonth && !e.rolling) return say('Add a deadline or usual month before approving.');
+      if (status === 'approved' && (!e.name?.trim() || !/^https?:\/\//.test(e.url || ''))) return say('Add a name and the official link (starting with https://) before approving.');
       const { error } = await sb.from('catalog_drafts').update({ status, entry: e, review_note: note.value.trim() || null, reviewed_by: user.id, reviewed_at: new Date().toISOString() }).eq('id', d.id);
       if (error) return say(`Couldn't save: ${error.message}`);
       say(`${status === 'approved' ? 'Approved' : status === 'rejected' ? 'Rejected' : 'Moved back to pending'}: ${e.name}${status === 'approved' ? '. It\'s now on Discover.' : ''}`);

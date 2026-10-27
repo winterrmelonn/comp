@@ -12,16 +12,16 @@
 <main>
   <div class="page-head">
     <h1>Review events</h1>
-    <p class="muted">Approve organizer events and AI-drafted Discover entries before anything goes live. Only approved reviewers can see this page.</p>
+    <p class="muted">Approve organizer events, and add or correct Discover entries. Nothing goes live without a reviewer. Only approved reviewers can see this page.</p>
   </div>
   <p id="msg" role="status"></p>
 
   <div id="review" hidden>
     <div id="r-sections" class="tabs" role="group" aria-label="Section">
       <button type="button" class="tab" data-section="events" aria-pressed="true">Events <span class="n" id="n-events">0</span></button>
-      <button type="button" class="tab" data-section="drafts" aria-pressed="false">Catalog drafts <span class="n" id="n-drafts">0</span></button>
+      <button type="button" class="tab" data-section="drafts" aria-pressed="false">Discover entries <span class="n" id="n-drafts">0</span></button>
     </div>
-    <div id="r-tabs" class="chips"></div>
+    <div class="row" style="margin:0 0 4px"><div id="r-tabs" class="chips" style="margin:12px 0"></div><button id="new-entry" type="button" class="secondary" hidden style="margin-left:auto">+ Add an opportunity</button></div>
     <div id="apps"></div>
     <p id="apps-empty" class="muted" hidden>Nothing here. 🎉</p>
 
