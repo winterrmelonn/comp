@@ -9,12 +9,19 @@
   "arts": "Arts",
   "cap": "AP Capstone"
  },
+ "updated": "2026-10-26",
  "items": [
   {
    "id": "sat",
    "name": "SAT",
    "group": "tests",
    "tip": "Take a full timed practice test in Bluebook first to find your weak areas. Drill those in the official question bank, then retake a full test every 2–3 weeks and review every miss.",
+   "steps": [
+    "Take a full practice test in Bluebook to get a baseline score and see which skills cost you the most points.",
+    "2–3 times a week: drill your weakest skills in the official question bank or Khan Academy, about 30–45 minutes each.",
+    "Every 2–3 weeks: take another full practice test. Review every missed question until you could explain the right answer to a friend.",
+    "Register at least 3 weeks early; most students take it twice (junior spring and senior fall)."
+   ],
    "resources": [
     {
      "name": "Bluebook practice tests",
@@ -24,12 +31,39 @@
     {
      "name": "SAT Suite Question Bank",
      "url": "https://satsuiteeducatorquestionbank.collegeboard.org/",
-     "note": "Official. Thousands of real questions, filterable by skill and difficulty."
+     "note": "Official. Thousands of real questions you can filter by skill and difficulty."
     },
     {
-     "name": "Khan Academy Digital SAT prep",
+     "name": "Khan Academy: Official Digital SAT Prep",
      "url": "https://www.khanacademy.org/test-prep/digital-sat",
      "note": "Official partner. Free lessons and practice by skill."
+    },
+    {
+     "name": "SAT dates and deadlines",
+     "url": "https://satsuite.collegeboard.org/sat/dates-deadlines",
+     "note": "Official test dates and registration deadlines."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2026-12-05",
+     "label": "SAT",
+     "time": "Register by Nov 20"
+    },
+    {
+     "date": "2027-03-06",
+     "label": "SAT",
+     "time": "Register by Feb 19"
+    },
+    {
+     "date": "2027-05-01",
+     "label": "SAT",
+     "time": "Register by Apr 16"
+    },
+    {
+     "date": "2027-06-05",
+     "label": "SAT",
+     "time": "Register by May 21"
     }
    ]
   },
@@ -37,22 +71,35 @@
    "id": "psat",
    "name": "PSAT/NMSQT",
    "group": "tests",
-   "tip": "The PSAT is a shorter SAT and decides National Merit eligibility (taken in 11th grade). Prep the same way: Bluebook practice tests and the question bank.",
+   "tip": "The PSAT is a shorter SAT. Junior-year scores decide National Merit, so prep for it like the SAT.",
+   "steps": [
+    "The PSAT/NMSQT in fall of 11th grade decides National Merit eligibility. Your school registers you.",
+    "Take a full practice test in Bluebook to get a baseline score and see which skills cost you the most points.",
+    "2–3 times a week: drill your weakest skills in the official question bank or Khan Academy, about 30–45 minutes each.",
+    "Every 2–3 weeks: take another full practice test. Review every missed question until you could explain the right answer to a friend."
+   ],
    "resources": [
-    {
-     "name": "PSAT/NMSQT overview",
-     "url": "https://satsuite.collegeboard.org/psat-nmsqt",
-     "note": "Official. Dates, format, and National Merit info."
-    },
     {
      "name": "Bluebook practice tests",
      "url": "https://bluebook.collegeboard.org/",
-     "note": "Official. Includes full PSAT practice tests."
+     "note": "Official. Full-length adaptive practice tests in the same app as the real exam."
     },
     {
      "name": "SAT Suite Question Bank",
      "url": "https://satsuiteeducatorquestionbank.collegeboard.org/",
-     "note": "Official. Filter questions to PSAT/NMSQT."
+     "note": "Official. Thousands of real questions you can filter by skill and difficulty."
+    },
+    {
+     "name": "PSAT-related assessments",
+     "url": "https://satsuite.collegeboard.org/psat-nmsqt",
+     "note": "Official. What's on the test and how National Merit works."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-03-01",
+     "label": "PSAT 10 / PSAT 8/9 window opens (through Apr 30)",
+     "time": "Your school picks the day"
     }
    ]
   },
@@ -61,29 +108,103 @@
    "name": "ACT",
    "group": "tests",
    "tip": "Pacing is the hardest part of the ACT. Take official practice tests under real time limits and learn to skip and come back. Science is about reading graphs, not memorizing facts.",
+   "steps": [
+    "Take a free official ACT practice test under real time limits. The ACT is about pacing more than hard content.",
+    "Practice by section: learn the common grammar rules for English, review algebra and geometry for Math, and for Science practice reading graphs quickly.",
+    "Retake a timed section every week and track your time per question. Skip and come back when you're stuck.",
+    "Register by the regular deadline to avoid late fees; many students test in junior spring and again senior fall."
+   ],
    "resources": [
     {
-     "name": "ACT free test prep",
-     "url": "https://www.act.org/content/act/en/products-and-services/the-act/test-preparation.html",
+     "name": "Free ACT practice tests",
+     "url": "https://www.act.org/content/act/en/products-and-services/the-act/test-preparation/free-act-test-prep.html",
      "note": "Official. Free full practice test and sample questions."
     },
     {
-     "name": "Khan Academy",
-     "url": "https://www.khanacademy.org/search?page_search_query=ACT%20math",
-     "note": "Free lessons and practice by unit."
+     "name": "ACT test dates",
+     "url": "https://www.act.org/content/act/en/products-and-services/the-act/registration/test-dates.html",
+     "note": "Official dates and registration deadlines."
+    },
+    {
+     "name": "SupertutorTV (YouTube)",
+     "url": "https://www.youtube.com/@SupertutorTV",
+     "note": "Free ACT and SAT strategy videos."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2026-12-12",
+     "label": "ACT",
+     "time": "Register by Nov 6"
+    },
+    {
+     "date": "2027-02-27",
+     "label": "ACT",
+     "time": "Register by Jan 22"
+    },
+    {
+     "date": "2027-04-10",
+     "label": "ACT",
+     "time": "Register by Mar 5"
+    },
+    {
+     "date": "2027-06-12",
+     "label": "ACT",
+     "time": "Register by May 7"
+    },
+    {
+     "date": "2027-07-10",
+     "label": "ACT",
+     "time": "Register by Jun 4"
     }
    ]
+  },
+  {
+   "id": "clep",
+   "name": "CLEP exams",
+   "group": "tests",
+   "tip": "CLEP exams earn college credit for what you already know, like AP but any time of year. With Modern States they can be free.",
+   "steps": [
+    "Check which CLEP exams your target colleges give credit for before you start.",
+    "Take the free Modern States course for that subject; finishing it can earn a voucher that covers the exam fee.",
+    "Book the exam at a test center or online once your practice scores are solid."
+   ],
+   "resources": [
+    {
+     "name": "Modern States",
+     "url": "https://modernstates.org/",
+     "note": "Free online CLEP prep courses, and free vouchers that cover the exam fee."
+    },
+    {
+     "name": "CLEP",
+     "url": "https://clep.collegeboard.org/",
+     "note": "Official. 34 exams that can earn college credit."
+    }
+   ],
+   "dates": []
   },
   {
    "id": "ap-general",
    "name": "AP exams in general",
    "group": "tests",
    "tip": "Start reviewing about 6 weeks out. Use AP Daily videos in AP Classroom (free through your class), and above all practice past free-response questions graded against the official scoring guidelines.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
-     "name": "AP exam calendar",
+     "name": "AP exam dates",
      "url": "https://apstudents.collegeboard.org/exam-dates",
-     "note": "Official. Exam dates and times for this May."
+     "note": "Official. The full May 2027 exam schedule."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-03",
+     "label": "AP exams begin (through May 14)",
+     "time": null
     }
    ]
   },
@@ -92,6 +213,11 @@
    "name": "AP Calculus AB",
    "group": "math",
    "tip": "Understand the 'why' behind limits, derivatives and integrals, then grind problems. Do every past FRQ from the last ~8 years; the same question types repeat.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -99,19 +225,26 @@
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
     },
     {
-     "name": "Khan Academy",
-     "url": "https://www.khanacademy.org/search?page_search_query=AP%20Calculus%20AB",
-     "note": "Free lessons and practice by unit."
+     "name": "Khan Academy: AP Calculus AB",
+     "url": "https://www.khanacademy.org/math/ap-calculus-ab",
+     "note": "Free lessons, videos and practice for every unit."
     },
     {
      "name": "3Blue1Brown: Essence of Calculus",
-     "url": "https://www.3blue1brown.com/topics/calculus",
-     "note": "Visual intuition for what calculus actually means."
+     "url": "https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr",
+     "note": "Short visual series on what calculus actually means."
     },
     {
      "name": "The Organic Chemistry Tutor (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=organic+chemistry+tutor+calculus",
+     "url": "https://www.youtube.com/@TheOrganicChemistryTutor",
      "note": "Worked examples for almost every problem type."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-10",
+     "label": "AP Calculus AB exam",
+     "time": "Morning (8 AM local)"
     }
    ]
   },
@@ -120,6 +253,11 @@
    "name": "AP Calculus BC",
    "group": "math",
    "tip": "Everything from AB plus series, parametrics, polar and vectors. Series questions are where most points are lost, so drill convergence tests until they're automatic.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -127,19 +265,26 @@
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
     },
     {
-     "name": "Khan Academy",
-     "url": "https://www.khanacademy.org/search?page_search_query=AP%20Calculus%20BC",
-     "note": "Free lessons and practice by unit."
-    },
-    {
-     "name": "3Blue1Brown: Essence of Calculus",
-     "url": "https://www.3blue1brown.com/topics/calculus",
-     "note": "Visual intuition for what calculus actually means."
+     "name": "Khan Academy: AP Calculus BC",
+     "url": "https://www.khanacademy.org/math/ap-calculus-bc",
+     "note": "Free lessons, videos and practice for every unit."
     },
     {
      "name": "Professor Leonard (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=professor+leonard+calculus+2+series",
-     "note": "Full-length lectures when you need the whole topic explained."
+     "url": "https://www.youtube.com/@ProfessorLeonard",
+     "note": "Full-length lectures when you need a whole topic explained."
+    },
+    {
+     "name": "3Blue1Brown: Essence of Calculus",
+     "url": "https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr",
+     "note": "Short visual series on what calculus actually means."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-10",
+     "label": "AP Calculus BC exam",
+     "time": "Morning (8 AM local)"
     }
    ]
   },
@@ -148,6 +293,11 @@
    "name": "AP Precalculus",
    "group": "math",
    "tip": "Focus on modeling: picking the right function type (polynomial, exponential, log, trig) for data. Practice explaining your reasoning in words, which the FRQs require.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -155,14 +305,21 @@
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
     },
     {
-     "name": "Khan Academy",
-     "url": "https://www.khanacademy.org/search?page_search_query=AP%20Precalculus",
-     "note": "Free lessons and practice by unit."
+     "name": "Khan Academy: AP Precalculus",
+     "url": "https://www.khanacademy.org/math/ap-precalculus",
+     "note": "Free lessons, videos and practice for every unit."
     },
     {
      "name": "The Organic Chemistry Tutor (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=organic+chemistry+tutor+precalculus",
-     "note": "Clear worked examples for each function type."
+     "url": "https://www.youtube.com/@TheOrganicChemistryTutor",
+     "note": "Worked examples for almost every problem type."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-11",
+     "label": "AP Precalculus exam",
+     "time": "Morning (8 AM local)"
     }
    ]
   },
@@ -171,6 +328,11 @@
    "name": "AP Statistics",
    "group": "math",
    "tip": "Half the score is communication. Memorize the 4-step inference structure (state, plan, do, conclude) and always answer in context. Practice past FRQs and read the scoring commentary.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -178,14 +340,21 @@
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
     },
     {
-     "name": "Khan Academy",
-     "url": "https://www.khanacademy.org/search?page_search_query=AP%20Statistics",
-     "note": "Free lessons and practice by unit."
+     "name": "Khan Academy: AP Statistics",
+     "url": "https://www.khanacademy.org/math/ap-statistics",
+     "note": "Free lessons, videos and practice for every unit."
     },
     {
      "name": "The Organic Chemistry Tutor (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=organic+chemistry+tutor+statistics+hypothesis+testing",
-     "note": "Worked examples for inference procedures."
+     "url": "https://www.youtube.com/@TheOrganicChemistryTutor",
+     "note": "Worked examples for almost every problem type."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-11",
+     "label": "AP Statistics exam",
+     "time": "Afternoon (12 PM local)"
     }
    ]
   },
@@ -194,6 +363,11 @@
    "name": "AP Computer Science A",
    "group": "math",
    "tip": "Write code by hand, because the FRQs are on paper. Practice ArrayList, 2D array and class-design problems from past exams, and trace loops carefully for the multiple choice.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -206,9 +380,21 @@
      "note": "Free interactive AP CSA textbook (Java), endorsed by College Board."
     },
     {
+     "name": "CSAwesome (YouTube)",
+     "url": "https://www.youtube.com/@CSAwesome",
+     "note": "Video walkthroughs that go with the free textbook."
+    },
+    {
      "name": "CodingBat",
      "url": "https://codingbat.com/java",
      "note": "Short Java drills on strings, arrays and logic."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-12",
+     "label": "AP Computer Science A exam",
+     "time": "Afternoon (12 PM local)"
     }
    ]
   },
@@ -217,6 +403,11 @@
    "name": "AP Computer Science Principles",
    "group": "math",
    "tip": "Start the Create performance task early, since it counts for 30% of the score. For the exam, practice reading the AP pseudocode and know the big ideas: data, the internet, and impacts of computing.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -224,9 +415,81 @@
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
     },
     {
-     "name": "Khan Academy",
-     "url": "https://www.khanacademy.org/search?page_search_query=AP%20Computer%20Science%20Principles",
-     "note": "Free lessons and practice by unit."
+     "name": "Khan Academy: AP CSP",
+     "url": "https://www.khanacademy.org/computing/ap-computer-science-principles",
+     "note": "Free lessons, videos and practice for every unit."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-04-30",
+     "label": "Create performance task due (11:59 PM ET)",
+     "time": null
+    },
+    {
+     "date": "2027-05-14",
+     "label": "AP Computer Science Principles exam",
+     "time": "Morning (8 AM local)"
+    }
+   ]
+  },
+  {
+   "id": "cyber",
+   "name": "AP Cybersecurity",
+   "group": "math",
+   "tip": "A newer AP on protecting data, devices and networks: analyzing risk, reducing it, and detecting attacks. Hands-on practice sticks best.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-cybersecurity",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "picoCTF / CyLab Security Academy",
+     "url": "https://picoctf.org/",
+     "note": "Free hands-on cybersecurity practice problems from Carnegie Mellon."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-05",
+     "label": "AP Cybersecurity exam",
+     "time": "Morning (8 AM local)"
+    }
+   ]
+  },
+  {
+   "id": "business",
+   "name": "AP Business with Personal Finance",
+   "group": "hist",
+   "tip": "A newer AP covering entrepreneurship, marketing, accounting and personal finance. Practice applying each concept to a real business scenario, since that's how it's tested.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-business-personal-finance",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    },
+    {
+     "name": "Khan Academy: Financial Literacy",
+     "url": "https://www.khanacademy.org/college-careers-more/financial-literacy",
+     "note": "Free lessons, videos and practice for every unit."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-04",
+     "label": "AP Business with Personal Finance exam",
+     "time": "Morning (8 AM local)"
     }
    ]
   },
@@ -235,6 +498,11 @@
    "name": "AP Biology",
    "group": "sci",
    "tip": "Learn the processes (cell respiration, gene expression, evolution) as cause-and-effect stories. Practice data analysis and experimental design FRQs, which show up every year.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -242,19 +510,26 @@
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
     },
     {
-     "name": "Khan Academy",
-     "url": "https://www.khanacademy.org/search?page_search_query=AP%20Biology",
-     "note": "Free lessons and practice by unit."
-    },
-    {
-     "name": "Bozeman Science (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=bozeman+science+ap+biology",
-     "note": "Short videos mapped to the AP Bio curriculum."
+     "name": "Khan Academy: AP Biology",
+     "url": "https://www.khanacademy.org/science/ap-biology",
+     "note": "Free lessons, videos and practice for every unit."
     },
     {
      "name": "Amoeba Sisters (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=amoeba+sisters",
+     "url": "https://www.youtube.com/@AmoebaSisters",
      "note": "Friendly explainers for tricky concepts."
+    },
+    {
+     "name": "CrashCourse (YouTube)",
+     "url": "https://www.youtube.com/@crashcourse",
+     "note": "Fast, engaging overviews of whole subjects."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-03",
+     "label": "AP Biology exam",
+     "time": "Afternoon (12 PM local)"
     }
    ]
   },
@@ -263,6 +538,11 @@
    "name": "AP Chemistry",
    "group": "sci",
    "tip": "Do a lot of problems, especially stoichiometry, equilibrium and thermodynamics. Explain answers at the particle level; 'justify' questions want molecular reasoning.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -270,19 +550,26 @@
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
     },
     {
-     "name": "Khan Academy",
-     "url": "https://www.khanacademy.org/search?page_search_query=AP%20Chemistry",
-     "note": "Free lessons and practice by unit."
+     "name": "Khan Academy: AP Chemistry",
+     "url": "https://www.khanacademy.org/science/ap-chemistry-beta",
+     "note": "Free lessons, videos and practice for every unit."
     },
     {
      "name": "Tyler DeWitt (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=tyler+dewitt+chemistry",
+     "url": "https://www.youtube.com/@TylerDeWitt",
      "note": "Very clear intros to core chemistry ideas."
     },
     {
      "name": "The Organic Chemistry Tutor (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=organic+chemistry+tutor+equilibrium",
-     "note": "Worked problems for every unit."
+     "url": "https://www.youtube.com/@TheOrganicChemistryTutor",
+     "note": "Worked examples for almost every problem type."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-06",
+     "label": "AP Chemistry exam",
+     "time": "Afternoon (12 PM local)"
     }
    ]
   },
@@ -291,6 +578,11 @@
    "name": "AP Environmental Science",
    "group": "sci",
    "tip": "Lots of vocabulary plus math without a calculator: practice unit conversions and percent change by hand. For FRQs, propose specific, realistic solutions.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -298,14 +590,21 @@
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
     },
     {
-     "name": "Khan Academy",
-     "url": "https://www.khanacademy.org/search?page_search_query=AP%20Environmental%20Science",
-     "note": "Free lessons and practice by unit."
+     "name": "Khan Academy: AP Environmental Science",
+     "url": "https://www.khanacademy.org/science/ap-college-environmental-science",
+     "note": "Free lessons, videos and practice for every unit."
     },
     {
-     "name": "Mr. Smedes Science (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=mr+smedes+apes",
-     "note": "Unit reviews made for APES."
+     "name": "CrashCourse (YouTube)",
+     "url": "https://www.youtube.com/@crashcourse",
+     "note": "Fast, engaging overviews of whole subjects."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-13",
+     "label": "AP Environmental Science exam",
+     "time": "Afternoon (12 PM local)"
     }
    ]
   },
@@ -314,6 +613,11 @@
    "name": "AP Physics 1",
    "group": "sci",
    "tip": "It's conceptual, so practice explaining with words, graphs and diagrams, not just equations. Draw free-body diagrams for everything and do the qualitative-quantitative FRQs.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -321,14 +625,26 @@
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
     },
     {
+     "name": "Khan Academy: AP Physics 1",
+     "url": "https://www.khanacademy.org/science/ap-college-physics-1",
+     "note": "Free lessons, videos and practice for every unit."
+    },
+    {
      "name": "Flipping Physics",
      "url": "https://www.flippingphysics.com/",
-     "note": "Free AP Physics 1 lessons and review videos."
+     "note": "Free AP Physics lessons and full review videos."
     },
     {
      "name": "APlusPhysics",
      "url": "https://www.aplusphysics.com/",
-     "note": "Dan Fullerton's free notes, videos and practice."
+     "note": "Dan Fullerton's free notes, videos and practice problems."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-05",
+     "label": "AP Physics 1 exam",
+     "time": "Afternoon (12 PM local)"
     }
    ]
   },
@@ -337,6 +653,11 @@
    "name": "AP Physics 2",
    "group": "sci",
    "tip": "Covers fluids, thermodynamics, E&M, optics and modern physics. Build intuition with diagrams and practice the experimental design FRQs.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -344,14 +665,26 @@
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
     },
     {
+     "name": "Khan Academy: AP Physics 2",
+     "url": "https://www.khanacademy.org/science/ap-physics-2",
+     "note": "Free lessons, videos and practice for every unit."
+    },
+    {
      "name": "Flipping Physics",
      "url": "https://www.flippingphysics.com/",
-     "note": "Free lessons and review videos."
+     "note": "Free AP Physics lessons and full review videos."
     },
     {
      "name": "APlusPhysics",
      "url": "https://www.aplusphysics.com/",
-     "note": "Free notes and practice problems."
+     "note": "Dan Fullerton's free notes, videos and practice problems."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-06",
+     "label": "AP Physics 2 exam",
+     "time": "Morning (8 AM local)"
     }
    ]
   },
@@ -360,6 +693,11 @@
    "name": "AP Physics C: Mechanics",
    "group": "sci",
    "tip": "Physics 1 with calculus. Get comfortable setting up integrals and differential equations (drag, springs), and do every recent FRQ.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -369,12 +707,19 @@
     {
      "name": "Flipping Physics",
      "url": "https://www.flippingphysics.com/",
-     "note": "Full AP Physics C: Mechanics review series."
+     "note": "Free AP Physics lessons and full review videos."
     },
     {
-     "name": "Khan Academy",
-     "url": "https://www.khanacademy.org/search?page_search_query=physics",
-     "note": "Free lessons and practice by unit."
+     "name": "Khan Academy: Physics",
+     "url": "https://www.khanacademy.org/science/physics",
+     "note": "Free lessons, videos and practice for every unit."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-03",
+     "label": "AP Physics C: Mechanics exam",
+     "time": "Morning (8 AM local)"
     }
    ]
   },
@@ -383,6 +728,11 @@
    "name": "AP Physics C: E&M",
    "group": "sci",
    "tip": "Gauss's and Ampère's laws plus calculus-heavy circuits (RC, RL). Practice choosing symmetry and integration setups; that's most of the work.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -392,12 +742,19 @@
     {
      "name": "Flipping Physics",
      "url": "https://www.flippingphysics.com/",
-     "note": "AP Physics C: E&M lessons."
+     "note": "Free AP Physics lessons and full review videos."
     },
     {
-     "name": "Khan Academy",
-     "url": "https://www.khanacademy.org/search?page_search_query=electricity%20and%20magnetism",
-     "note": "Free lessons and practice by unit."
+     "name": "Khan Academy: Physics",
+     "url": "https://www.khanacademy.org/science/physics",
+     "note": "Free lessons, videos and practice for every unit."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-05",
+     "label": "AP Physics C: E&M exam",
+     "time": "Afternoon (12 PM local)"
     }
    ]
   },
@@ -406,6 +763,11 @@
    "name": "AP U.S. History",
    "group": "hist",
    "tip": "Learn the themes and causation, not every date. Outline a DBQ and LEQ every week using the official rubric, and know the 9 time periods.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -413,14 +775,26 @@
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
     },
     {
+     "name": "Khan Academy: AP US History",
+     "url": "https://www.khanacademy.org/humanities/ap-us-history",
+     "note": "Free lessons, videos and practice for every unit."
+    },
+    {
      "name": "Heimler's History (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=heimlers+history+apush",
-     "note": "Unit-by-unit reviews plus DBQ/LEQ writing guides."
+     "url": "https://www.youtube.com/@heimlershistory",
+     "note": "Unit reviews plus DBQ, LEQ and SAQ writing guides."
     },
     {
      "name": "Tom Richey (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=tom+richey+apush",
-     "note": "In-depth lectures on key topics."
+     "url": "https://www.youtube.com/@TomRichey",
+     "note": "In-depth lectures on key topics and periods."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-07",
+     "label": "AP U.S. History exam",
+     "time": "Morning (8 AM local)"
     }
    ]
   },
@@ -429,6 +803,11 @@
    "name": "AP World History: Modern",
    "group": "hist",
    "tip": "Focus on big comparisons across regions and continuity vs. change. Practice the DBQ, LEQ and SAQ formats on a timer.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -436,14 +815,21 @@
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
     },
     {
-     "name": "Heimler's History (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=heimlers+history+ap+world",
-     "note": "Unit reviews and essay-writing guides."
+     "name": "Khan Academy: AP World History",
+     "url": "https://www.khanacademy.org/humanities/ap-world-history",
+     "note": "Free lessons, videos and practice for every unit."
     },
     {
-     "name": "Khan Academy",
-     "url": "https://www.khanacademy.org/search?page_search_query=world%20history%201200",
-     "note": "Free lessons and practice by unit."
+     "name": "Heimler's History (YouTube)",
+     "url": "https://www.youtube.com/@heimlershistory",
+     "note": "Unit reviews plus DBQ, LEQ and SAQ writing guides."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-06",
+     "label": "AP World History: Modern exam",
+     "time": "Morning (8 AM local)"
     }
    ]
   },
@@ -452,6 +838,11 @@
    "name": "AP European History",
    "group": "hist",
    "tip": "Know causes and effects of the big turning points (Reformation, revolutions, world wars). Write timed DBQs and LEQs with the official rubric.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -459,14 +850,21 @@
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
     },
     {
-     "name": "Tom Richey (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=tom+richey+ap+euro",
-     "note": "Lectures that follow the AP Euro course."
+     "name": "Heimler's History (YouTube)",
+     "url": "https://www.youtube.com/@heimlershistory",
+     "note": "Unit reviews plus DBQ, LEQ and SAQ writing guides."
     },
     {
-     "name": "Heimler's History (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=heimlers+history+ap+euro",
-     "note": "Unit reviews and writing help."
+     "name": "Tom Richey (YouTube)",
+     "url": "https://www.youtube.com/@TomRichey",
+     "note": "In-depth lectures on key topics and periods."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-04",
+     "label": "AP European History exam",
+     "time": "Afternoon (12 PM local)"
     }
    ]
   },
@@ -475,6 +873,11 @@
    "name": "AP U.S. Government and Politics",
    "group": "hist",
    "tip": "Memorize the required Supreme Court cases and foundational documents; they're tested directly. Practice the argument essay with evidence from those documents.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -482,14 +885,21 @@
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
     },
     {
-     "name": "Heimler's History (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=heimlers+history+ap+gov",
-     "note": "AP Gov unit reviews and FRQ guides."
+     "name": "Khan Academy: AP US Government",
+     "url": "https://www.khanacademy.org/humanities/ap-us-government-and-politics",
+     "note": "Free lessons, videos and practice for every unit."
     },
     {
-     "name": "Khan Academy",
-     "url": "https://www.khanacademy.org/search?page_search_query=AP%20US%20Government%20and%20Politics",
-     "note": "Free lessons and practice by unit."
+     "name": "Heimler's History (YouTube)",
+     "url": "https://www.youtube.com/@heimlershistory",
+     "note": "Unit reviews plus DBQ, LEQ and SAQ writing guides."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-04",
+     "label": "AP U.S. Government and Politics exam",
+     "time": "Morning (8 AM local)"
     }
    ]
   },
@@ -498,6 +908,11 @@
    "name": "AP Comparative Government and Politics",
    "group": "hist",
    "tip": "Six countries: UK, Russia, China, Iran, Mexico, Nigeria. Make a comparison chart for each concept (elections, legitimacy, federalism) across all six.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -506,8 +921,15 @@
     },
     {
      "name": "Heimler's History (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=heimlers+history+comparative+government",
-     "note": "Unit reviews for AP Comp Gov."
+     "url": "https://www.youtube.com/@heimlershistory",
+     "note": "Unit reviews plus DBQ, LEQ and SAQ writing guides."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-14",
+     "label": "AP Comparative Government and Politics exam",
+     "time": "Morning (8 AM local)"
     }
    ]
   },
@@ -516,6 +938,11 @@
    "name": "AP Macroeconomics",
    "group": "hist",
    "tip": "It's all graphs: draw AD/AS, money market and loanable funds from memory and practice shifting them. Label everything on FRQs.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -523,14 +950,21 @@
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
     },
     {
-     "name": "Khan Academy",
-     "url": "https://www.khanacademy.org/search?page_search_query=AP%20Macroeconomics",
-     "note": "Free lessons and practice by unit."
+     "name": "Khan Academy: AP Macroeconomics",
+     "url": "https://www.khanacademy.org/economics-finance-domain/ap-macroeconomics",
+     "note": "Free lessons, videos and practice for every unit."
     },
     {
      "name": "Jacob Clifford (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=jacob+clifford+macroeconomics",
-     "note": "Fast, graph-focused reviews for every unit."
+     "url": "https://www.youtube.com/@jacobclifford",
+     "note": "Fast, graph-focused econ reviews for every unit."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-07",
+     "label": "AP Macroeconomics exam",
+     "time": "Afternoon (12 PM local)"
     }
    ]
   },
@@ -539,6 +973,11 @@
    "name": "AP Microeconomics",
    "group": "hist",
    "tip": "Practice the graphs for perfect competition, monopoly, and factor markets until you can draw them blind. Know where profit-maximizing (MR = MC) lands every time.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -546,14 +985,21 @@
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
     },
     {
-     "name": "Khan Academy",
-     "url": "https://www.khanacademy.org/search?page_search_query=AP%20Microeconomics",
-     "note": "Free lessons and practice by unit."
+     "name": "Khan Academy: AP Microeconomics",
+     "url": "https://www.khanacademy.org/economics-finance-domain/ap-microeconomics",
+     "note": "Free lessons, videos and practice for every unit."
     },
     {
      "name": "Jacob Clifford (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=jacob+clifford+microeconomics",
-     "note": "Graph drills and unit reviews."
+     "url": "https://www.youtube.com/@jacobclifford",
+     "note": "Fast, graph-focused econ reviews for every unit."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-04",
+     "label": "AP Microeconomics exam",
+     "time": "Afternoon (12 PM local)"
     }
    ]
   },
@@ -562,6 +1008,11 @@
    "name": "AP Psychology",
    "group": "hist",
    "tip": "Heavy vocabulary, so use spaced-repetition flashcards. For FRQs, apply each term to the specific scenario given.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -570,13 +1021,20 @@
     },
     {
      "name": "Mr. Sinn (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=mr+sinn+ap+psychology",
-     "note": "AP Psych unit reviews."
+     "url": "https://www.youtube.com/@MrSinn",
+     "note": "AP Psychology and AP Human Geography unit reviews."
     },
     {
      "name": "CrashCourse (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=crash+course+psychology",
-     "note": "Engaging overviews of every topic."
+     "url": "https://www.youtube.com/@crashcourse",
+     "note": "Fast, engaging overviews of whole subjects."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-14",
+     "label": "AP Psychology exam",
+     "time": "Afternoon (12 PM local)"
     }
    ]
   },
@@ -585,6 +1043,11 @@
    "name": "AP Human Geography",
    "group": "hist",
    "tip": "Learn the models (Demographic Transition, Von Thünen, Burgess) and apply them to real places. Know at least one specific example for every concept.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -593,8 +1056,15 @@
     },
     {
      "name": "Mr. Sinn (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=mr+sinn+ap+human+geography",
-     "note": "APHG unit reviews."
+     "url": "https://www.youtube.com/@MrSinn",
+     "note": "AP Psychology and AP Human Geography unit reviews."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-03",
+     "label": "AP Human Geography exam",
+     "time": "Morning (8 AM local)"
     }
    ]
   },
@@ -603,6 +1073,11 @@
    "name": "AP African American Studies",
    "group": "hist",
    "tip": "Analyze primary sources closely: who wrote it, for whom, and why. Practice source-based short answers and know the major periods and movements.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -611,8 +1086,15 @@
     },
     {
      "name": "CrashCourse (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=crash+course+black+american+history",
-     "note": "Overview series on Black American history."
+     "url": "https://www.youtube.com/@crashcourse",
+     "note": "Fast, engaging overviews of whole subjects."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-06",
+     "label": "AP African American Studies exam",
+     "time": "Afternoon (12 PM local)"
     }
    ]
   },
@@ -621,6 +1103,11 @@
    "name": "AP English Language and Composition",
    "group": "eng",
    "tip": "Score points with a clear, defensible thesis and commentary that explains how the evidence supports it. Write one timed essay a week (synthesis, rhetorical analysis, argument).",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -629,8 +1116,20 @@
     },
     {
      "name": "Coach Hall Writes (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=coach+hall+writes+ap+lang",
-     "note": "Breaks down the rubric and essay structure."
+     "url": "https://www.youtube.com/@CoachHallWrites",
+     "note": "Breaks down the AP English rubrics and essay structure."
+    },
+    {
+     "name": "Khan Academy: Grammar",
+     "url": "https://www.khanacademy.org/humanities/grammar",
+     "note": "Free lessons, videos and practice for every unit."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-12",
+     "label": "AP English Language and Composition exam",
+     "time": "Morning (8 AM local)"
     }
    ]
   },
@@ -639,6 +1138,11 @@
    "name": "AP English Literature and Composition",
    "group": "eng",
    "tip": "Read actively: annotate for shifts, tone and figurative language. Practice the poetry, prose and open-question essays timed, with a thesis that makes an interpretive claim.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -647,8 +1151,15 @@
     },
     {
      "name": "Coach Hall Writes (YouTube)",
-     "url": "https://www.youtube.com/results?search_query=coach+hall+writes+ap+lit",
-     "note": "AP Lit essay strategy and examples."
+     "url": "https://www.youtube.com/@CoachHallWrites",
+     "note": "Breaks down the AP English rubrics and essay structure."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-05",
+     "label": "AP English Literature and Composition exam",
+     "time": "Morning (8 AM local)"
     }
    ]
   },
@@ -657,6 +1168,11 @@
    "name": "AP Spanish Language and Culture",
    "group": "lang",
    "tip": "Listen and speak every day, not just read. Practice the timed email reply, persuasive essay, and cultural comparison speaking task with a recorder.",
+   "steps": [
+    "Daily: 15–20 minutes of listening (podcasts, shows, music) and speaking out loud. The exam rewards communicating, not perfect grammar.",
+    "Weekly: practice one task type under exam timing, such as the email reply, argumentative essay, conversation, or cultural comparison. Record yourself for the speaking ones.",
+    "Last 4 weeks: past free-response prompts from AP Students, scored with the official guidelines. Learn a few transition phrases you can use in every task."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -668,6 +1184,18 @@
      "url": "https://www.languagetransfer.org/",
      "note": "Free audio courses that build speaking from day one."
     }
+   ],
+   "dates": [
+    {
+     "date": "2027-04-30",
+     "label": "Personalized Project Reference due (11:59 PM ET)",
+     "time": null
+    },
+    {
+     "date": "2027-05-13",
+     "label": "AP Spanish Language and Culture exam",
+     "time": "Morning (8 AM local)"
+    }
    ]
   },
   {
@@ -675,6 +1203,11 @@
    "name": "AP French Language and Culture",
    "group": "lang",
    "tip": "Listen and speak every day, not just read. Practice the timed email reply, persuasive essay, and cultural comparison speaking task with a recorder.",
+   "steps": [
+    "Daily: 15–20 minutes of listening (podcasts, shows, music) and speaking out loud. The exam rewards communicating, not perfect grammar.",
+    "Weekly: practice one task type under exam timing, such as the email reply, argumentative essay, conversation, or cultural comparison. Record yourself for the speaking ones.",
+    "Last 4 weeks: past free-response prompts from AP Students, scored with the official guidelines. Learn a few transition phrases you can use in every task."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -686,6 +1219,18 @@
      "url": "https://www.languagetransfer.org/",
      "note": "Free audio courses that build speaking from day one."
     }
+   ],
+   "dates": [
+    {
+     "date": "2027-04-30",
+     "label": "Personalized Project Reference due (11:59 PM ET)",
+     "time": null
+    },
+    {
+     "date": "2027-05-06",
+     "label": "AP French Language and Culture exam",
+     "time": "Morning (8 AM local)"
+    }
    ]
   },
   {
@@ -693,6 +1238,11 @@
    "name": "AP German Language and Culture",
    "group": "lang",
    "tip": "Listen and speak every day, not just read. Practice the timed email reply, persuasive essay, and cultural comparison speaking task with a recorder.",
+   "steps": [
+    "Daily: 15–20 minutes of listening (podcasts, shows, music) and speaking out loud. The exam rewards communicating, not perfect grammar.",
+    "Weekly: practice one task type under exam timing, such as the email reply, argumentative essay, conversation, or cultural comparison. Record yourself for the speaking ones.",
+    "Last 4 weeks: past free-response prompts from AP Students, scored with the official guidelines. Learn a few transition phrases you can use in every task."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -704,6 +1254,18 @@
      "url": "https://www.languagetransfer.org/",
      "note": "Free audio courses that build speaking from day one."
     }
+   ],
+   "dates": [
+    {
+     "date": "2027-04-30",
+     "label": "Personalized Project Reference due (11:59 PM ET)",
+     "time": null
+    },
+    {
+     "date": "2027-05-07",
+     "label": "AP German Language and Culture exam",
+     "time": "Morning (8 AM local)"
+    }
    ]
   },
   {
@@ -711,6 +1273,11 @@
    "name": "AP Italian Language and Culture",
    "group": "lang",
    "tip": "Listen and speak every day, not just read. Practice the timed email reply, persuasive essay, and cultural comparison speaking task with a recorder.",
+   "steps": [
+    "Daily: 15–20 minutes of listening (podcasts, shows, music) and speaking out loud. The exam rewards communicating, not perfect grammar.",
+    "Weekly: practice one task type under exam timing, such as the email reply, argumentative essay, conversation, or cultural comparison. Record yourself for the speaking ones.",
+    "Last 4 weeks: past free-response prompts from AP Students, scored with the official guidelines. Learn a few transition phrases you can use in every task."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -722,18 +1289,17 @@
      "url": "https://www.languagetransfer.org/",
      "note": "Free audio courses that build speaking from day one."
     }
-   ]
-  },
-  {
-   "id": "ap-spanish-literature-and-culture",
-   "name": "AP Spanish Literature and Culture",
-   "group": "lang",
-   "tip": "Know every work on the required reading list: author, period, themes. Practice comparing texts in Spanish under time limits.",
-   "resources": [
+   ],
+   "dates": [
     {
-     "name": "AP Students: course & past exam questions",
-     "url": "https://apstudents.collegeboard.org/courses/ap-spanish-literature-and-culture",
-     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+     "date": "2027-04-30",
+     "label": "Personalized Project Reference due (11:59 PM ET)",
+     "time": null
+    },
+    {
+     "date": "2027-05-03",
+     "label": "AP Italian Language and Culture exam",
+     "time": "Afternoon (12 PM local)"
     }
    ]
   },
@@ -742,11 +1308,28 @@
    "name": "AP Chinese Language and Culture",
    "group": "lang",
    "tip": "Typing is allowed on the exam, so practice pinyin input. Do daily listening and timed speaking for the conversation and cultural presentation tasks.",
+   "steps": [
+    "Daily: 15–20 minutes of listening (podcasts, shows, music) and speaking out loud. The exam rewards communicating, not perfect grammar.",
+    "Weekly: practice one task type under exam timing, such as the email reply, argumentative essay, conversation, or cultural comparison. Record yourself for the speaking ones.",
+    "Last 4 weeks: past free-response prompts from AP Students, scored with the official guidelines. Learn a few transition phrases you can use in every task."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
      "url": "https://apstudents.collegeboard.org/courses/ap-chinese-language-and-culture",
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-04-30",
+     "label": "Personalized Project Reference due (11:59 PM ET)",
+     "time": null
+    },
+    {
+     "date": "2027-05-13",
+     "label": "AP Chinese Language and Culture exam",
+     "time": "Afternoon (12 PM local)"
     }
    ]
   },
@@ -755,11 +1338,53 @@
    "name": "AP Japanese Language and Culture",
    "group": "lang",
    "tip": "Drill kanji with spaced repetition and practice typing in Japanese. Record yourself for the conversation and cultural perspective tasks.",
+   "steps": [
+    "Daily: 15–20 minutes of listening (podcasts, shows, music) and speaking out loud. The exam rewards communicating, not perfect grammar.",
+    "Weekly: practice one task type under exam timing, such as the email reply, argumentative essay, conversation, or cultural comparison. Record yourself for the speaking ones.",
+    "Last 4 weeks: past free-response prompts from AP Students, scored with the official guidelines. Learn a few transition phrases you can use in every task."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
      "url": "https://apstudents.collegeboard.org/courses/ap-japanese-language-and-culture",
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-04-30",
+     "label": "Personalized Project Reference due (11:59 PM ET)",
+     "time": null
+    },
+    {
+     "date": "2027-05-11",
+     "label": "AP Japanese Language and Culture exam",
+     "time": "Morning (8 AM local)"
+    }
+   ]
+  },
+  {
+   "id": "ap-spanish-literature-and-culture",
+   "name": "AP Spanish Literature and Culture",
+   "group": "lang",
+   "tip": "Know every work on the required reading list: author, period, themes. Practice comparing texts in Spanish under time limits.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
+   "resources": [
+    {
+     "name": "AP Students: course & past exam questions",
+     "url": "https://apstudents.collegeboard.org/courses/ap-spanish-literature-and-culture",
+     "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-14",
+     "label": "AP Spanish Literature and Culture exam",
+     "time": "Morning (8 AM local)"
     }
    ]
   },
@@ -768,6 +1393,11 @@
    "name": "AP Latin",
    "group": "lang",
    "tip": "Translate the required Caesar and Vergil passages literally until you know them cold, and practice sight-reading new passages.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -777,7 +1407,14 @@
     {
      "name": "Dickinson College Commentaries",
      "url": "https://dcc.dickinson.edu/",
-     "note": "Free annotated texts of Caesar and Vergil with vocab and notes."
+     "note": "Free annotated Caesar and Vergil texts with vocabulary and notes."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-14",
+     "label": "AP Latin exam",
+     "time": "Afternoon (12 PM local)"
     }
    ]
   },
@@ -786,6 +1423,11 @@
    "name": "AP Art History",
    "group": "arts",
    "tip": "Learn the 250 required works with images: identify, date and explain each one's context and function. Practice comparison FRQs.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -793,14 +1435,21 @@
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
     },
     {
-     "name": "Smarthistory",
-     "url": "https://smarthistory.org/",
-     "note": "Free essays and videos on every AP Art History work, made with College Board."
+     "name": "Khan Academy: AP Art History",
+     "url": "https://www.khanacademy.org/humanities/ap-art-history",
+     "note": "Free lessons, videos and practice for every unit."
     },
     {
-     "name": "Khan Academy",
-     "url": "https://www.khanacademy.org/search?page_search_query=AP%20Art%20History",
-     "note": "Free lessons and practice by unit."
+     "name": "Smarthistory",
+     "url": "https://smarthistory.org/",
+     "note": "Free essays and videos on every required AP Art History work."
+    }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-12",
+     "label": "AP Art History exam",
+     "time": "Afternoon (12 PM local)"
     }
    ]
   },
@@ -809,6 +1458,11 @@
    "name": "AP Music Theory",
    "group": "arts",
    "tip": "Drill ear training daily: intervals, chords, melodic dictation. Practice four-part harmony realization against the scoring guidelines.",
+   "steps": [
+    "Every week: learn the unit from your class or the videos below, then do practice questions on it the same week. Small, regular reviews beat cramming.",
+    "From March: take one full timed practice exam. Write down why you missed each question (content, misread, or ran out of time) and fix the biggest pattern.",
+    "Last 4 weeks: do past free-response questions from AP Students under time limits and grade them with the official scoring guidelines. This is the single best use of your time."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
@@ -820,6 +1474,13 @@
      "url": "https://www.musictheory.net/",
      "note": "Free lessons and ear-training exercises."
     }
+   ],
+   "dates": [
+    {
+     "date": "2027-05-10",
+     "label": "AP Music Theory exam",
+     "time": "Afternoon (12 PM local)"
+    }
    ]
   },
   {
@@ -827,65 +1488,95 @@
    "name": "AP 2-D Art and Design",
    "group": "arts",
    "tip": "There's no exam. Your portfolio is the score. Pick a sustained investigation question early, document your process, and study scored sample portfolios.",
+   "steps": [
+    "Pick your sustained investigation question early (fall) and make work regularly. Volume plus visible growth is what scorers look for.",
+    "Document your process: photos, sketches and short notes on how each piece connects to your question.",
+    "Study scored sample portfolios on AP Students, then edit your written statements to match what high scorers do."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
      "url": "https://apstudents.collegeboard.org/courses/ap-2-d-art-and-design",
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
     }
-   ]
+   ],
+   "dates": []
   },
   {
    "id": "ap-3-d-art-and-design",
    "name": "AP 3-D Art and Design",
    "group": "arts",
    "tip": "There's no exam. Your portfolio is the score. Pick a sustained investigation question early, document your process, and study scored sample portfolios.",
+   "steps": [
+    "Pick your sustained investigation question early (fall) and make work regularly. Volume plus visible growth is what scorers look for.",
+    "Document your process: photos, sketches and short notes on how each piece connects to your question.",
+    "Study scored sample portfolios on AP Students, then edit your written statements to match what high scorers do."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
      "url": "https://apstudents.collegeboard.org/courses/ap-3-d-art-and-design",
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
     }
-   ]
+   ],
+   "dates": []
   },
   {
    "id": "ap-drawing",
    "name": "AP Drawing",
    "group": "arts",
    "tip": "There's no exam. Your portfolio is the score. Pick a sustained investigation question early, document your process, and study scored sample portfolios.",
+   "steps": [
+    "Pick your sustained investigation question early (fall) and make work regularly. Volume plus visible growth is what scorers look for.",
+    "Document your process: photos, sketches and short notes on how each piece connects to your question.",
+    "Study scored sample portfolios on AP Students, then edit your written statements to match what high scorers do."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
      "url": "https://apstudents.collegeboard.org/courses/ap-drawing",
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
     }
-   ]
+   ],
+   "dates": []
   },
   {
    "id": "seminar",
    "name": "AP Seminar",
    "group": "cap",
    "tip": "Most of the score comes from team and individual performance tasks during the year. Practice evaluating source credibility and building arguments from multiple perspectives.",
+   "steps": [
+    "Start the performance tasks early. Most of the score is project work done during the year, not one exam day.",
+    "Practice judging sources: who wrote it, what evidence it uses, and what perspective it leaves out.",
+    "Read high-scoring samples on AP Students and outline your work against the official rubric before writing."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
      "url": "https://apstudents.collegeboard.org/courses/ap-seminar",
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
     }
-   ]
+   ],
+   "dates": []
   },
   {
    "id": "research",
    "name": "AP Research",
    "group": "cap",
    "tip": "Pick a narrow, answerable research question early and keep a process log. Read sample high-scoring academic papers for structure.",
+   "steps": [
+    "Start the performance tasks early. Most of the score is project work done during the year, not one exam day.",
+    "Practice judging sources: who wrote it, what evidence it uses, and what perspective it leaves out.",
+    "Read high-scoring samples on AP Students and outline your work against the official rubric before writing."
+   ],
    "resources": [
     {
      "name": "AP Students: course & past exam questions",
      "url": "https://apstudents.collegeboard.org/courses/ap-research",
      "note": "Official. Course outline, exam format, and past free-response questions with scoring guides."
     }
-   ]
+   ],
+   "dates": []
   }
  ]
 }

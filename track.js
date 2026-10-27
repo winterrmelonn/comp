@@ -674,7 +674,10 @@ if (typeof document === 'object') (async () => {
     const fromCalendars = calendars.flatMap(c => c.events
       .filter(e => daysUntil(e.date, t) >= 0 && daysUntil(e.date, t) <= 14)
       .map(e => ({ ...e, source: c.name })));
-    const soon = [...fromTrackers, ...fromCalendars].sort((a, b) => a.date.localeCompare(b.date)).slice(0, 8);
+    let exams = [];
+    try { exams = JSON.parse(localStorage.getItem('comp-exams')) || []; } catch {}
+    const fromExams = exams.filter(e => daysUntil(e.date, t) >= 0 && daysUntil(e.date, t) <= 30).map(e => ({ date: e.date, title: e.title, source: 'Exam', href: 'study.html?mine=1' }));
+    const soon = [...fromTrackers, ...fromCalendars, ...fromExams].sort((a, b) => a.date.localeCompare(b.date)).slice(0, 8);
 
     $('upcoming').replaceChildren(...soon.map(i => {
       const li = el('li');
@@ -696,12 +699,16 @@ if (typeof document === 'object') (async () => {
     let cursor = new Date(`${t.slice(0, 7)}-01T00:00`);
     let picked = t;
     const hidden = new Set();
+    // Exam and test dates added on the Study page
+    let exams = [];
+    try { exams = JSON.parse(localStorage.getItem('comp-exams')) || []; } catch {}
     const ymd = d => d.toLocaleDateString('en-CA');
 
     const allEvents = () => [
       ...items.filter(i => i.deadline).map(i => ({ date: i.deadline, title: `${i.name} deadline`, type: i.kind, source: KINDS[i.kind].label, href: KINDS[i.kind].page, done: !isActive(i) })),
       ...hourRows.map(h => ({ date: h.date, title: `${Number(h.hours)} h · ${h.org}`, type: 'hours', source: 'Volunteer hours', href: 'profile.html' })),
       ...calendars.flatMap(c => c.events.map(e => ({ ...e, type: 'cal', source: c.name }))),
+      ...exams.map(e => ({ date: e.date, title: e.title, type: 'exam', source: 'Exams & tests', href: 'study.html?mine=1' })),
     ].filter(e => !hidden.has(e.source));
 
     const render = () => {
@@ -739,7 +746,7 @@ if (typeof document === 'object') (async () => {
       $('day-empty').hidden = list.length > 0;
 
       // Sources: built-in ones plus each connected calendar, each can be hidden
-      const sources = [['Scholarship', 'scholarship'], ['Program', 'program'], ['Volunteer hours', 'hours'], ...calendars.map(c => [c.name, 'cal'])];
+      const sources = [['Scholarship', 'scholarship'], ['Program', 'program'], ['Volunteer hours', 'hours'], ['Exams & tests', 'exam'], ...calendars.map(c => [c.name, 'cal'])];
       $('cal-sources').replaceChildren(...sources.map(([name, type], n) => {
         const li = el('li', { className: `src ev-${type}` });
         const box = el('input', { type: 'checkbox', checked: !hidden.has(name) });
