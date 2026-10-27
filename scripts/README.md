@@ -31,7 +31,11 @@ node extract-opportunity.mjs https://example.org/scholarship   # new entries
 node extract-opportunity.mjs --due-soon                         # re-read entries due this month or next
 ```
 
-To review: open each draft's `url`, check the `evidence` quotes against the page, fix anything wrong, then copy approved entries into `data/catalog.json`. Set `verified: true` only when the deadline is confirmed for this year, and update `checked`. Run `node test.js` before committing.
+**With the review page (recommended):** set `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` too, and drafts go to the `catalog_drafts` table (supabase-10.sql) instead of a file. Reviewers open **Review events → Catalog drafts**, check the quoted evidence against the official page, fix any field, tick "confirmed" only if this year's deadline is on the page, and approve. Approved entries appear on Discover right away, with no commit needed. An approved update replaces the matching `data/catalog.json` entry.
+
+**Without Supabase:** drafts go to `data/candidates.json`. Copy approved ones into `data/catalog.json` by hand, and run `node test.js` before committing.
+
+**Monthly, automatically:** `.github/workflows/catalog-drafts.yml` runs `--due-soon` on the 1st of each month. You can also run it from the Actions tab with a list of URLs. It does nothing until the repo has the `ANTHROPIC_API_KEY`, `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` secrets. The service role key bypasses row-level security, so keep it in GitHub secrets only and never in the site's code.
 
 ## Why not import a big scholarship database?
 
