@@ -53,5 +53,5 @@ create function public.list_reviewers() returns table (user_id uuid, email text,
   where public.is_reviewer() order by r.role, u.email
 $$;
 
--- Bootstrap: make yourself the first admin (replace the email, run once)
+-- Bootstrap: make yourself the first admin (replace the email, run once, after supabase-12.sql)
 -- insert into public.reviewers (user_id, role) select id, 'admin' from auth.users where email = 'you@example.com';
