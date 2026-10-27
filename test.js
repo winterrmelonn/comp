@@ -91,4 +91,12 @@ for (const i of catalog) {
   assert.ok(i.deadline || i.dueMonth || 'rolling' in i, i.id);
 }
 assert.strictEqual(new Set(catalog.map(i => i.id)).size, catalog.length);
+// the study guide is well-formed: a plan, real links (not search pages), and valid dates
+const study = JSON.parse(require('fs').readFileSync(__dirname + '/data/study.json', 'utf8'));
+for (const i of study.items) {
+  assert.ok(i.id && i.name && study.groups[i.group] && i.tip && i.steps.length >= 3, i.id);
+  for (const r of i.resources) assert.ok(safeUrl(r.url)?.startsWith('https://') && !/youtube\.com\/results|\/search\?/.test(r.url) && r.name && r.note, `${i.id}: ${r.url}`);
+  for (const d of i.dates) assert.ok(/^\d{4}-\d{2}-\d{2}$/.test(d.date) && !isNaN(Date.parse(d.date)) && d.label, `${i.id}: ${d.date}`);
+}
+assert.strictEqual(new Set(study.items.map(i => i.id)).size, study.items.length);
 console.log('ok');

@@ -12,11 +12,14 @@
 <main>
   <div class="page-head">
     <h1>Study</h1>
-    <p class="muted">The best free resources for every AP course and the SAT, PSAT and ACT, with a short "how to study it" from students who've taken it.</p>
+    <p class="muted">A study plan and the best free resources for every AP course, the SAT, PSAT, ACT and CLEP, plus official exam and test dates you can add to your calendar.</p>
   </div>
-  <label class="search">Search <input id="s-q" type="search" placeholder="Calculus, SAT, Spanish…" autocomplete="off"></label>
-  <div id="s-groups" class="chips"></div>
-  <p id="s-count" class="muted"></p>
+  <div class="disc-bar study-bar">
+    <label class="search-box"><span class="sr-only">Search</span><input id="s-q" type="search" placeholder="Search: calculus, SAT, Spanish…" autocomplete="off"></label>
+    <button id="s-mine" type="button" class="secondary" aria-pressed="false">My exams only</button>
+  </div>
+  <div id="s-groups" class="tabs" role="group" aria-label="Subject group"></div>
+  <p id="s-count" class="muted" style="font-size:13px"></p>
   <div id="study" class="study-grid"></div>
   <p id="s-empty" class="muted" hidden>Nothing matches that search.</p>
   <p id="msg" role="status"></p>

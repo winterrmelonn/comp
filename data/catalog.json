@@ -1630,7 +1630,7 @@
    "id": "picoctf",
    "kind": "program",
    "category": "Competition",
-   "name": "picoCTF",
+   "name": "picoCTF (CyLab Security Academy)",
    "org": "Carnegie Mellon University",
    "url": "https://picoctf.org/",
    "amount": null,
@@ -1650,7 +1650,7 @@
    "cost": "free",
    "region": "National",
    "format": "online",
-   "summary": "Free online cybersecurity capture-the-flag competition, plus year-round practice problems."
+   "summary": "Free online cybersecurity capture-the-flag competition from Carnegie Mellon, now part of CyLab Security Academy, with year-round practice problems."
   },
   {
    "id": "cyberpatriot",
