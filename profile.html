@@ -26,10 +26,12 @@
   </section>
 
   <section class="card">
-    <div class="big"><span id="total">0</span> <span class="of">/ <span id="goal-out">160</span> hours</span></div>
-    <progress id="bar" class="no-print" max="160" value="0"></progress>
+    <div class="big"><span id="total">0</span> <span class="of">/ <span id="goal-out">100</span> hours</span></div>
+    <progress id="bar" class="no-print" max="100" value="0"></progress>
     <p id="left" class="no-print"></p>
     <p id="signed" class="muted no-print"></p>
+    <form id="goal-form" class="goal-form no-print"><label>Your hours goal <input id="goal-in" type="number" min="1" max="2000" step="1"></label><button class="secondary">Save goal</button></form>
+    <p class="muted no-print" style="font-size:12.5px;margin:6px 0 0">Set it to whatever you're working toward: a graduation requirement, a service cord, or an award like the President's Volunteer Service Award.</p>
   </section>
 
   <section>
@@ -54,7 +56,6 @@
   <p id="msg" role="status" class="no-print"></p>
   <p id="who" class="muted no-print"></p>
   <button id="import" class="secondary no-print" hidden></button>
-  <p class="no-print"><a href="club.html">I'm a club leader →</a></p>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
 <script src="db.js"></script>

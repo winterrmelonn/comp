@@ -14,7 +14,7 @@ if (typeof module === 'object') module.exports = { totalHours, toCSV };
 // UI: one script for every page; each block only runs if its page elements exist
 if (typeof document === 'object') (async () => {
   const KEY = 'comp';
-  const GOAL = 160; // FVHS community service cord
+  let GOAL = window.compGoal ? compGoal() : 100; // the student's own hours goal (set on the profile page)
   const FIELDS = ['date', 'org', 'activity', 'hours', 'supervisor', 'contact'];
   const $ = id => document.getElementById(id);
   const el = (tag, props) => Object.assign(document.createElement(tag), props);
@@ -241,6 +241,19 @@ if (typeof document === 'object') (async () => {
       }
     };
 
+    if ($('goal-form')) {
+      $('goal-in').value = GOAL;
+      $('goal-form').onsubmit = ev => {
+        ev.preventDefault();
+        const g = Math.round(Number($('goal-in').value));
+        if (!(g >= 1)) return;
+        GOAL = g;
+        try { localStorage.setItem('comp-goal', String(g)); } catch {}
+        say(`Goal set to ${g} hours.`);
+        render();
+      };
+    }
+
     const render = () => {
       const total = totalHours(entries);
       const left = Math.round((GOAL - total) * 100) / 100;
@@ -271,7 +284,7 @@ if (typeof document === 'object') (async () => {
     });
     $('p-name').textContent = profile.name || (user ? 'Add your name' : 'Guest');
     $('p-school').textContent = profile.school || '';
-    $('p-leads').textContent = leads.length ? `Club leader · ${leads.map(c => c.name).join(', ')}` : '';
+    $('p-leads').textContent = '';
     if (validHandle(profile.instagram || '')) {
       const link = el('a', { href: `https://www.instagram.com/${profile.instagram}/`, target: '_blank', rel: 'noopener' });
       link.innerHTML = IG_ICON;
@@ -361,30 +374,6 @@ if (typeof document === 'object') (async () => {
     };
   }
 
-  // club.html
-  const clubForm = $('club-form');
-  if (clubForm && requireLogin(clubForm)) {
-    const showMine = async () => {
-      const clubs = await myClubs();
-      $('my-clubs').replaceChildren(...clubs.map(c => el('li', { textContent: c.name })));
-      $('my-clubs-section').hidden = !clubs.length;
-    };
-    clubForm.onsubmit = async ev => {
-      ev.preventDefault();
-      const club = Object.fromEntries(new FormData(clubForm));
-      try {
-        check(await sb.from('clubs').insert(club));
-        clubForm.reset();
-        $('msg').textContent = `${club.name} is registered. `;
-        $('msg').append(el('a', { href: 'find.html', textContent: 'Post an opportunity' }));
-        await showMine();
-      } catch (err) {
-        say(`Couldn't register: ${err.message}`);
-      }
-    };
-    await showMine().catch(() => {});
-  }
-
   // find.html
   if ($('posts')) {
     // Posts are volunteer events, scholarships or programs (kind added in supabase-6.sql)
@@ -448,38 +437,6 @@ if (typeof document === 'object') (async () => {
       }
       render();
     };
-
-    // Club leaders get a form to post for their clubs
-    const clubs = await myClubs().catch(() => []);
-    if (clubs.length) {
-      const f = $('post-form');
-      $('post-section').hidden = false;
-      $('leader-hint').hidden = true;
-      f.club_id.replaceChildren(...clubs.map(c => new Option(c.name, c.id)));
-      f.date.min = today();
-      const showFields = () => {
-        const k = f.kind.value;
-        $('amount-field').hidden = k !== 'scholarship';
-        $('time-field').hidden = $('location-field').hidden = k !== 'volunteer';
-        $('date-label').firstChild.textContent = k === 'volunteer' ? 'Date ' : 'Deadline ';
-      };
-      f.kind.onchange = showFields;
-      f.onsubmit = async ev => {
-        ev.preventDefault();
-        // Leave out blanks and the default kind so volunteer posts still work before supabase-6.sql is run
-        const row = Object.fromEntries([...new FormData(f)].filter(([k, v]) => v !== '' && !(k === 'kind' && v === 'volunteer')));
-        if (row.link) row.link = safeUrl(row.link) ?? row.link;
-        try {
-          check(await sb.from('posts').insert(row));
-          f.reset();
-          showFields();
-          say('Posted.');
-          await showPosts();
-        } catch (err) {
-          say(`Couldn't post: ${err.message}`);
-        }
-      };
-    }
 
     if (sb) await showPosts();
     else say("Couldn't connect. Check your internet connection.");

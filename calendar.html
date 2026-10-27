@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calendar · comp.</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2224%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2256%22 font-weight=%22700%22 font-family=%22Inter,Arial,sans-serif%22 fill=%22white%22 text-anchor=%22middle%22%3Ec.%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<script src="shell.js"></script>
+<main class="wide-main">
+  <div class="page-head">
+    <h1>Calendar</h1>
+    <p class="muted">Scholarship and program deadlines, the hours you've logged, and your school and personal calendars, all in one view.</p>
+  </div>
+
+  <div class="cal-layout">
+    <section class="card cal-card">
+      <div class="cal-bar">
+        <h2 id="cal-title"></h2>
+        <div class="row" style="margin:0">
+          <button id="cal-today" type="button" class="secondary">Today</button>
+          <button id="cal-prev" type="button" class="secondary icon" aria-label="Previous month">‹</button>
+          <button id="cal-next" type="button" class="secondary icon" aria-label="Next month">›</button>
+        </div>
+      </div>
+      <div class="dow"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+      <div id="cal-grid" class="cal-grid"></div>
+    </section>
+
+    <aside class="cal-side">
+      <section class="card">
+        <h2 id="day-title" style="font-size:15px"></h2>
+        <ul id="day-list" class="day-list"></ul>
+        <p id="day-empty" class="muted" style="margin:0">Nothing on this day.</p>
+      </section>
+
+      <section class="card">
+        <h2 style="font-size:15px">Calendars</h2>
+        <ul id="cal-sources" class="sources"></ul>
+      </section>
+
+      <section class="card">
+        <h2 style="font-size:15px">Connect a calendar</h2>
+        <p class="muted" style="font-size:13px">Bring in any calendar as an .ics file:</p>
+        <ul class="muted steps">
+          <li><b>Canvas:</b> Calendar → Calendar Feed → open the link</li>
+          <li><b>Google:</b> Settings → Import &amp; export → Export</li>
+          <li><b>Outlook:</b> Settings → Calendar → Shared calendars → Publish → ICS</li>
+          <li><b>Apple:</b> File → Export → Export…</li>
+          <li><b>Schoology / Classroom:</b> calendar export or iCal link</li>
+        </ul>
+        <label class="button secondary">Connect .ics file <input id="ics-file" type="file" accept=".ics,text/calendar" hidden></label>
+        <p id="msg" role="status"></p>
+        <hr>
+        <p class="muted" style="font-size:13px">Send your deadlines the other way, into Google, Apple or Outlook Calendar:</p>
+        <button id="cal-export" type="button" class="secondary">Download deadlines (.ics)</button>
+      </section>
+    </aside>
+  </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
+<script src="db.js"></script>
+<script src="track.js"></script>
+</body>
+</html>

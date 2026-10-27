@@ -18,9 +18,9 @@
   <div class="dash">
     <section class="card hours">
       <div class="card-h"><h2>Volunteer hours</h2><a href="profile.html">View log →</a></div>
-      <a href="profile.html" class="big" style="color:var(--text)"><span id="h-total">0</span> <span class="of">/ 160</span></a>
-      <progress id="h-bar" max="160" value="0"></progress>
-      <p id="h-left" class="muted" style="margin:10px 0 0">160 hours to go for the service cord</p>
+      <a href="profile.html" class="big" style="color:var(--text)"><span id="h-total">0</span> <span class="of">/ <span id="h-goal">100</span></span></a>
+      <progress id="h-bar" max="100" value="0"></progress>
+      <p id="h-left" class="muted" style="margin:10px 0 0"></p>
     </section>
 
     <section class="card side-stat">
@@ -39,21 +39,14 @@
     <section class="card upcoming">
       <div class="card-h"><h2>Coming up</h2><span class="label">Next deadlines &amp; events</span></div>
       <ul id="upcoming"></ul>
-      <p id="upcoming-empty" class="muted" style="margin:0">Nothing due yet. Add a <a href="scholarships.html">scholarship</a> or <a href="programs.html">program</a>, or import a calendar.</p>
+      <p id="upcoming-empty" class="muted" style="margin:0">Nothing due yet. Add a <a href="scholarships.html">scholarship</a> or <a href="programs.html">program</a>, or <a href="calendar.html">connect a calendar</a>.</p>
     </section>
 
     <section class="card calendars">
-      <div class="card-h"><h2>Calendars</h2></div>
-      <p class="muted" style="font-size:13px">Import a .ics file and its next two weeks show up in Coming up.</p>
-      <ul class="muted steps">
-        <li><b>Canvas:</b> Calendar → Calendar Feed</li>
-        <li><b>Google:</b> Settings → Import &amp; export → Export</li>
-        <li><b>Outlook / Apple:</b> export as .ics</li>
-      </ul>
-      <label class="button secondary">Import .ics file <input id="ics-file" type="file" accept=".ics,text/calendar" hidden></label>
-      <ul id="cal-sources" class="tags"></ul>
-      <p id="msg" role="status"></p>
-      <p class="label" style="margin:8px 0 0">Saved on this device.</p>
+      <div class="card-h"><h2>Calendar</h2></div>
+      <p class="muted" style="font-size:13px">See deadlines, logged hours, and your Canvas, Google, Outlook or Apple calendars in one month view.</p>
+      <p class="label" id="cal-count" style="margin:0 0 14px"></p>
+      <a class="button secondary" href="calendar.html">Open calendar</a>
     </section>
   </div>
 </main>
