@@ -1,0 +1,14 @@
+{
+  "name": "comp-scripts",
+  "private": true,
+  "type": "module",
+  "description": "Maintenance scripts for comp's catalog: link/deadline checks and AI-assisted extraction",
+  "scripts": {
+    "check": "node check-catalog.mjs",
+    "extract": "node extract-opportunity.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.3.0",
+    "zod": "^4.1.0"
+  }
+}

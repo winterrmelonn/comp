@@ -23,7 +23,7 @@
     },
     {
      "name": "SAT Suite Question Bank",
-     "url": "https://satsuitequestionbank.collegeboard.org/",
+     "url": "https://satsuiteeducatorquestionbank.collegeboard.org/",
      "note": "Official. Thousands of real questions, filterable by skill and difficulty."
     },
     {
@@ -51,7 +51,7 @@
     },
     {
      "name": "SAT Suite Question Bank",
-     "url": "https://satsuitequestionbank.collegeboard.org/",
+     "url": "https://satsuiteeducatorquestionbank.collegeboard.org/",
      "note": "Official. Filter questions to PSAT/NMSQT."
     }
    ]
@@ -82,7 +82,7 @@
    "resources": [
     {
      "name": "AP exam calendar",
-     "url": "https://apstudents.collegeboard.org/exam-calendar",
+     "url": "https://apstudents.collegeboard.org/exam-dates",
      "note": "Official. Exam dates and times for this May."
     }
    ]
