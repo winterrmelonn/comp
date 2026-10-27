@@ -33,7 +33,9 @@ async function check(url) {
       return { state, status: res.status, final: res.url !== url ? res.url : null };
     } catch (err) {
       if (attempt < 2) { await sleep(3000); continue; }
-      return { state: 'broken', status: err.name === 'TimeoutError' ? 'timeout' : (err.cause?.code || err.cause?.message || err.message) };
+      const status = err.name === 'TimeoutError' ? 'timeout' : (err.cause?.code || err.cause?.message || err.message);
+      // Endless redirects are a bot wall (the page loads fine in a browser), not a dead link
+      return { state: /redirect count exceeded/i.test(status) ? 'blocked' : 'broken', status };
     }
   }
 }
