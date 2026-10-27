@@ -224,6 +224,30 @@ body.landing { background: var(--bg) radial-gradient(1200px 600px at 50% -10%, v
 .features .card p { color: var(--muted); font-size: 13.5px; margin: 0; }
 .features .ico { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; background: var(--accent-soft); color: var(--accent); }
 @media (max-width: 760px) { .features { grid-template-columns: 1fr; } .hero { padding-top: 56px; } }
+.landing-right { display: flex; align-items: center; gap: 16px; }
+.landing-right .switch { margin: 0; color: var(--muted); font-size: 13px; }
+
+/* Landing ASCII style (switch next to Log in): the first comp. start page, white and serif over the ASCII field (ascii.js) */
+#ascii { display: none; }
+.landing.ascii #ascii { display: block; position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.landing.ascii { --text: #111; --muted: #777; --accent: #111; --serif: 'Instrument Serif', Georgia, serif; --mono: 'Courier New', Courier, monospace; background: #fff; color: var(--text); font: 15px/1.6 var(--mono); }
+.landing.ascii header, .landing.ascii main { position: relative; z-index: 1; }
+.landing.ascii main { text-shadow: 0 0 4px #fff, 0 0 8px #fff, 0 0 12px #fff; } /* keeps text readable over the field */
+.landing.ascii .logo { display: none; }
+.landing.ascii .landing-top .brand { font: 400 2rem/1 var(--serif); }
+.landing.ascii .switch { font: .75rem var(--mono); text-transform: uppercase; letter-spacing: .08em; }
+.landing.ascii .button { height: auto; padding: 14px 36px; font: .8rem var(--mono); text-transform: uppercase; letter-spacing: .08em; color: #fff; background: #111; border: 1px solid #111; border-radius: 999px; box-shadow: none; text-shadow: none; }
+.landing.ascii .button.secondary { color: #111; background: #fff; }
+.landing.ascii .landing-top .button { padding: 8px 22px; }
+.landing.ascii .hero .button.secondary { background: none; border-color: transparent; padding: 14px 12px; text-decoration: underline; text-underline-offset: 4px; }
+.landing.ascii .hero .eyebrow { padding: 0; color: var(--muted); background: none; font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; }
+.landing.ascii .hero h1 { font: 400 clamp(44px, 8vw, 84px)/1 var(--serif); letter-spacing: -.01em; margin-bottom: 24px; }
+.landing.ascii .hero p { font-size: 15px; }
+.landing.ascii .features { gap: 32px; }
+.landing.ascii .features .card { padding: 20px 0 0; background: none; border: 0; border-top: 1px solid #111; border-radius: 0; box-shadow: none; }
+.landing.ascii .features .ico { display: none; }
+.landing.ascii .features .card h3 { font: 400 1.75rem/1.1 var(--serif); margin: 0 0 10px; }
+.landing.ascii .features .card p { font-size: 13px; line-height: 1.6; }
 
 /* Profile */
 .profile-head { position: relative; display: flex; gap: 18px; align-items: center; margin-bottom: 32px; }

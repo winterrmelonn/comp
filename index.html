@@ -6,6 +6,7 @@
 <title>comp. · Volunteer hours, scholarships and programs</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2224%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2256%22 font-weight=%22700%22 font-family=%22Inter,Arial,sans-serif%22 fill=%22white%22 text-anchor=%22middle%22%3Ec.%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#191919" media="(prefers-color-scheme: dark)">
@@ -13,9 +14,14 @@
 <script src="theme.js"></script>
 </head>
 <body class="landing">
+<script>try { document.body.classList.toggle('ascii', localStorage.getItem('comp-ascii') === '1'); } catch {} // ASCII style: the first comp. start page</script>
+<canvas id="ascii" aria-hidden="true"></canvas>
 <header class="landing-top">
   <a class="brand" href="index.html"><span class="logo">c.</span>comp.</a>
-  <a class="button secondary" href="login.html">Log in</a>
+  <div class="landing-right">
+    <label class="switch"><input type="checkbox" id="ascii-ui" role="switch"><span class="track"></span>ASCII</label>
+    <a class="button secondary" href="login.html">Log in</a>
+  </div>
 </header>
 <main style="max-width:none;padding:0">
   <section class="hero">
@@ -35,6 +41,19 @@
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
 <script src="db.js"></script>
+<script>
+  // The ASCII field (ascii.js) only loads once the style is on
+  const asciiOn = () => document.body.classList.contains('ascii');
+  const loadAscii = () => { if (asciiOn() && !document.querySelector('script[src="ascii.js"]')) document.body.append(Object.assign(document.createElement('script'), { src: 'ascii.js' })); };
+  const toggle = document.getElementById('ascii-ui');
+  toggle.checked = asciiOn();
+  toggle.onchange = () => {
+    document.body.classList.toggle('ascii', toggle.checked);
+    try { localStorage.setItem('comp-ascii', toggle.checked ? '1' : '0'); } catch {}
+    loadAscii();
+  };
+  loadAscii();
+</script>
 <script>sb?.auth.getSession().then(({ data }) => { if (data.session) location.replace('home.html'); });</script>
 </body>
 </html>
