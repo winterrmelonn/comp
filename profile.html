@@ -8,10 +8,10 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body class="loading">
-<header class="top"><a class="label" href="home.html">Menu</a><a class="brand" href="home.html">comp.</a><a class="label" href="profile.html">Profile</a></header>
+<script src="shell.js"></script>
 <main>
   <section class="profile-head">
-    <a class="label edit-link no-print" href="edit-profile.html">Edit profile</a>
+    <a class="button secondary edit-link no-print" href="edit-profile.html">Edit profile</a>
     <div class="name-row">
       <h1 id="p-name" class="name"></h1>
       <span id="p-school" class="muted"></span>
@@ -25,8 +25,8 @@
     <ul id="p-clubs" class="resume"></ul>
   </section>
 
-  <section>
-    <div class="big"><span id="total">0</span> / <span id="goal-out">160</span> hours</div>
+  <section class="card">
+    <div class="big"><span id="total">0</span> <span class="of">/ <span id="goal-out">160</span> hours</span></div>
     <progress id="bar" class="no-print" max="160" value="0"></progress>
     <p id="left" class="no-print"></p>
     <p id="signed" class="muted no-print"></p>
@@ -54,7 +54,7 @@
   <p id="msg" role="status" class="no-print"></p>
   <p id="who" class="muted no-print"></p>
   <button id="import" class="secondary no-print" hidden></button>
-  <p class="no-print"><a class="label" href="club.html">I'm a club leader →</a></p>
+  <p class="no-print"><a href="club.html">I'm a club leader →</a></p>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
 <script src="db.js"></script>
