@@ -24,6 +24,13 @@
     };
   }
 
+  // Lily UI: Home becomes lily.html (shell.js sends it there)
+  try { $('lily-ui').checked = localStorage.getItem('comp-lily') === '1'; } catch {}
+  $('lily-ui').onchange = ev => {
+    try { localStorage.setItem('comp-lily', ev.target.checked ? '1' : '0'); } catch {}
+    say(ev.target.checked ? 'Lily UI is on: Home shows the lily menu.' : 'Lily UI is off.');
+  };
+
   // Install
   let prompt;
   addEventListener('beforeinstallprompt', e => { e.preventDefault(); prompt = e; $('install').hidden = false; });
