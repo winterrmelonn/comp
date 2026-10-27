@@ -553,6 +553,8 @@ if (typeof document === 'object') (async () => {
     const total = Math.round(hourRows.reduce((sum, e) => sum + Number(e.hours), 0) * 100) / 100;
     $('h-total').textContent = total;
     $('h-bar').value = Math.min(total, 160);
+    if ($('h-left')) $('h-left').textContent = total >= 160 ? 'Cord requirement met 🎉' : `${Math.round((160 - total) * 100) / 100} hours to go for the service cord`;
+    if ($('h-pct')) $('h-pct').textContent = `${Math.min(100, Math.round(total / 160 * 100))}%`;
 
     const items = await tracked.list().catch(() => []);
 

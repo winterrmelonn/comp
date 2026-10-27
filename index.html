@@ -3,18 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>comp.</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2250%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2260%22 font-family=%22Georgia,serif%22 fill=%22white%22 text-anchor=%22middle%22%3Ec.%3C/text%3E%3C/svg%3E">
+<title>comp. · Volunteer hours, scholarships and programs</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2224%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2256%22 font-weight=%22700%22 font-family=%22Inter,Arial,sans-serif%22 fill=%22white%22 text-anchor=%22middle%22%3Ec.%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
-<canvas id="ascii" aria-hidden="true"></canvas>
-<main class="center">
-  <h1 class="brand">comp.</h1>
-  <a class="button" href="login.html">Log in</a>
-  <a class="label" href="home.html">Continue as guest</a>
+<body class="landing">
+<header class="landing-top">
+  <a class="brand" href="index.html"><span class="logo">c.</span>comp.</a>
+  <a class="button secondary" href="login.html">Log in</a>
+</header>
+<main style="max-width:none;padding:0">
+  <section class="hero">
+    <span class="eyebrow">For Fountain Valley High students</span>
+    <h1>Hours, scholarships and programs, all in one place.</h1>
+    <p>Log volunteer hours toward your 160-hour cord, get them signed off, and never miss a scholarship or program deadline.</p>
+    <div class="row">
+      <a class="button" href="login.html">Get started</a>
+      <a class="button secondary" href="home.html">Continue as guest</a>
+    </div>
+  </section>
+  <section class="features">
+    <div class="card"><span class="ico"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><h3>Volunteer hours</h3><p>Log hours with photos, send supervisors a sign-off link, and print a sheet for the counseling office.</p></div>
+    <div class="card"><span class="ico"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/></svg></span><h3>Applications</h3><p>Track every scholarship and program with deadlines, status and notes. Export to Google Calendar, Outlook or Notion.</p></div>
+    <div class="card"><span class="ico"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg></span><h3>Discover</h3><p>Browse vetted opportunities for high schoolers, and see volunteer events posted by FVHS clubs.</p></div>
+  </section>
 </main>
-<script src="ascii.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
 <script src="db.js"></script>
 <script>sb?.auth.getSession().then(({ data }) => { if (data.session) location.replace('home.html'); });</script>

@@ -3,78 +3,62 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>comp.</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2250%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2260%22 font-family=%22Georgia,serif%22 fill=%22white%22 text-anchor=%22middle%22%3Ec.%3C/text%3E%3C/svg%3E">
+<title>Home · comp.</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2224%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2256%22 font-weight=%22700%22 font-family=%22Inter,Arial,sans-serif%22 fill=%22white%22 text-anchor=%22middle%22%3Ec.%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<script>{ let on = true; try { on = localStorage.getItem('comp-simple') !== '0'; } catch {} document.body.classList.toggle('simple', on); } // Simple UI is on unless switched off</script>
-<div id="lilies" aria-hidden="true"></div>
-<header class="top">
-  <a class="label" href="home.html">Menu</a>
-  <a class="brand" href="home.html">comp.</a>
-  <div class="top-right">
-    <label class="switch label"><input type="checkbox" id="simple" role="switch"><span class="track"></span>Simple UI</label>
-    <a class="label" href="profile.html">Profile</a>
-  </div>
-</header>
-
-<!-- First screen: the three main links sit on lilies (lilies.js), the other pages in a row below -->
-<nav class="nav home-nav">
-  <a href="log.html">Log volunteer hours</a>
-  <a href="profile.html">My profile</a>
-  <a href="find.html">Find opportunities</a>
-  <div class="more">
-    <a class="label" href="scholarships.html">Scholarships</a>
-    <a class="label" href="programs.html">Programs</a>
-    <a class="label" href="discover.html">Discover</a>
-  </div>
-</nav>
-
+<script src="shell.js"></script>
 <main>
-  <section class="home-hours">
-    <a href="profile.html" class="big"><span id="h-total">0</span> / 160 hours</a>
-    <progress id="h-bar" max="160" value="0"></progress>
-  </section>
+  <div class="page-head">
+    <h1>Home</h1>
+    <p class="muted">Your volunteer hours, deadlines and applications in one place.</p>
+  </div>
 
-  <section class="upcoming">
-    <h2>Coming up</h2>
-    <ul id="upcoming"></ul>
-    <p id="upcoming-empty" class="muted">Nothing due yet. Add a <a href="scholarships.html">scholarship</a> or <a href="programs.html">program</a>, or import a calendar below.</p>
-  </section>
+  <div class="dash">
+    <section class="card hours">
+      <div class="card-h"><h2>Volunteer hours</h2><a href="profile.html">View log →</a></div>
+      <a href="profile.html" class="big" style="color:var(--text)"><span id="h-total">0</span> <span class="of">/ 160</span></a>
+      <progress id="h-bar" max="160" value="0"></progress>
+      <p id="h-left" class="muted" style="margin:10px 0 0">160 hours to go for the service cord</p>
+    </section>
 
-  <section class="calendars">
-    <h2>Bring in your calendars</h2>
-    <p class="muted">Import a calendar file and its next two weeks show up in Coming up, next to your scholarship and program deadlines.</p>
-    <ul class="muted steps">
-      <li><b>Canvas:</b> Calendar → Calendar Feed → open the link, and it downloads a .ics file.</li>
-      <li><b>Google Calendar:</b> Settings → Import &amp; export → Export, then unzip.</li>
-      <li><b>Outlook / Apple Calendar:</b> export or share the calendar as .ics.</li>
-    </ul>
-    <label class="button secondary">Import .ics file <input id="ics-file" type="file" accept=".ics,text/calendar" hidden></label>
-    <ul id="cal-sources" class="tags"></ul>
-    <p id="msg" role="status"></p>
-    <p class="muted">Imported calendars are saved on this device.</p>
-  </section>
+    <section class="card side-stat">
+      <div class="card-h"><h2>Progress</h2></div>
+      <div class="big" id="h-pct">0%</div>
+      <a class="button" href="log.html" style="margin-top:16px">+ Log hours</a>
+    </section>
+
+    <nav class="quick" aria-label="Shortcuts">
+      <a href="log.html"><span class="ico"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><b>Log hours</b><span class="muted">Add service hours and get them signed off.</span></a>
+      <a href="scholarships.html"><span class="ico"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/></svg></span><b>Scholarships</b><span class="muted">Track deadlines, amounts and status.</span></a>
+      <a href="programs.html"><span class="ico"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg></span><b>Programs</b><span class="muted">Summer programs, internships, competitions.</span></a>
+      <a href="discover.html"><span class="ico"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg></span><b>Discover</b><span class="muted">Browse vetted opportunities for high schoolers.</span></a>
+    </nav>
+
+    <section class="card upcoming">
+      <div class="card-h"><h2>Coming up</h2><span class="label">Next deadlines &amp; events</span></div>
+      <ul id="upcoming"></ul>
+      <p id="upcoming-empty" class="muted" style="margin:0">Nothing due yet. Add a <a href="scholarships.html">scholarship</a> or <a href="programs.html">program</a>, or import a calendar.</p>
+    </section>
+
+    <section class="card calendars">
+      <div class="card-h"><h2>Calendars</h2></div>
+      <p class="muted" style="font-size:13px">Import a .ics file and its next two weeks show up in Coming up.</p>
+      <ul class="muted steps">
+        <li><b>Canvas:</b> Calendar → Calendar Feed</li>
+        <li><b>Google:</b> Settings → Import &amp; export → Export</li>
+        <li><b>Outlook / Apple:</b> export as .ics</li>
+      </ul>
+      <label class="button secondary">Import .ics file <input id="ics-file" type="file" accept=".ics,text/calendar" hidden></label>
+      <ul id="cal-sources" class="tags"></ul>
+      <p id="msg" role="status"></p>
+      <p class="label" style="margin:8px 0 0">Saved on this device.</p>
+    </section>
+  </div>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
 <script src="db.js"></script>
 <script src="track.js"></script>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@19.3.0",
-    "react/jsx-runtime": "https://esm.sh/react@19.3.0/jsx-runtime",
-    "react-dom": "https://esm.sh/react-dom@19.3.0?external=react",
-    "react-dom/client": "https://esm.sh/react-dom@19.3.0/client?external=react",
-    "three": "https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js",
-    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/",
-    "@react-three/fiber": "https://esm.sh/@react-three/fiber@9.8.1?external=react,react-dom,three",
-    "maath/easing": "https://esm.sh/maath@0.10.8/easing?external=three",
-    "htm": "https://esm.sh/htm@3.1.1"
-  }
-}
-</script>
-<script type="module" src="lilies.js"></script>
 </body>
 </html>
