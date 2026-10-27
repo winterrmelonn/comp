@@ -73,3 +73,5 @@ progress { width: 100%; height: 2px; margin-top: 16px; accent-color: var(--text)
 .upcoming li .label { grid-column: 1 / -1; color: var(--muted); }
 .upcoming li a, .upcoming li .title { font: 1.5rem var(--serif); text-decoration: none; }
 .upcoming li .muted { align-self: end; }
+.card-h { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.card-h a { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; text-decoration: none; }

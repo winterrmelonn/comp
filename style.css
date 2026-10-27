@@ -199,6 +199,10 @@ table:has(#rows:empty) { display: none; }
 .card-h h2 { margin: 0; font-size: 15px; }
 @media (max-width: 960px) { .quick { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 760px) { .dash .hours, .dash .side-stat, .dash .upcoming, .dash .calendars { grid-column: 1 / -1; } }
+.dash .school-events { grid-column: 1 / -1; }
+main > .school-events { margin-bottom: 16px; }
+.school-members { list-style: none; padding: 0; margin: 0; columns: 2 200px; }
+.school-members li { padding: 4px 0; }
 .upcoming ul { list-style: none; padding: 0; margin: 0; }
 .upcoming li { display: grid; grid-template-columns: 1fr auto; gap: 0 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
 .upcoming li:last-child { border-bottom: 0; }

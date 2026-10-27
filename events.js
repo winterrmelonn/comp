@@ -34,6 +34,13 @@
     ev.preventDefault();
     if (f.end_time.value <= f.start_time.value) { $('msg').textContent = 'The end time needs to be after the start time.'; return; }
     const { agree, ...row } = Object.fromEntries([...new FormData(f)].filter(([, v]) => v !== ''));
+    // Links are optional: "n/a", "none" or anything without a dot means no link; bare domains get https://
+    for (const k of ['link', 'org_url']) {
+      if (row[k] == null) continue;
+      const v = row[k].trim();
+      if (!v.includes('.')) delete row[k];
+      else row[k] = /^https?:\/\//i.test(v) ? v : `https://${v}`;
+    }
     const btn = f.querySelector('button');
     btn.disabled = true;
     let status = 'pending';

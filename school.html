@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>School · comp.</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2224%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2256%22 font-weight=%22700%22 font-family=%22Inter,Arial,sans-serif%22 fill=%22white%22 text-anchor=%22middle%22%3Ec.%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#191919" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<script src="theme.js"></script>
+</head>
+<body>
+<script src="shell.js"></script>
+<main id="school-page">
+  <div class="page-head">
+    <h1 id="s-name">School</h1>
+    <p class="muted">Students on comp. at this school, and the events they've posted.</p>
+  </div>
+  <p id="msg" role="status"></p>
+
+  <section class="card upcoming">
+    <div class="card-h"><h2>Events posted by students here</h2><a href="submit-event.html">Submit an event →</a></div>
+    <ul id="s-events"></ul>
+    <p id="s-events-empty" class="muted" style="margin:0" hidden>No upcoming events yet.</p>
+  </section>
+
+  <section class="card">
+    <div class="card-h"><h2>Students</h2><span id="s-count" class="label"></span></div>
+    <ul id="s-members" class="school-members"></ul>
+  </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.min.js"></script>
+<script src="db.js"></script>
+<script src="track.js"></script>
+</body>
+</html>

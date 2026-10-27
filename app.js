@@ -103,6 +103,29 @@ if (typeof document === 'object') (async () => {
 
   const blankProfile = { name: '', school: '', instagram: '', memberships: [] };
   const loadProfile = async () => ({ ...blankProfile, ...(user && check(await sb.from('profiles').select().eq('id', user.id).maybeSingle())) });
+  // US schools from NCES (the federal school directory): public schools that go up to 12th grade, plus private schools,
+  // whose list has no grade levels. Ids are NCES school ids (12 digits) or private school ids (8 characters).
+  const NCES = 'https://nces.ed.gov/opengis/rest/services/K12_School_Locations';
+  const titleCase = s => s === s.toUpperCase() ? s.toLowerCase().replace(/\b[a-z]/g, c => c.toUpperCase()) : s;
+  const searchSchools = async text => {
+    const q = text.toUpperCase().replace(/[^A-Z0-9 .&'-]/g, ' ').replace(/\s+/g, ' ').trim();
+    if (q.length < 3) return [];
+    const like = `LIKE '%${q.replace(/'/g, "''")}%'`; // '' is a quote inside the query's quotes
+    const ask = async (layer, where, fields, count) => {
+      const url = `${NCES}/${layer}/query?${new URLSearchParams({ where, outFields: fields.join(), returnGeometry: false, resultRecordCount: count, orderByFields: fields[1], f: 'json' })}`;
+      const { features = [] } = await (await fetch(url)).json();
+      return features.map(({ attributes: a }) => fields.map(k => String(a[k] ?? '').trim()));
+    };
+    const [pub, priv] = await Promise.all([
+      ask('EDGE_ADMINDATA_PUBLICSCH_2324/MapServer/1', `UPPER(SCH_NAME) ${like} AND GSHI IN ('12','13')`, ['NCESSCH', 'SCH_NAME', 'LCITY', 'LSTATE'], 10),
+      ask('EDGE_GEOCODE_PRIVATESCH_2324/MapServer/0', `UPPER(NAME) ${like}`, ['PPIN', 'NAME', 'CITY', 'STATE'], 6).catch(() => []),
+    ]);
+    return [...pub, ...priv].map(([id, name, city, state]) => {
+      name = titleCase(name);
+      return { id, name, label: `${name} · ${titleCase(city)}, ${state}` };
+    });
+  };
+
   const TERMS = ['Freshman', 'Sophomore', 'Junior', 'Senior'].flatMap(g => [`Semester 1 ${g}`, `Semester 2 ${g}`]);
   // Accepts @handle or a pasted instagram.com link
   const igHandle = v => v.trim().replace(/^(https?:\/\/)?(www\.)?instagram\.com\//i, '').replace(/^@/, '').replace(/[/?].*$/, '');
@@ -284,6 +307,7 @@ if (typeof document === 'object') (async () => {
     });
     $('p-name').textContent = profile.name || (user ? 'Add your name' : 'Guest');
     $('p-school').textContent = profile.school || '';
+    if (profile.school_id) $('p-school').replaceChildren(el('a', { href: `school.html?${new URLSearchParams({ id: profile.school_id, name: profile.school })}`, textContent: profile.school }));
     $('p-leads').textContent = '';
     if (validHandle(profile.instagram || '')) {
       const link = el('a', { href: `https://www.instagram.com/${profile.instagram}/`, target: '_blank', rel: 'noopener' });
@@ -339,6 +363,29 @@ if (typeof document === 'object') (async () => {
     f.school.value = p.school ?? '';
     f.instagram.value = p.instagram ? `@${p.instagram}` : '';
 
+    // School: suggestions from the national school list as you type; only a suggested school (or the saved one) is valid
+    const picks = new Map(); // suggestion text -> { id, name }
+    let asked = 0, timer;
+    f.school.oninput = () => {
+      clearTimeout(timer);
+      timer = setTimeout(async () => {
+        const q = f.school.value.trim();
+        if (q.length < 3 || picks.has(q)) return;
+        const n = ++asked;
+        const found = await searchSchools(q).catch(() => []);
+        if (n !== asked) return; // a newer search is on its way
+        for (const s of found) picks.set(s.label, s);
+        $('school-list').replaceChildren(...found.map(s => new Option(s.label)));
+      }, 250);
+    };
+    const pickedSchool = () => {
+      const v = f.school.value.trim();
+      if (!v) return { school: null, school_id: null };
+      if (picks.has(v)) return { school: picks.get(v).name, school_id: picks.get(v).id };
+      if (p.school_id && v === p.school) return { school: p.school, school_id: p.school_id };
+      return null;
+    };
+
     // One row per club: club, role, from, to
     const KEYS = ['club', 'role', 'start', 'end'];
     const addRow = (m = {}) => {
@@ -360,12 +407,14 @@ if (typeof document === 'object') (async () => {
       ev.preventDefault();
       const instagram = igHandle(f.instagram.value);
       if (instagram && !validHandle(instagram)) return say('That Instagram handle doesn\'t look right. Use letters, numbers, periods or underscores.');
+      const school = pickedSchool();
+      if (!school) return say('Pick your school from the list that appears as you type. If it isn\'t there, try fewer words.');
       const memberships = [...$('memberships').children]
         .map(row => Object.fromEntries(KEYS.map(k => [k, row.querySelector(`[data-k="${k}"]`).value.trim()])))
         .filter(m => m.club);
       try {
         check(await sb.from('profiles').upsert({
-          id: user.id, name: f.name.value.trim(), school: f.school.value.trim(), instagram: instagram || null, memberships,
+          id: user.id, name: f.name.value.trim(), ...school, instagram: instagram || null, memberships,
         }));
         location.href = 'profile.html';
       } catch (err) {

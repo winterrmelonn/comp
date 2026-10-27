@@ -64,7 +64,7 @@
         <label>Spots available <input name="capacity" type="number" min="1" placeholder="Leave blank if unlimited"></label>
         <label>Volunteer hours offered <input name="hours_offered" type="number" min="0" step="0.25" placeholder="e.g. 3"></label>
         <label>Cost <select name="cost"><option value="free">Free</option><option value="paid">Paid (explain in description)</option></select></label>
-        <label class="wide">Registration link <input name="link" type="url" inputmode="url" placeholder="https://"></label>
+        <label class="wide">Registration link (optional) <input name="link" inputmode="url" autocapitalize="off" placeholder="https://… or leave blank"></label>
       </div>
     </fieldset>
 
@@ -72,7 +72,7 @@
       <legend>Organizer</legend>
       <div class="grid">
         <label>Organization <input name="org" required maxlength="120" placeholder="Nonprofit, school club, business…"></label>
-        <label>Organization website <input name="org_url" type="url" inputmode="url" placeholder="https://"></label>
+        <label>Organization website (optional) <input name="org_url" inputmode="url" autocapitalize="off" placeholder="https://… or leave blank"></label>
         <label>Your name <input name="contact_name" required autocomplete="name"></label>
         <label>Your role <input name="contact_role" placeholder="Volunteer coordinator"></label>
         <label>Email <input name="contact_email" type="email" required autocomplete="email"></label>

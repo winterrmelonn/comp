@@ -236,6 +236,50 @@ if (typeof document === 'object') (async () => {
     : err?.code === '23514' ? "colleges aren't set up for accounts yet (supabase-11.sql hasn't been run). Log out to use them on this device." : err?.message;
   const clean = row => Object.fromEntries(FIELDS.filter(k => k in row).map(k => [k, row[k] === '' ? null : row[k]]));
 
+  // Schools (supabase-13.sql): students pick theirs on Edit profile; events posted by students there show up for the rest
+  const eventList = (ul, events) => ul.replaceChildren(...events.map(e => {
+    const li = el('li');
+    const time = new Date(`${e.date}T${e.start_time}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+    li.append(
+      el('span', { className: 'label', textContent: `${shortDate(e.date)} · ${time}` }),
+      el('a', { href: safeUrl(e.link) || safeUrl(e.org_url) || 'discover.html?type=event', textContent: e.title }),
+      el('span', { className: 'muted', textContent: e.org }),
+    );
+    return li;
+  }));
+
+  // Home and Discover: a notice of upcoming events at your school, when there are any
+  if ($('school-events') && user) (async () => {
+    const me = check(await sb.from('profiles').select('school, school_id').eq('id', user.id).maybeSingle());
+    if (!me?.school_id) return;
+    const events = check(await sb.rpc('school_events', { sid: me.school_id }));
+    if (!events.length) return;
+    $('school-events-link').href = `school.html?${new URLSearchParams({ id: me.school_id, name: me.school })}`;
+    $('school-events-link').textContent = `${me.school} →`;
+    eventList($('school-events-list'), events.slice(0, 3));
+    $('school-events').hidden = false;
+  })().catch(() => {}); // offline, or supabase-13.sql not run yet: no notice
+
+  // school.html: the comp. students at a school and the events they've posted
+  if ($('school-page') && sb) (async () => {
+    const params = new URLSearchParams(location.search);
+    const sid = params.get('id') || '';
+    const name = params.get('name') || 'School';
+    $('s-name').textContent = name;
+    document.title = `${name} · comp.`;
+    const events = await sb.rpc('school_events', { sid }).then(check).catch(() => []);
+    eventList($('s-events'), events);
+    $('s-events-empty').hidden = events.length > 0;
+    if (!user) {
+      $('s-members').replaceChildren(el('li', { className: 'muted', textContent: 'Log in to see the students here.' }));
+      return;
+    }
+    const members = await sb.rpc('school_members', { sid }).then(check).catch(() => null);
+    if (!members) return say("Couldn't load this school. Try again in a minute.");
+    $('s-count').textContent = `${members.length} on comp.`;
+    $('s-members').replaceChildren(...members.map(m => el('li', { textContent: m.name })));
+  })();
+
   const tracked = {
     list: async kind => user
       ? check(await (kind ? sb.from('tracked').select().eq('kind', kind) : sb.from('tracked').select()))
